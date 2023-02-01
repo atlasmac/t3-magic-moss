@@ -10,7 +10,6 @@ export default function Header() {
   return (
     <div className="navbar rounded-box bg-base-300">
       <div className="navbar-start md:hidden">
-        {/* MObile menu */}
         <div className="dropdown">
           <label tabIndex={0} className="btn-ghost btn-circle btn">
             <HiMenu className="h-6 w-6"></HiMenu>
@@ -93,7 +92,6 @@ export default function Header() {
       </div>
       <div className="hidden flex-1 justify-end px-2 md:flex">
         <div className="flex items-stretch">
-          {/* deskhrefp menu */}
           <div className="dropdown-start dropdown">
             <label tabIndex={0} className="btn-ghost rounded-btn btn">
               Reports
@@ -131,17 +129,17 @@ export default function Header() {
             FAQ
           </Link>
           {session && (
-            <Link href="/dashboard" className="btn-ghost rounded-btn btn">
-              Dashboard
-            </Link>
-          )}
-          {session && (
-            <button
-              onClick={() => signOut()}
-              className="btn-ghost rounded-btn btn"
-            >
-              Sign out
-            </button>
+            <>
+              <Link href="/dashboard" className="btn-ghost rounded-btn btn">
+                Dashboard
+              </Link>
+              <button
+                onClick={() => signOut()}
+                className="btn-ghost rounded-btn btn"
+              >
+                Sign out
+              </button>
+            </>
           )}
           {!session && (
             <Link

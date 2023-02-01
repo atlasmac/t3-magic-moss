@@ -2,7 +2,11 @@
 module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        robotoSlab: ["Roboto Slab", "serif"],
+      },
+    },
   },
   daisyui: {
     styled: true,
