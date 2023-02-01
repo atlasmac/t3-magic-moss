@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import Header from "../../components/Header";
+import CurrentReport from "../../components/CurrentReport";
 import LineChart from "../../components/LineChart";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
@@ -58,22 +59,25 @@ function Report() {
       }) || [];
 
   console.log(forecastTableData);
-  const siteName = riverData.data?.siteName;
+  const siteName = riverData.data?.siteName || "";
 
   return (
     <div>
       <Header />
-      {observedData.length > 0 ? (
-        <div>
-          <LineChart
-            forecastData={forecastData}
-            observedData={observedData}
-            lastObserved={lastObserved}
-          />
-        </div>
-      ) : (
-        "Loading"
-      )}
+      <div className="container mx-auto">
+        {observedData.length > 0 ? (
+          <div>
+            <CurrentReport spot={siteName} level={lastObserved[0]!} />
+            <LineChart
+              forecastData={forecastData}
+              observedData={observedData}
+              lastObserved={lastObserved}
+            />
+          </div>
+        ) : (
+          "Loading"
+        )}
+      </div>
     </div>
   );
 }
