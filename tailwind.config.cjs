@@ -4,5 +4,18 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [],
+  daisyui: {
+    styled: true,
+    themes: ["dark"],
+    base: true,
+    utils: true,
+    logs: true,
+    rtl: false,
+    prefix: "",
+    darkTheme: "dark",
+  },
+  plugins: [
+    require("daisyui"),
+    require('tailwind-scrollbar')({ nocompatible: true }),
+  ]
 };
