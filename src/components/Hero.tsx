@@ -1,5 +1,7 @@
 import React from "react";
 import { FcGoogle } from "react-icons/fc";
+import Footer from "./Footer";
+import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 function Hero() {
@@ -7,17 +9,31 @@ function Hero() {
 
   return (
     <div>
-      <div className="hero min-h-[95vh] bg-[url('/DaveGardner_04.png')]">
+      <div className="hero min-h-[87vh] bg-[url('/DaveGardner_04.png')]">
         <div className="hero-overlay bg-opacity-70"></div>
         <div className="hero-content text-center text-neutral-content">
           <div className="max-w-md">
             <h1 className="mb-5 font-robotoSlab text-4xl font-bold md:text-5xl">
               Welcome to Magic Moss
             </h1>
-            <p className="mb-5 text-xl md:text-2xl">
-              View current surf reports and forecasted conditions. Share images
-              and interact with your surfing community.
-            </p>
+
+            {session ? (
+              <>
+                <p className="mb-5 text-xl md:text-2xl">
+                  Hello {session.user.name}
+                </p>
+                <Link href={"/dashboard"} className="btn-accent btn">
+                  {" "}
+                  Dashboard
+                </Link>
+              </>
+            ) : (
+              <p className="mb-5 text-xl md:text-2xl">
+                View current surf reports and forecasted conditions. Share
+                images and interact with your surfing community.
+              </p>
+            )}
+
             <div className="md:h-[40vh]">
               {!session && (
                 <div>
@@ -35,8 +51,6 @@ function Hero() {
                   </div>
                 </div>
               )}
-
-              {session && "You are logged in."}
             </div>
           </div>
         </div>

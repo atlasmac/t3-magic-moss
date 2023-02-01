@@ -56,6 +56,7 @@ CREATE TABLE "VerificationToken" (
 -- CreateTable
 CREATE TABLE "Report" (
     "siteId" STRING NOT NULL,
+    "siteName" STRING NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL
 );
@@ -63,17 +64,17 @@ CREATE TABLE "Report" (
 -- CreateTable
 CREATE TABLE "Observation" (
     "date" STRING NOT NULL,
-    "site" STRING NOT NULL,
-    "cfs" INT4 NOT NULL,
-    "ft" INT4 NOT NULL
+    "siteId" STRING NOT NULL,
+    "cfs" FLOAT8 NOT NULL,
+    "ft" FLOAT8 NOT NULL
 );
 
 -- CreateTable
 CREATE TABLE "Forecast" (
     "date" STRING NOT NULL,
-    "site" STRING NOT NULL,
-    "cfs" INT4 NOT NULL,
-    "ft" INT4 NOT NULL
+    "siteId" STRING NOT NULL,
+    "cfs" FLOAT8 NOT NULL,
+    "ft" FLOAT8 NOT NULL
 );
 
 -- CreateIndex
@@ -95,10 +96,13 @@ CREATE UNIQUE INDEX "VerificationToken_identifier_token_key" ON "VerificationTok
 CREATE UNIQUE INDEX "Report_siteId_key" ON "Report"("siteId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Observation_site_date_cfs_key" ON "Observation"("site", "date", "cfs");
+CREATE UNIQUE INDEX "Report_siteName_key" ON "Report"("siteName");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Forecast_site_date_cfs_key" ON "Forecast"("site", "date", "cfs");
+CREATE UNIQUE INDEX "Observation_siteId_date_cfs_key" ON "Observation"("siteId", "date", "cfs");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Forecast_siteId_date_cfs_key" ON "Forecast"("siteId", "date", "cfs");
 
 -- AddForeignKey
 ALTER TABLE "Account" ADD CONSTRAINT "Account_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -107,7 +111,7 @@ ALTER TABLE "Account" ADD CONSTRAINT "Account_userId_fkey" FOREIGN KEY ("userId"
 ALTER TABLE "Session" ADD CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Observation" ADD CONSTRAINT "Observation_site_fkey" FOREIGN KEY ("site") REFERENCES "Report"("siteId") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Observation" ADD CONSTRAINT "Observation_siteId_fkey" FOREIGN KEY ("siteId") REFERENCES "Report"("siteId") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Forecast" ADD CONSTRAINT "Forecast_site_fkey" FOREIGN KEY ("site") REFERENCES "Report"("siteId") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Forecast" ADD CONSTRAINT "Forecast_siteId_fkey" FOREIGN KEY ("siteId") REFERENCES "Report"("siteId") ON DELETE CASCADE ON UPDATE CASCADE;

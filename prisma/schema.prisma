@@ -67,6 +67,7 @@ model VerificationToken {
 
 model Report {
   siteId      String        @unique
+  siteName    String        @unique
   observation Observation[]
   forecast    Forecast[]
   createdAt   DateTime      @default(now())

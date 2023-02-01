@@ -83,6 +83,7 @@ export default function Header() {
       <div className="navbar-end flex-1 px-2 md:navbar-start lg:flex-none">
         <Link href="/">
           <Image
+            className="h-auto w-[180px]"
             src={"/default-logo.png"}
             alt="logo"
             height={180}

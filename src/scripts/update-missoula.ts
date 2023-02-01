@@ -2,7 +2,7 @@ import { Parser } from "xml2js";
 import fetch from "node-fetch";
 import fs from "fs";
 const siteId = "12340500";
-const site = "Brennan's Wave";
+const siteName = "Brennan's Wave";
 import dayjs from "dayjs";
 import { prisma } from "../server/db";
 
@@ -84,9 +84,11 @@ async function fetchWeather() {
     prisma.report.upsert({
       where: { siteId },
       create: {
+        siteName,
         siteId,
       },
       update: {
+        siteName,
         siteId,
       },
     }),
