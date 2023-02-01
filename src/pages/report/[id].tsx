@@ -35,6 +35,7 @@ function Report() {
   const forecastData =
     riverData.data?.forecast.map((e) => {
       let date = new Date(e.date);
+
       return {
         date: dayjs(date).format("ddd MM/D h:mm A"),
         cfs: e.cfs,
@@ -42,26 +43,36 @@ function Report() {
       };
     }) || [];
 
+  const forecastTableData =
+    riverData.data?.forecast
+      .map((e) => {
+        return {
+          date: dayjs(e.date).utc().format("ddd MM/D h:mm A"),
+          cfs: e.cfs,
+          ft: e.ft,
+        };
+      })
+      .filter((data) => {
+        let dateParts = data.date.split(" ");
+        return dateParts[2] === "12:00" && dateParts[3] === "PM";
+      }) || [];
+
+  console.log(forecastTableData);
   const siteName = riverData.data?.siteName;
 
   return (
     <div>
       <Header />
-      {siteId}
-      {riverData && (
-        <>
-          {observedData.length > 0 ? (
-            <div>
-              <LineChart
-                forecastData={forecastData}
-                observedData={observedData}
-                lastObserved={lastObserved}
-              />
-            </div>
-          ) : (
-            "Loading"
-          )}
-        </>
+      {observedData.length > 0 ? (
+        <div>
+          <LineChart
+            forecastData={forecastData}
+            observedData={observedData}
+            lastObserved={lastObserved}
+          />
+        </div>
+      ) : (
+        "Loading"
       )}
     </div>
   );
