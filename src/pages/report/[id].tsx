@@ -5,6 +5,7 @@ import CurrentReport from "../../components/CurrentReport";
 import LineChart from "../../components/LineChart";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
+import Footer from "../../components/Footer";
 
 dayjs.extend(utc);
 
@@ -64,7 +65,7 @@ function Report() {
   return (
     <div>
       <Header />
-      <div className="container mx-auto">
+      <div className="container mx-auto min-h-screen">
         {observedData.length > 0 ? (
           <div>
             <CurrentReport spot={siteName} level={lastObserved[0]!} />
@@ -77,6 +78,9 @@ function Report() {
         ) : (
           "Loading"
         )}
+      </div>
+      <div className="container mx-auto">
+        <Footer />
       </div>
     </div>
   );
