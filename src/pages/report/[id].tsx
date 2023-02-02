@@ -3,13 +3,14 @@ import { useRouter } from "next/router";
 import Header from "../../components/Header";
 import CurrentReport from "../../components/CurrentReport";
 import LineChart from "../../components/LineChart";
+import ForecastTable from "../../components/ForecastTable";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import Footer from "../../components/Footer";
+import { api } from "../../utils/api";
 
 dayjs.extend(utc);
 
-import { api } from "../../utils/api";
 function Report() {
   const router = useRouter();
   const siteId: string = router.query.id?.toString() || "";
@@ -74,6 +75,7 @@ function Report() {
               observedData={observedData}
               lastObserved={lastObserved}
             />
+            <ForecastTable forecastData={forecastTableData} />
           </div>
         ) : (
           "Loading"

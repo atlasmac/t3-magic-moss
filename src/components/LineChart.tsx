@@ -23,28 +23,18 @@ ChartJS.register(
   Legend
 );
 
+export type Observation =
+  | {
+      date: string;
+      cfs: number;
+      ft: number;
+    }[]
+  | [];
+
 interface props {
-  forecastData:
-    | {
-        date: string;
-        cfs: number;
-        ft: number;
-      }[]
-    | [];
-  observedData:
-    | {
-        date: string;
-        cfs: number;
-        ft: number;
-      }[]
-    | [];
-  lastObserved:
-    | {
-        date: string;
-        cfs: number;
-        ft: number;
-      }[]
-    | [];
+  forecastData: Observation;
+  observedData: Observation;
+  lastObserved: Observation;
 }
 
 const LineChart = ({ forecastData, observedData, lastObserved }: props) => {
