@@ -18,13 +18,6 @@ export default function Header() {
             tabIndex={0}
             className="dropdown-content menu rounded-box menu-compact mt-3 w-52 bg-base-100 p-2 shadow"
           >
-            {session && (
-              <li>
-                <Link href="/dashboard" className="btn-ghost rounded-btn btn">
-                  Dashboard
-                </Link>
-              </li>
-            )}
             {!session && (
               <li>
                 <Link
@@ -130,17 +123,12 @@ export default function Header() {
             FAQ
           </Link>
           {session && (
-            <>
-              <Link href="/dashboard" className="btn-ghost rounded-btn btn">
-                Dashboard
-              </Link>
-              <button
-                onClick={() => signOut()}
-                className="btn-ghost rounded-btn btn"
-              >
-                Sign out
-              </button>
-            </>
+            <button
+              onClick={() => signOut()}
+              className="btn-ghost rounded-btn btn"
+            >
+              Sign out
+            </button>
           )}
           {!session && (
             <Link

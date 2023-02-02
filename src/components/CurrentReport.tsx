@@ -7,6 +7,7 @@ import { getRange } from "../helpers/getRange";
 import { getGif } from "../helpers/getGif";
 import { getLocation } from "../helpers/getLocation";
 import { getReport } from "../helpers/getReport";
+import { api } from "../utils/api";
 
 interface props {
   level: {
@@ -21,6 +22,23 @@ const CurrentReport = ({ level, spot }: props) => {
   const { data: session } = useSession();
   const router = useRouter();
   const siteId: string = router.query.id?.toString() || "";
+  const { mutate, error } = api.user.addFavorite.useMutation();
+  const deleteWave = api.user.deleteFavorite.useMutation();
+
+  const favoriteWaves = api.user.getFavorites.useQuery({ siteId });
+
+  console.log(favoriteWaves.data?.siteName, "fav");
+  function addFavorite() {
+    mutate({
+      siteId,
+      siteName: spot,
+    });
+  }
+  function deleteFavorite() {
+    deleteWave.mutate({
+      siteId,
+    });
+  }
 
   const currentLevel = level?.cfs;
   const currentFeet = level?.ft;
@@ -36,16 +54,15 @@ const CurrentReport = ({ level, spot }: props) => {
         <div className="flex flex-col items-center lg:items-start">
           {session && (
             <div className="flex h-16 w-full justify-end">
-              {/* {favorite && (
+              {favoriteWaves.data?.siteId ? (
                 <div className="flex flex-col items-center">
                   <AiFillStar
-                    onClick={handleDelete}
+                    onClick={deleteFavorite}
                     className="text-3xl text-yellow-500 hover:text-4xl"
                   />
                   <p>Remove favorite</p>
                 </div>
-              )} */}
-              {/* {!favorite && (
+              ) : (
                 <div className="flex flex-col items-center">
                   <AiOutlineStar
                     onClick={addFavorite}
@@ -53,7 +70,7 @@ const CurrentReport = ({ level, spot }: props) => {
                   />
                   <p>Add to favorites</p>
                 </div>
-              )} */}
+              )}
             </div>
           )}
           <h1 className=" py-3 text-center font-robotoSlab text-5xl font-bold sm:text-left">

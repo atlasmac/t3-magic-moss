@@ -12,7 +12,6 @@ import {
   Scale,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
-import { any } from "zod";
 
 ChartJS.register(
   CategoryScale,
