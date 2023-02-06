@@ -37,23 +37,17 @@ export const userRouter = createTRPCRouter({
       });
       return createFav;
     }),
-  getFavorites: protectedProcedure
-    .input(
-      z.object({
-        siteId: z.string(),
-      })
-    )
-    .query(async ({ input, ctx }) => {
-      const userId = ctx.session.user.id;
-      const favorite = await ctx.prisma.favoriteWave.findUnique({
-        where: { userId },
-        select: {
-          siteId: true,
-          siteName: true,
-        },
-      });
-      return favorite;
-    }),
+  getAllFavorites: protectedProcedure.query(async ({ ctx }) => {
+    const userId = ctx.session.user.id;
+    const favorite = await ctx.prisma.favoriteWave.findMany({
+      where: { userId },
+      select: {
+        siteId: true,
+        siteName: true,
+      },
+    });
+    return favorite;
+  }),
   deleteFavorite: protectedProcedure
     .input(
       z.object({

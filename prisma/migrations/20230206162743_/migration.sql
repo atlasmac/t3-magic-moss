@@ -47,6 +47,16 @@ CREATE TABLE "User" (
 );
 
 -- CreateTable
+CREATE TABLE "FavoriteWave" (
+    "id" STRING NOT NULL,
+    "siteId" STRING NOT NULL,
+    "siteName" STRING NOT NULL,
+    "userId" STRING NOT NULL,
+
+    CONSTRAINT "FavoriteWave_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "VerificationToken" (
     "identifier" STRING NOT NULL,
     "token" STRING NOT NULL,
@@ -87,6 +97,9 @@ CREATE UNIQUE INDEX "Session_sessionToken_key" ON "Session"("sessionToken");
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "FavoriteWave_siteId_userId_key" ON "FavoriteWave"("siteId", "userId");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "VerificationToken_token_key" ON "VerificationToken"("token");
 
 -- CreateIndex
@@ -109,6 +122,12 @@ ALTER TABLE "Account" ADD CONSTRAINT "Account_userId_fkey" FOREIGN KEY ("userId"
 
 -- AddForeignKey
 ALTER TABLE "Session" ADD CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "FavoriteWave" ADD CONSTRAINT "FavoriteWave_siteName_fkey" FOREIGN KEY ("siteName") REFERENCES "Report"("siteName") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "FavoriteWave" ADD CONSTRAINT "FavoriteWave_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Observation" ADD CONSTRAINT "Observation_siteId_fkey" FOREIGN KEY ("siteId") REFERENCES "Report"("siteId") ON DELETE CASCADE ON UPDATE CASCADE;

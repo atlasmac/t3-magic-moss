@@ -28,4 +28,20 @@ export const forecastRouter = createTRPCRouter({
       });
       return forecast;
     }),
+  getCurrentLevel: publicProcedure
+    .input(
+      z.object({
+        siteId: z.string(),
+      })
+    )
+    .query(async ({ input, ctx }) => {
+      const forecast = await ctx.prisma.report.findUnique({
+        where: { siteId: input.siteId },
+        select: {
+          siteName: true,
+          observation: true,
+        },
+      });
+      return forecast;
+    }),
 });

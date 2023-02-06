@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 import { BiMap } from "react-icons/bi";
@@ -22,17 +22,22 @@ const CurrentReport = ({ level, spot }: props) => {
   const { data: session } = useSession();
   const router = useRouter();
   const siteId: string = router.query.id?.toString() || "";
-  const { mutate, error } = api.user.addFavorite.useMutation();
+  const { mutate } = api.user.addFavorite.useMutation();
   const deleteWave = api.user.deleteFavorite.useMutation();
 
   const [isFavorite, setIsFavorite] = useState<boolean>();
   const [showFavorite, setShowFavorite] = useState<boolean>(false);
 
-  const favoriteWaves = api.user.getFavorites.useQuery(
-    { siteId },
+  const { isLoading, data, error } = api.user.getAllFavorites.useQuery(
+    undefined,
     {
       onSuccess: (data) => {
-        if (data?.siteId === siteId) {
+        const site = data.filter((e) => {
+          if (e.siteId === siteId) {
+            return e;
+          }
+        });
+        if (site[0]?.siteId === siteId) {
           setIsFavorite(true);
         }
       },
@@ -42,7 +47,9 @@ const CurrentReport = ({ level, spot }: props) => {
     }
   );
 
-  console.log(favoriteWaves.data?.siteName, "fav");
+  console.log(data);
+
+  // console.log(favoriteWaves.data?.siteName, "fav");
   function addFavorite() {
     mutate({
       siteId,
@@ -69,7 +76,7 @@ const CurrentReport = ({ level, spot }: props) => {
           className="max-w-xs rounded-lg shadow-2xl md:max-w-sm"
         />
         <div className="flex flex-col items-center lg:items-start">
-          {session && showFavorite && (
+          {session && !isLoading && (
             <div className="flex h-16 w-full justify-end">
               {isFavorite ? (
                 <div className="flex flex-col items-center">

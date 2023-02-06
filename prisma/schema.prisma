@@ -59,12 +59,14 @@ model User {
 }
 
 model FavoriteWave {
+  id       String @id @default(cuid())
   siteId   String
+  site     Report @relation(fields: [siteName], references: [siteName])
   siteName String
   user     User   @relation(fields: [userId], references: [id])
-  userId   String @id
+  userId   String
 
-  @@unique([siteId, siteName, userId])
+  @@unique([siteId, userId])
 }
 
 model VerificationToken {
@@ -76,12 +78,13 @@ model VerificationToken {
 }
 
 model Report {
-  siteId      String        @unique
-  siteName    String        @unique
-  observation Observation[]
-  forecast    Forecast[]
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
+  siteId       String         @unique
+  siteName     String         @unique
+  observation  Observation[]
+  forecast     Forecast[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  FavoriteWave FavoriteWave[]
 }
 
 model Observation {
