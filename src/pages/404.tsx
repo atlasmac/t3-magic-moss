@@ -7,7 +7,7 @@ function NotFound() {
     <>
       <Header />
       <div className="flex h-[85vh] items-center justify-center">
-        <p className="text-5xl">Oops! There's nothing here.</p>
+        <p className="text-5xl">Oops! There&apos;s nothing here.</p>
       </div>
       <Footer />
     </>
