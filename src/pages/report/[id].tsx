@@ -35,7 +35,7 @@ function Report(props: InferGetStaticPropsType<typeof getStaticProps>) {
   const observedData =
     riverData.data?.observation
       .map((e) => {
-        let date = new Date(e.date);
+        const date = new Date(e.date);
         return {
           date: dayjs(date).format("ddd MM/D h:mm A"),
           cfs: e.cfs,
@@ -53,7 +53,7 @@ function Report(props: InferGetStaticPropsType<typeof getStaticProps>) {
 
   const forecastData =
     riverData.data?.forecast.map((e) => {
-      let date = new Date(e.date);
+      const date = new Date(e.date);
 
       return {
         date: dayjs(date).format("ddd MM/D h:mm A"),
@@ -72,7 +72,7 @@ function Report(props: InferGetStaticPropsType<typeof getStaticProps>) {
         };
       })
       .filter((data) => {
-        let dateParts = data.date.split(" ");
+        const dateParts = data.date.split(" ");
         return dateParts[2] === "12:00" && dateParts[3] === "PM";
       }) || [];
 
