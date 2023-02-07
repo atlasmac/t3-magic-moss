@@ -15,8 +15,6 @@ async function fetchWeather() {
   const xml = await res.text();
   const xmlParser = new Parser();
   const data = await xmlParser.parseStringPromise(xml);
-  // const json = JSON.stringify(data, null, 2);
-  // console.log(json);
 
   const observed = data.site.observed[0]?.datum
     .map((a: any) => {
@@ -102,7 +100,6 @@ async function fetchWeather() {
     }),
     prisma.forecast.createMany({ data: forecast }),
   ]);
-  console.log(filteredObserved, forecast);
   return data;
 }
 

@@ -2,27 +2,15 @@ import React, { useState } from "react";
 import { api } from "../utils/api";
 import { getConditions } from "../helpers/getConditions";
 import Link from "next/link";
+import { Report } from "./Hero";
 
 interface Props {
-  data: {
-    siteId: string;
-    siteName: string;
-  };
+  report: Report;
 }
-
-function DashboardRow({ data }: Props) {
-  const [settled, setSettled] = useState<boolean>(false);
-
-  const current = api.forecast.getCurrentLevel.useQuery(
-    {
-      siteId: data.siteId,
-    },
-    {
-      onSettled: (data) => {
-        setSettled(true);
-      },
-    }
-  );
+function DashboardRow({ report }: Props) {
+  const current = api.forecast.getCurrentLevel.useQuery({
+    siteId: report.siteId,
+  });
 
   const currentLevel = current.data?.observation
     .filter((e) => {
@@ -32,28 +20,26 @@ function DashboardRow({ data }: Props) {
     })
     .pop();
 
-  console.log(currentLevel);
+  console.log("hi");
 
   return (
     <>
-      {settled && (
-        <tr className="hover">
-          <td>
-            <Link href={`/report/${data.siteId}`}>{data.siteName}</Link>
-          </td>
-          <td>
-            <Link className="" href={`/report/${data.siteId}`}>
-              {currentLevel?.cfs}
-            </Link>
-          </td>
+      <tr className="hover">
+        <td>
+          <Link href={`/report/${report.siteId}`}>{report.siteName}</Link>
+        </td>
+        <td>
+          <Link className="" href={`/report/${report.siteId}`}>
+            {currentLevel?.cfs}
+          </Link>
+        </td>
 
-          <td>
-            <Link href={`/report/${data.siteId}`}>
-              {getConditions([[currentLevel?.cfs!, data.siteId]])}
-            </Link>
-          </td>
-        </tr>
-      )}
+        <td>
+          <Link href={`/report/${report.siteId}`}>
+            {getConditions([[currentLevel?.cfs!, report.siteId]])}
+          </Link>
+        </td>
+      </tr>
     </>
   );
 }

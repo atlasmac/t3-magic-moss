@@ -2,45 +2,35 @@ import React, { useState } from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import DashboardRow from "./DashboardRow";
 import { api } from "../utils/api";
+import { HeroProps } from "./Hero";
 
-function DashboardTable() {
+function DashboardTable({ data }: HeroProps) {
   const { data: session } = useSession();
-  const [settled, setSettled] = useState<boolean>(false);
 
-  const favoriteWaves = api.user.getAllFavorites.useQuery(undefined, {
-    onSuccess(data) {
-      if (data.length > 0) {
-        setSettled(true);
-      }
-    },
-  });
-
-  const rows = favoriteWaves.data?.map((data, i) => {
-    return <DashboardRow data={data} key={data.siteId} />;
+  const rows = data?.map((e, i) => {
+    return <DashboardRow report={e} key={e.siteId} />;
   });
 
   return (
     <div className="overflow-x-auto">
-      {settled && (
-        <table className="table w-full">
-          <thead>
-            <tr>
-              <th>Spot</th>
-              <th>CFS</th>
-              <th>Condition</th>
-            </tr>
-          </thead>
+      <table className="table w-full">
+        <thead>
+          <tr>
+            <th>Spot</th>
+            <th>CFS</th>
+            <th>Condition</th>
+          </tr>
+        </thead>
 
-          <tbody>
-            {rows}
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-          </tbody>
-        </table>
-      )}
+        <tbody>
+          {rows}
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 }

@@ -5,7 +5,16 @@ import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 import DashboardTable from "./DashboardTable";
 
-function Hero() {
+export type Report = {
+  siteName: string;
+  siteId: string;
+};
+
+export interface HeroProps {
+  data: Report[] | undefined;
+}
+
+function Hero({ data }: HeroProps) {
   const { data: session } = useSession();
 
   return (
@@ -23,7 +32,7 @@ function Hero() {
               <p className="mb-5 text-xl md:text-2xl">
                 Hello {session.user.name}
               </p>
-              <DashboardTable />
+              <DashboardTable data={data} />
             </>
           ) : (
             <p className="mb-5 text-xl md:text-2xl">

@@ -60,7 +60,6 @@ function Report() {
         return dateParts[2] === "12:00" && dateParts[3] === "PM";
       }) || [];
 
-  console.log(forecastTableData);
   const siteName = riverData.data?.siteName || "";
 
   return (

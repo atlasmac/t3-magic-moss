@@ -12,7 +12,7 @@ export function getConditions(arr: [number, string][]) {
         return "Fair to good";
       } else if (el[0] >= 6000 && el[0] <= 8500) {
         return "Good conditions";
-      } else {
+      } else if (el[0] < 8500) {
         return "Fair to good";
       }
     }

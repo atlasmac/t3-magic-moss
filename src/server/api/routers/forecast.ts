@@ -44,4 +44,12 @@ export const forecastRouter = createTRPCRouter({
       });
       return forecast;
     }),
+  getSiteIds: publicProcedure.query(async ({ ctx }) => {
+    const reportIds = await ctx.prisma.report.findMany({
+      select: {
+        siteId: true,
+      },
+    });
+    return reportIds;
+  }),
 });

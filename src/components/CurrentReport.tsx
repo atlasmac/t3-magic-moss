@@ -28,28 +28,23 @@ const CurrentReport = ({ level, spot }: props) => {
   const [isFavorite, setIsFavorite] = useState<boolean>();
   const [showFavorite, setShowFavorite] = useState<boolean>(false);
 
-  const { isLoading, data, error } = api.user.getAllFavorites.useQuery(
-    undefined,
-    {
-      onSuccess: (data) => {
-        const site = data.filter((e) => {
-          if (e.siteId === siteId) {
-            return e;
-          }
-        });
-        if (site[0]?.siteId === siteId) {
-          setIsFavorite(true);
+  const favoriteWaves = api.user.getAllFavorites.useQuery(undefined, {
+    onSuccess: (data) => {
+      const site = data.filter((e) => {
+        if (e.siteId === siteId) {
+          return e;
         }
-      },
-      onSettled: (data) => {
-        setShowFavorite(true);
-      },
-    }
-  );
+      });
+      if (site[0]?.siteId === siteId) {
+        setIsFavorite(true);
+      }
+    },
 
-  console.log(data);
+    onSettled: (data) => {
+      setShowFavorite(true);
+    },
+  });
 
-  // console.log(favoriteWaves.data?.siteName, "fav");
   function addFavorite() {
     mutate({
       siteId,
@@ -76,27 +71,30 @@ const CurrentReport = ({ level, spot }: props) => {
           className="max-w-xs rounded-lg shadow-2xl md:max-w-sm"
         />
         <div className="flex flex-col items-center lg:items-start">
-          {session && !isLoading && (
-            <div className="flex h-16 w-full justify-end">
-              {isFavorite ? (
-                <div className="flex flex-col items-center">
-                  <AiFillStar
-                    onClick={deleteFavorite}
-                    className="text-3xl text-yellow-500 hover:text-4xl"
-                  />
-                  <p>Remove favorite</p>
-                </div>
-              ) : (
-                <div className="flex flex-col items-center">
-                  <AiOutlineStar
-                    onClick={addFavorite}
-                    className="text-3xl hover:text-4xl hover:text-yellow-500"
-                  />
-                  <p>Add to favorites</p>
-                </div>
-              )}
-            </div>
-          )}
+          <div className="flex h-16 w-full justify-end">
+            {session && showFavorite && (
+              <>
+                {isFavorite ? (
+                  <div className="flex flex-col items-center">
+                    <AiFillStar
+                      onClick={deleteFavorite}
+                      className="text-3xl text-yellow-500 hover:text-4xl"
+                    />
+                    <p>Remove favorite</p>
+                  </div>
+                ) : (
+                  <div className="flex flex-col items-center">
+                    <AiOutlineStar
+                      onClick={addFavorite}
+                      className="text-3xl hover:text-4xl hover:text-yellow-500"
+                    />
+                    <p>Add to favorites</p>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+
           <h1 className=" py-3 text-center font-robotoSlab text-5xl font-bold sm:text-left">
             {spot}
           </h1>
