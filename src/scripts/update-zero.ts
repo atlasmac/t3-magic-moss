@@ -37,7 +37,7 @@ async function fetchWeather() {
     });
 
   const filteredObserved = observed
-    .filter((data: any, i: Number) => {
+    .filter((data: any, i: number) => {
       const dateParts = data.date.split(" ");
       if (
         dateParts[2] === "12:00" ||

@@ -28,7 +28,7 @@ const CurrentReport = ({ level, spot }: props) => {
   const [isFavorite, setIsFavorite] = useState<boolean>();
   const [showFavorite, setShowFavorite] = useState<boolean>(false);
 
-  const favoriteWaves = api.user.getAllFavorites.useQuery(undefined, {
+  api.user.getAllFavorites.useQuery(undefined, {
     onSuccess: (data) => {
       const site = data.filter((e) => {
         if (e.siteId === siteId) {
