@@ -3,14 +3,25 @@ import { api } from "../utils/api";
 import { getConditions } from "../helpers/getConditions";
 import Link from "next/link";
 import { Report } from "./Hero";
+import { PulseLoader } from "react-spinners";
 
 interface Props {
   report: Report;
 }
 function DashboardRow({ report }: Props) {
-  const current = api.forecast.getCurrentLevel.useQuery({
-    siteId: report.siteId,
-  });
+  const [fetched, setFetched] = useState<boolean>(false);
+  const current = api.forecast.getCurrentLevel.useQuery(
+    {
+      siteId: report.siteId,
+    },
+    {
+      onSuccess(data) {
+        setFetched(true);
+      },
+    }
+  );
+
+  console.log(fetched, "fetched");
 
   const currentLevel = current.data?.observation
     .filter((e) => {
@@ -20,8 +31,6 @@ function DashboardRow({ report }: Props) {
     })
     .pop();
 
-  console.log("hi");
-
   return (
     <>
       <tr className="hover">
@@ -30,13 +39,29 @@ function DashboardRow({ report }: Props) {
         </td>
         <td>
           <Link className="" href={`/report/${report.siteId}`}>
-            {currentLevel?.cfs}
+            {fetched ? (
+              <>{currentLevel?.cfs}</>
+            ) : (
+              <PulseLoader
+                color="rgb(166,173, 187)"
+                size={7}
+                speedMultiplier={0.5}
+              />
+            )}
           </Link>
         </td>
 
         <td>
           <Link href={`/report/${report.siteId}`}>
-            {getConditions([[currentLevel?.cfs!, report.siteId]])}
+            {fetched ? (
+              <>{getConditions([[currentLevel?.cfs!, report.siteId]])}</>
+            ) : (
+              <PulseLoader
+                color="rgb(166,173, 187)"
+                size={4}
+                speedMultiplier={1}
+              />
+            )}
           </Link>
         </td>
       </tr>

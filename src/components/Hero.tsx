@@ -32,7 +32,16 @@ function Hero({ data }: HeroProps) {
               <p className="mb-5 text-xl md:text-2xl">
                 Hello {session.user.name}
               </p>
-              <DashboardTable data={data} />
+              {data && data?.length > 0 ? (
+                <DashboardTable data={data} />
+              ) : (
+                <p className="mb-5 text-xl md:text-2xl">
+                  You don't have any favorite waves saved yet. Try{" "}
+                  <Link href={"/report/12340500"} className="underline">
+                    Brennan's
+                  </Link>
+                </p>
+              )}
             </>
           ) : (
             <p className="mb-5 text-xl md:text-2xl">

@@ -8,13 +8,28 @@ import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import Footer from "../../components/Footer";
 import { api } from "../../utils/api";
+import LoadingFull from "../../components/LoadingFull";
+import { createProxySSGHelpers } from "@trpc/react-query/ssg";
+import { createTRPCContext } from "../../server/api/trpc";
+import {
+  GetStaticPaths,
+  GetStaticPropsContext,
+  InferGetStaticPropsType,
+} from "next";
+import { prisma } from "../../server/db";
+import { appRouter } from "../../server/api/root";
+import superjson from "superjson";
 
 dayjs.extend(utc);
 
-function Report() {
-  const router = useRouter();
-  const siteId: string = router.query.id?.toString() || "";
-  const riverData = api.forecast.getForecast.useQuery({ siteId });
+function Report(props: InferGetStaticPropsType<typeof getStaticProps>) {
+  const { id } = props;
+
+  const riverData = api.forecast.getForecast.useQuery({ siteId: id });
+
+  if (riverData.status !== "success") {
+    return <LoadingFull />;
+  }
 
   const observedData =
     riverData.data?.observation
@@ -66,19 +81,15 @@ function Report() {
     <div>
       <Header />
       <div className="container mx-auto min-h-screen">
-        {observedData.length > 0 ? (
-          <div>
-            <CurrentReport spot={siteName} level={lastObserved[0]!} />
-            <LineChart
-              forecastData={forecastData}
-              observedData={observedData}
-              lastObserved={lastObserved}
-            />
-            <ForecastTable forecastData={forecastTableData} />
-          </div>
-        ) : (
-          "Loading"
-        )}
+        <div>
+          <CurrentReport spot={siteName} level={lastObserved[0]!} />
+          <LineChart
+            forecastData={forecastData}
+            observedData={observedData}
+            lastObserved={lastObserved}
+          />
+          <ForecastTable forecastData={forecastTableData} />
+        </div>
       </div>
       <div className="container mx-auto">
         <Footer />
@@ -86,5 +97,42 @@ function Report() {
     </div>
   );
 }
+
+export async function getStaticProps(
+  context: GetStaticPropsContext<{ id: string }>
+) {
+  const ssg = await createProxySSGHelpers({
+    router: appRouter,
+    ctx: {},
+    transformer: superjson, // optional - adds superjson serialization
+  });
+  const id = context.params?.id as string;
+  // prefetch `post.byId`
+  await ssg.forecast.getSiteIds.prefetch();
+  return {
+    props: {
+      trpcState: ssg.dehydrate(),
+      id,
+    },
+    revalidate: 1,
+  };
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const siteIds = await prisma.report.findMany({
+    select: {
+      siteId: true,
+    },
+  });
+  return {
+    paths: siteIds.map((report) => ({
+      params: {
+        id: report.siteId,
+      },
+    })),
+    // https://nextjs.org/docs/basic-features/data-fetching#fallback-blocking
+    fallback: false,
+  };
+};
 
 export default Report;
