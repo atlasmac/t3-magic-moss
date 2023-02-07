@@ -9,7 +9,6 @@ import Footer from "../../components/Footer";
 import { api } from "../../utils/api";
 import LoadingFull from "../../components/LoadingFull";
 import { createProxySSGHelpers } from "@trpc/react-query/ssg";
-import { createTRPCContext } from "../../server/api/trpc";
 import {
   GetStaticPaths,
   GetStaticPropsContext,
@@ -18,6 +17,7 @@ import {
 import { prisma } from "../../server/db";
 import { appRouter } from "../../server/api/root";
 import superjson from "superjson";
+import { PrismaClient } from "@prisma/client";
 
 dayjs.extend(utc);
 
@@ -100,9 +100,10 @@ function Report(props: InferGetStaticPropsType<typeof getStaticProps>) {
 export async function getStaticProps(
   context: GetStaticPropsContext<{ id: string }>
 ) {
+  const prisma = new PrismaClient();
   const ssg = await createProxySSGHelpers({
     router: appRouter,
-    ctx: {},
+    ctx: { session: null, prisma: prisma },
     transformer: superjson, // optional - adds superjson serialization
   });
   const id = context.params?.id as string;
