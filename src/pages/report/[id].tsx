@@ -100,10 +100,11 @@ function Report(props: InferGetStaticPropsType<typeof getStaticProps>) {
 export async function getStaticProps(
   context: GetStaticPropsContext<{ id: string }>
 ) {
-  const prisma = new PrismaClient();
+  // const prisma = new PrismaClient();
+  // session: null, prisma: prisma
   const ssg = await createProxySSGHelpers({
     router: appRouter,
-    ctx: { session: null, prisma: prisma },
+    ctx: {},
     transformer: superjson, // optional - adds superjson serialization
   });
   const id = context.params?.id as string;
