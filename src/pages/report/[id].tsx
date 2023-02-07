@@ -8,28 +8,25 @@ import utc from "dayjs/plugin/utc";
 import Footer from "../../components/Footer";
 import { api } from "../../utils/api";
 import LoadingFull from "../../components/LoadingFull";
-// import { createProxySSGHelpers } from "@trpc/react-query/ssg";
-// import {
-//   GetStaticPaths,
-//   GetStaticPropsContext,
-//   InferGetStaticPropsType,
-// } from "next";
-// import { prisma } from "../../server/db";
-// import { appRouter } from "../../server/api/root";
-// import superjson from "superjson";
-// import { PrismaClient } from "@prisma/client";
+import { createProxySSGHelpers } from "@trpc/react-query/ssg";
+import {
+  GetStaticPaths,
+  GetStaticPropsContext,
+  InferGetStaticPropsType,
+} from "next";
+import { prisma } from "../../server/db";
+import { appRouter } from "../../server/api/root";
+import superjson from "superjson";
+import { PrismaClient } from "@prisma/client";
 import Head from "next/head";
 import GoogleAnalytics from "../../components/GoogleAnalytics";
-import { useRouter } from "next/router";
 
 dayjs.extend(utc);
 
-function Report() {
-  const router = useRouter();
+function Report(props: InferGetStaticPropsType<typeof getStaticProps>) {
+  const { id } = props;
 
-  const siteId: string = router.query.id?.toString() || "";
-
-  const riverData = api.forecast.getForecast.useQuery({ siteId });
+  const riverData = api.forecast.getForecast.useQuery({ siteId: id });
 
   if (riverData.status !== "success") {
     return <LoadingFull />;
@@ -108,45 +105,45 @@ function Report() {
   );
 }
 
-// export async function getStaticProps(
-//   context: GetStaticPropsContext<{ id: string }>
-// ) {
-//   const prisma = new PrismaClient();
-//   const ssg = await createProxySSGHelpers({
-//     router: appRouter,
-//     ctx: {
-//       session: null,
-//       prisma: prisma,
-//     },
-//     transformer: superjson, // optional - adds superjson serialization
-//   });
-//   const id = context.params?.id as string;
-//   // prefetch `post.byId`
-//   await ssg.forecast.getSiteIds.prefetch();
-//   return {
-//     props: {
-//       trpcState: ssg.dehydrate(),
-//       id,
-//     },
-//     revalidate: 1,
-//   };
-// }
+export async function getStaticProps(
+  context: GetStaticPropsContext<{ id: string }>
+) {
+  const prisma = new PrismaClient();
+  const ssg = await createProxySSGHelpers({
+    router: appRouter,
+    ctx: {
+      session: null,
+      prisma: prisma,
+    },
+    transformer: superjson, // optional - adds superjson serialization
+  });
+  const id = context.params?.id as string;
+  // prefetch `post.byId`
+  await ssg.forecast.getSiteIds.prefetch();
+  return {
+    props: {
+      trpcState: ssg.dehydrate(),
+      id,
+    },
+    revalidate: 1,
+  };
+}
 
-// export const getStaticPaths: GetStaticPaths = async () => {
-//   const siteIds = await prisma.report.findMany({
-//     select: {
-//       siteId: true,
-//     },
-//   });
-//   return {
-//     paths: siteIds.map((report) => ({
-//       params: {
-//         id: report.siteId,
-//       },
-//     })),
-//     // https://nextjs.org/docs/basic-features/data-fetching#fallback-blocking
-//     fallback: false,
-//   };
-// };
+export const getStaticPaths: GetStaticPaths = async () => {
+  const siteIds = await prisma.report.findMany({
+    select: {
+      siteId: true,
+    },
+  });
+  return {
+    paths: siteIds.map((report) => ({
+      params: {
+        id: report.siteId,
+      },
+    })),
+    // https://nextjs.org/docs/basic-features/data-fetching#fallback-blocking
+    fallback: false,
+  };
+};
 
 export default Report;
