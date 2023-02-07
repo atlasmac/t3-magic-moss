@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import DashboardRow from "./DashboardRow";
-import { api } from "../utils/api";
 import { HeroProps } from "./Hero";
 
 function DashboardTable({ data }: HeroProps) {

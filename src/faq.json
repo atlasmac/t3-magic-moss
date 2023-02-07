@@ -1,0 +1,10 @@
+[
+  {
+    "question": "What is cubic feet per second (cfs)?",
+    "answer": "The measurement cubic foot per second (cfs or ft3/s) is the rate of water movement representing a volume of 1 cubic foot passing a given point during 1 second. This is the unit that the USGS uses describe the flow of a river and is also what most river surfers use as a reference."
+  },
+  {
+    "question": "Where does the river flow data come from?",
+    "answer": "The data comes from USGS river gauges and is publically available. Though these river gauges do not perfectly describe the flow of the river at the site of the wave, the gauges have been associated with the wave for referencing conditions by the surfing community. The forecast data is provided by NOAA."
+  }
+]

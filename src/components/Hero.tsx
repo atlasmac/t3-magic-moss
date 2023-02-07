@@ -1,6 +1,5 @@
 import React from "react";
 import { FcGoogle } from "react-icons/fc";
-import Footer from "./Footer";
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 import DashboardTable from "./DashboardTable";
@@ -19,7 +18,7 @@ function Hero({ data }: HeroProps) {
 
   return (
     <div>
-      <div className="hero min-h-[87vh] bg-[url('/DaveGardner_04.png')]">
+      <div className="hero min-h-[85vh] bg-[url('/DaveGardner_04.png')]">
         <div className="hero-overlay bg-opacity-70"></div>
 
         <div className="flex h-full max-w-lg flex-col justify-start py-20 text-center text-neutral-content">
@@ -29,14 +28,18 @@ function Hero({ data }: HeroProps) {
 
           {session ? (
             <>
-              <p className="mb-5 text-xl md:text-2xl">
-                Hello {session.user.name}
-              </p>
               {data && data?.length > 0 ? (
-                <DashboardTable data={data} />
+                <>
+                  <p className="mb-5 text-xl md:text-2xl">
+                    Hello {session.user.name}. Here are your favorite waves and
+                    their current levels.
+                  </p>
+                  <DashboardTable data={data} />
+                </>
               ) : (
                 <p className="mb-5 text-xl md:text-2xl">
-                  You don't have any favorite waves saved yet. Try{" "}
+                  Hello {session.user.name}, you don't have any favorite waves
+                  saved yet. Try{" "}
                   <Link href={"/report/12340500"} className="underline">
                     Brennan's
                   </Link>

@@ -1,15 +1,10 @@
-import {
-  GetServerSidePropsContext,
-  InferGetServerSidePropsType,
-  type NextPage,
-} from "next";
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import Head from "next/head";
 import Header from "../components/Header";
 import Hero from "../components/Hero";
 import Footer from "../components/Footer";
-import { getSession, signIn, signOut, useSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import { createProxySSGHelpers } from "@trpc/react-query/ssg";
-import type { GetSessionParams } from "next-auth/react";
 import superjson from "superjson";
 import { createTRPCContext } from "../server/api/trpc";
 import { api } from "../utils/api";
