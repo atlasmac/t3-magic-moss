@@ -1,10 +1,9 @@
-import React, { useState } from "react";
-import { signIn, signOut, useSession } from "next-auth/react";
+import React from "react";
 import DashboardRow from "./DashboardRow";
 import { HeroProps } from "./Hero";
 
 function DashboardTable({ data }: HeroProps) {
-  const rows = data?.map((e, i) => {
+  const rows = data?.map((e) => {
     return <DashboardRow report={e} key={e.siteId} />;
   });
 

@@ -36,7 +36,7 @@ export default function Header() {
                   <span>Montana</span>
                 </li>
                 <li>
-                  <Link href="/report/12340500">Brennan's</Link>
+                  <Link href="/report/12340500">Brennan&apos;s</Link>
                 </li>
                 <li>
                   <Link href="/report/12354500">Zero</Link>
@@ -45,7 +45,7 @@ export default function Header() {
                   <span>Idaho</span>
                 </li>
                 <li>
-                  <Link href="/report/13337000">Lochsa's Pipeline</Link>
+                  <Link href="/report/13337000">Lochsa&apos;s Pipeline</Link>
                 </li>
                 <li className="menu-title">
                   <span>Wyoming</span>
@@ -99,7 +99,7 @@ export default function Header() {
               </li>
               <li>
                 <Link className="" href="/report/12340500">
-                  Brennan's
+                  Brennan&apos;s
                 </Link>
               </li>
               <li>
@@ -109,7 +109,7 @@ export default function Header() {
                 <span>Idaho</span>
               </li>
               <li>
-                <Link href="/report/13337000">Lochsa's Pipeline</Link>
+                <Link href="/report/13337000">Lochsa&apos;s Pipeline</Link>
               </li>
               <li className="menu-title">
                 <span>Wyoming</span>
