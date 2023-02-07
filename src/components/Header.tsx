@@ -20,13 +20,12 @@ export default function Header() {
           >
             {!session && (
               <li>
-                <Link
-                  href="/"
+                <button
                   onClick={() => signIn()}
                   className="btn-ghost rounded-btn btn"
                 >
                   Sign up / Login
-                </Link>
+                </button>
               </li>
             )}
             <li tabIndex={0}>
