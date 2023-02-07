@@ -148,7 +148,12 @@ const LineChart = ({ forecastData, observedData, lastObserved }: props) => {
                 const strTest = /^[a-zA-Z]+$/;
                 if (strTest.test(el)) {
                   return el;
-                } else if (el[el.length - 1] === "1") {
+                }
+                if (el[0] === "1" && el.length > 1) {
+                  return `${el}th`;
+                }
+                if (el[el.length - 1] === "1") {
+                  console.log(el);
                   return `${el}st`;
                 } else if (el[el.length - 1] === "2") {
                   return `${el}nd`;
