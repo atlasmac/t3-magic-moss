@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 import { BiMap } from "react-icons/bi";
@@ -40,7 +40,7 @@ const CurrentReport = ({ level, spot }: props) => {
       }
     },
 
-    onSettled: (data) => {
+    onSettled: () => {
       setShowFavorite(true);
     },
   });

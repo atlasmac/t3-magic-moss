@@ -52,7 +52,7 @@ function DashboardRow({ report }: Props) {
         <td>
           <Link href={`/report/${report.siteId}`}>
             {fetched ? (
-              <>{getConditions([[currentLevel?.cfs!, report.siteId]])}</>
+              <>{getConditions([[currentLevel?.cfs || 0, report.siteId]])}</>
             ) : (
               <PulseLoader
                 color="rgb(166,173, 187)"
