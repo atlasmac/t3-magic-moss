@@ -130,13 +130,12 @@ export default function Header() {
             </button>
           )}
           {!session && (
-            <Link
-              href="/"
+            <button
               onClick={() => signIn()}
               className="btn-ghost rounded-btn btn"
             >
               Sign up / Login
-            </Link>
+            </button>
           )}
         </div>
       </div>
