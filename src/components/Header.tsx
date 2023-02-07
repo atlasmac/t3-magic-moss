@@ -21,7 +21,9 @@ export default function Header() {
             {!session && (
               <li>
                 <button
-                  onClick={() => signIn()}
+                  onClick={() => {
+                    signIn();
+                  }}
                   className="btn-ghost rounded-btn btn"
                 >
                   Sign up / Login
@@ -62,7 +64,9 @@ export default function Header() {
             {session && (
               <li>
                 <button
-                  onClick={() => signOut()}
+                  onClick={() => {
+                    signOut();
+                  }}
                   className="btn-ghost rounded-btn btn"
                 >
                   Sign out
@@ -123,7 +127,9 @@ export default function Header() {
           </Link>
           {session && (
             <button
-              onClick={() => signOut()}
+              onClick={() => {
+                signOut();
+              }}
               className="btn-ghost rounded-btn btn"
             >
               Sign out
@@ -131,7 +137,9 @@ export default function Header() {
           )}
           {!session && (
             <button
-              onClick={() => signIn()}
+              onClick={() => {
+                signIn();
+              }}
               className="btn-ghost rounded-btn btn"
             >
               Sign up / Login
