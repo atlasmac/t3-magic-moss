@@ -18,6 +18,8 @@ import { prisma } from "../../server/db";
 import { appRouter } from "../../server/api/root";
 import superjson from "superjson";
 import { PrismaClient } from "@prisma/client";
+import Head from "next/head";
+import GoogleAnalytics from "../../components/GoogleAnalytics";
 
 dayjs.extend(utc);
 
@@ -78,6 +80,12 @@ function Report(props: InferGetStaticPropsType<typeof getStaticProps>) {
 
   return (
     <div>
+      <Head>
+        <title>Magic Moss</title>
+        <meta name="description" content="Magic Moss Surf Reports" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <GoogleAnalytics />
       <Header />
       <div className="container mx-auto min-h-screen">
         <div>
@@ -100,11 +108,13 @@ function Report(props: InferGetStaticPropsType<typeof getStaticProps>) {
 export async function getStaticProps(
   context: GetStaticPropsContext<{ id: string }>
 ) {
-  // const prisma = new PrismaClient();
-  // session: null, prisma: prisma
+  const prisma = new PrismaClient();
   const ssg = await createProxySSGHelpers({
     router: appRouter,
-    ctx: {},
+    ctx: {
+      session: null,
+      prisma: prisma,
+    },
     transformer: superjson, // optional - adds superjson serialization
   });
   const id = context.params?.id as string;

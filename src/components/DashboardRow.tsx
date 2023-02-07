@@ -21,8 +21,6 @@ function DashboardRow({ report }: Props) {
     }
   );
 
-  console.log(fetched, "fetched");
-
   const currentLevel = current.data?.observation
     .filter((e) => {
       if (e.cfs > 0) {

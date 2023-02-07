@@ -9,6 +9,7 @@ import superjson from "superjson";
 import { createTRPCContext } from "../server/api/trpc";
 import { api } from "../utils/api";
 import { appRouter } from "../server/api/root";
+import GoogleAnalytics from "../components/GoogleAnalytics";
 
 function Home(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const { data: session } = useSession();
@@ -21,6 +22,7 @@ function Home(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
         <meta name="description" content="Magic Moss Surf Reports" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <GoogleAnalytics />
       <Header />
       <Hero data={data} />
       <Footer />

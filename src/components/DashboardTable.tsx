@@ -4,8 +4,6 @@ import DashboardRow from "./DashboardRow";
 import { HeroProps } from "./Hero";
 
 function DashboardTable({ data }: HeroProps) {
-  const { data: session } = useSession();
-
   const rows = data?.map((e, i) => {
     return <DashboardRow report={e} key={e.siteId} />;
   });
