@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { api } from "../utils/api";
 import { getConditions } from "../helpers/getConditions";
 import Link from "next/link";
-import { Report } from "./Hero";
+import type { Report } from "./Hero";
 import { PulseLoader } from "react-spinners";
 
 interface Props {
@@ -15,7 +15,7 @@ function DashboardRow({ report }: Props) {
       siteId: report.siteId,
     },
     {
-      onSuccess(data) {
+      onSuccess() {
         setFetched(true);
       },
     }
@@ -42,7 +42,7 @@ function DashboardRow({ report }: Props) {
             ) : (
               <PulseLoader
                 color="rgb(166,173, 187)"
-                size={7}
+                size={4}
                 speedMultiplier={0.5}
               />
             )}
@@ -57,7 +57,7 @@ function DashboardRow({ report }: Props) {
               <PulseLoader
                 color="rgb(166,173, 187)"
                 size={4}
-                speedMultiplier={1}
+                speedMultiplier={0.5}
               />
             )}
           </Link>

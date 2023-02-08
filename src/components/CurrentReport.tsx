@@ -8,6 +8,7 @@ import { getGif } from "../helpers/getGif";
 import { getLocation } from "../helpers/getLocation";
 import { getReport } from "../helpers/getReport";
 import { api } from "../utils/api";
+import Image from "next/image";
 
 interface props {
   level: {
@@ -65,9 +66,11 @@ const CurrentReport = ({ level, spot }: props) => {
   return (
     <div className="hero mt-8 min-h-fit bg-base-200">
       <div className="hero-content flex-col lg:flex-row">
-        <img
+        <Image
           src={getGif(siteId)}
           alt="surfing gif"
+          width={350}
+          height={300}
           className="max-w-xs rounded-lg shadow-2xl md:max-w-sm"
         />
         <div className="flex flex-col items-center lg:items-start">
