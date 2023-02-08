@@ -9,7 +9,7 @@ import Footer from "../../components/Footer";
 import { api } from "../../utils/api";
 import LoadingFull from "../../components/LoadingFull";
 import { createProxySSGHelpers } from "@trpc/react-query/ssg";
-import {
+import type {
   GetStaticPaths,
   GetStaticPropsContext,
   InferGetStaticPropsType,
@@ -17,7 +17,6 @@ import {
 import { prisma } from "../../server/db";
 import { appRouter } from "../../server/api/root";
 import superjson from "superjson";
-import { PrismaClient } from "@prisma/client";
 import Head from "next/head";
 import GoogleAnalytics from "../../components/GoogleAnalytics";
 
@@ -108,7 +107,6 @@ function Report(props: InferGetStaticPropsType<typeof getStaticProps>) {
 export async function getStaticProps(
   context: GetStaticPropsContext<{ id: string }>
 ) {
-  const prisma = new PrismaClient();
   const ssg = await createProxySSGHelpers({
     router: appRouter,
     ctx: {
@@ -118,7 +116,6 @@ export async function getStaticProps(
     transformer: superjson, // optional - adds superjson serialization
   });
   const id = context.params?.id as string;
-  // prefetch `post.byId`
   await ssg.forecast.getSiteIds.prefetch();
   return {
     props: {
