@@ -6,7 +6,7 @@ const siteName = "Lunch Counter";
 import dayjs from "dayjs";
 import { prisma } from "../server/db";
 
-async function fetchWeather() {
+export default async function fetchLunchcounter() {
   // const writeFile = promisify(fs.writeFile);
 
   const res = await fetch(
@@ -103,4 +103,4 @@ async function fetchWeather() {
   return data;
 }
 
-(async () => await fetchWeather())();
+(async () => await fetchLunchcounter())();
