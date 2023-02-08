@@ -7,8 +7,7 @@
     "dev": "next dev",
     "postinstall": "prisma generate",
     "lint": "next lint",
-    "start": "next start",
-    "fetch:weather": "npx tsx src/scripts/update-lochsa.ts && npx tsx src/scripts/update-missoula.ts && npx tsx src/scripts/update-lunchcounter.ts && npx tsx src/scripts/update-zero.ts"
+    "start": "next start"
   },
   "dependencies": {
     "@netlify/functions": "^1.4.0",
