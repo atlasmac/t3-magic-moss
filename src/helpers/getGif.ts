@@ -15,5 +15,5 @@ export function getGif(siteId: string) {
   if (siteId === "13022500") {
     return "https://media.giphy.com/media/IrX0Ytt06auiBSV94z/giphy-downsized-large.gif";
   }
-  return "https://media.giphy.com/media/fUosIabrqmvvauUBgI/giphy.gif";
+  return "";
 }
