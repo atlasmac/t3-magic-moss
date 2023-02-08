@@ -29,6 +29,8 @@ const CurrentReport = ({ level, spot }: props) => {
   const [isFavorite, setIsFavorite] = useState<boolean>();
   const [showFavorite, setShowFavorite] = useState<boolean>(false);
 
+  const gif = getGif(siteId);
+
   api.user.getAllFavorites.useQuery(undefined, {
     onSuccess: (data) => {
       const site = data.filter((e) => {
@@ -67,7 +69,8 @@ const CurrentReport = ({ level, spot }: props) => {
     <div className="hero mt-8 min-h-fit bg-base-200">
       <div className="hero-content flex-col lg:flex-row">
         <Image
-          src={getGif(siteId)}
+          src={gif}
+          unoptimized={true}
           alt="surfing gif"
           width={1000}
           height={1000}

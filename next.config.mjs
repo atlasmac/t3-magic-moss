@@ -16,7 +16,7 @@ const config = {
   },
   images: {
     domains: [
-      'lh3.googleusercontent.com', 'media.giphy.com'
+      'media.giphy.com'
     ]
   },
 };
