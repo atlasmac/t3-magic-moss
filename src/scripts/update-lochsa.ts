@@ -6,7 +6,7 @@ const siteName = "Lochsa's Pipeline";
 import dayjs from "dayjs";
 import { prisma } from "../server/db";
 
-async function fetchWeather() {
+export default async function fetchLochsa() {
   // const writeFile = promisify(fs.writeFile);
 
   const res = await fetch(
@@ -103,4 +103,4 @@ async function fetchWeather() {
   return data;
 }
 
-(async () => await fetchWeather())();
+(async () => await fetchLochsa())();
