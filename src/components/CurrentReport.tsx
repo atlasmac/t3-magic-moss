@@ -69,8 +69,8 @@ const CurrentReport = ({ level, spot }: props) => {
         <Image
           src={getGif(siteId)}
           alt="surfing gif"
-          width={350}
-          height={300}
+          width={1000}
+          height={1000}
           className="max-w-xs rounded-lg shadow-2xl md:max-w-sm"
         />
         <div className="flex flex-col items-center lg:items-start">
