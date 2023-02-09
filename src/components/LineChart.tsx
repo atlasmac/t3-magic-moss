@@ -48,7 +48,6 @@ const LineChart = ({ forecastData, observedData, lastObserved }: props) => {
         borderWidth: 2,
         pointRadius: 0,
         pointHoverRadius: 5,
-        order: 1,
         tension: 0.5,
         parsing: {
           xAxisKey: "date",
@@ -60,11 +59,11 @@ const LineChart = ({ forecastData, observedData, lastObserved }: props) => {
         data: lastObserved,
         backgroundColor: ["red"],
         borderColor: "red",
-        borderWidth: 2,
+        borderWidth: 1,
         pointRadius: 9,
         pointHoverBorderWidth: 9,
         pointStyle: "star",
-        order: 2,
+        order: 1,
         parsing: {
           xAxisKey: "date",
           yAxisKey: "cfs",
@@ -79,7 +78,6 @@ const LineChart = ({ forecastData, observedData, lastObserved }: props) => {
         pointRadius: 0,
         pointHoverRadius: 5,
         tension: 0.5,
-        order: 3,
         parsing: {
           xAxisKey: "date",
           yAxisKey: "cfs",
