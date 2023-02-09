@@ -33,10 +33,18 @@ function DashboardRow({ report }: Props) {
     <>
       <tr className="hover">
         <td>
-          <Link href={`/report/${report.siteId}`}>{report.siteName}</Link>
+          <Link
+            href={`/report/${report.siteId}`}
+            className="hover:text-slate-200"
+          >
+            {report.siteName}
+          </Link>
         </td>
         <td>
-          <Link className="" href={`/report/${report.siteId}`}>
+          <Link
+            className="hover:text-slate-200"
+            href={`/report/${report.siteId}`}
+          >
             {fetched ? (
               <>{currentLevel?.cfs}</>
             ) : (
@@ -50,7 +58,10 @@ function DashboardRow({ report }: Props) {
         </td>
 
         <td>
-          <Link href={`/report/${report.siteId}`}>
+          <Link
+            className="hover:text-slate-200"
+            href={`/report/${report.siteId}`}
+          >
             {fetched ? (
               <>{getConditions([[currentLevel?.cfs || 0, report.siteId]])}</>
             ) : (

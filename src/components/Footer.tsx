@@ -10,7 +10,7 @@ function Footer() {
             href="https://www.buymeacoffee.com/atlasm"
             rel="noreferrer"
             target={"_blank"}
-            className="underline"
+            className="underline hover:text-slate-200"
           >
             Buy me a coffee.
           </a>
@@ -21,7 +21,7 @@ function Footer() {
             href="https://www.atlasmckinley.com/"
             rel="noreferrer"
             target={"_blank"}
-            className="underline"
+            className="underline hover:text-slate-200"
           >
             AtlasMckinley.com
           </a>
