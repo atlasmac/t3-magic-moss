@@ -4,15 +4,27 @@ import { getConditions } from "../helpers/getConditions";
 import Link from "next/link";
 import type { Report } from "./Hero";
 import { PulseLoader } from "react-spinners";
+import { BsTrash } from "react-icons/bs";
+import { useRouter } from "next/router";
 
 interface Props {
   report: Report;
 }
 function DashboardRow({ report }: Props) {
   const [fetched, setFetched] = useState<boolean>(false);
+  const deleteWave = api.user.deleteFavorite.useMutation();
+  const siteId = report.siteId;
+  const router = useRouter();
+
+  function deleteFavorite() {
+    deleteWave.mutate({
+      siteId,
+    });
+    router.reload();
+  }
   const current = api.forecast.getCurrentLevel.useQuery(
     {
-      siteId: report.siteId,
+      siteId,
     },
     {
       onSuccess() {
@@ -41,10 +53,7 @@ function DashboardRow({ report }: Props) {
           </Link>
         </td>
         <td>
-          <Link
-            className="hover:text-slate-200"
-            href={`/report/${report.siteId}`}
-          >
+          <Link className="hover:text-slate-200" href={`/report/${siteId}`}>
             {fetched ? (
               <>{currentLevel?.cfs}</>
             ) : (
@@ -58,20 +67,22 @@ function DashboardRow({ report }: Props) {
         </td>
 
         <td>
-          <Link
-            className="hover:text-slate-200"
-            href={`/report/${report.siteId}`}
-          >
-            {fetched ? (
-              <>{getConditions([[currentLevel?.cfs || 0, report.siteId]])}</>
-            ) : (
-              <PulseLoader
-                color="rgb(166,173, 187)"
-                size={4}
-                speedMultiplier={0.5}
-              />
-            )}
-          </Link>
+          <div className="flex flex-row items-center justify-between">
+            <Link className="hover:text-slate-200" href={`/report/${siteId}`}>
+              {fetched ? (
+                <>{getConditions([[currentLevel?.cfs || 0, siteId]])}</>
+              ) : (
+                <PulseLoader
+                  color="rgb(166,173, 187)"
+                  size={4}
+                  speedMultiplier={0.5}
+                />
+              )}
+            </Link>
+            <button onClick={deleteFavorite}>
+              <BsTrash className="hover:text-slate-200" />
+            </button>
+          </div>
         </td>
       </tr>
     </>
