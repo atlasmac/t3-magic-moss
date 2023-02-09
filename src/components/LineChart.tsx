@@ -8,9 +8,8 @@ import {
   Title,
   Tooltip,
   Legend,
-  CoreScaleOptions,
-  Scale,
 } from "chart.js";
+import type { CoreScaleOptions, Scale } from "chart.js";
 import { Line } from "react-chartjs-2";
 
 ChartJS.register(
