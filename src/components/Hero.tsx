@@ -40,7 +40,10 @@ function Hero({ data }: HeroProps) {
                 <p className="mb-5 text-xl md:text-2xl">
                   Hello {session.user.name}, you don&apos;t have any favorite
                   waves saved yet. Try{" "}
-                  <Link href={"/report/12340500"} className="underline">
+                  <Link
+                    href={"/report/12340500"}
+                    className="underline hover:text-slate-200"
+                  >
                     Brennan&apos;s
                   </Link>
                 </p>
