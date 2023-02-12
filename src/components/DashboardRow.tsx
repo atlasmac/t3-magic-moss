@@ -49,28 +49,14 @@ function DashboardRow({ report }: Props) {
             href={`/report/${report.siteId}`}
             className="hover:text-slate-200"
           >
-            {report.siteName}
+            <div className="h-full w-full">{report.siteName}</div>
           </Link>
         </td>
         <td>
           <Link className="hover:text-slate-200" href={`/report/${siteId}`}>
-            {fetched ? (
-              <>{currentLevel?.cfs}</>
-            ) : (
-              <PulseLoader
-                color="rgb(166,173, 187)"
-                size={4}
-                speedMultiplier={0.5}
-              />
-            )}
-          </Link>
-        </td>
-
-        <td>
-          <div className="flex flex-row items-center justify-between">
-            <Link className="hover:text-slate-200" href={`/report/${siteId}`}>
+            <div className="h-full w-full">
               {fetched ? (
-                <>{getConditions([[currentLevel?.cfs || 0, siteId]])}</>
+                <>{currentLevel?.cfs}</>
               ) : (
                 <PulseLoader
                   color="rgb(166,173, 187)"
@@ -78,6 +64,24 @@ function DashboardRow({ report }: Props) {
                   speedMultiplier={0.5}
                 />
               )}
+            </div>
+          </Link>
+        </td>
+
+        <td>
+          <div className="flex flex-row items-center justify-between">
+            <Link className="hover:text-slate-200" href={`/report/${siteId}`}>
+              <div className="h-full w-full">
+                {fetched ? (
+                  <>{getConditions([[currentLevel?.cfs || 0, siteId]])}</>
+                ) : (
+                  <PulseLoader
+                    color="rgb(166,173, 187)"
+                    size={4}
+                    speedMultiplier={0.5}
+                  />
+                )}
+              </div>
             </Link>
             <button onClick={deleteFavorite}>
               <BsTrash className="hover:text-slate-200" />
