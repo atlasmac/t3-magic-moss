@@ -18,7 +18,7 @@ export function getReport(siteId: string, cfs: number) {
   //st regis Zer0 2300 to 4500
   if (siteId === "12354500") {
     if (cfs < 2300) {
-      return "Zero is out right now. Should come in if the levels get up 2300 CFS";
+      return "Zero is out right now. Should come in if the levels get above 2300 CFS";
     } else if (cfs >= 2300 && cfs < 3000) {
       return "Fair conditions. It's a tricky level but can be fun when you figure it out. Prepare for a bumpy wave at this level.";
     } else if (cfs >= 3000 && cfs < 4500) {
