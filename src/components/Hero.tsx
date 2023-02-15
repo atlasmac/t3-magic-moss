@@ -18,7 +18,7 @@ function Hero({ data }: HeroProps) {
 
   return (
     <div>
-      <div className="hero min-h-[85vh] bg-[url('/DaveGardner_04.png')]">
+      <div className="hero min-h-[85vh] bg-[url('/DaveGardner_04.jpg')]">
         <div className="hero-overlay bg-opacity-70"></div>
 
         <div className="flex h-full max-w-lg flex-col justify-start py-20 text-center text-neutral-content">
