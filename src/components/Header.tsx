@@ -44,6 +44,9 @@ export default function Header() {
                   <span>Idaho</span>
                 </li>
                 <li>
+                  <Link href="/report/13302500">Salmon Whitewater Park</Link>
+                </li>
+                <li>
                   <Link href="/report/13337000">Lochsa&apos;s Pipeline</Link>
                 </li>
                 <li className="menu-title">
@@ -106,6 +109,9 @@ export default function Header() {
               </li>
               <li className="menu-title">
                 <span>Idaho</span>
+              </li>
+              <li>
+                <Link href="/report/13302500">Salmon Whitewater Park</Link>
               </li>
               <li>
                 <Link href="/report/13337000">Lochsa&apos;s Pipeline</Link>

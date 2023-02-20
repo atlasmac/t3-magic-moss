@@ -16,6 +16,10 @@ export function getConditions(arr: [number, string][]) {
         return "Fair to good";
       }
     }
+    //salmon whitewater
+    if (el[1] === "13302500") {
+      return "Tbd";
+    }
     //st regis Zer0 2300 to 4500
     if (el[1] === "12354500") {
       if (el[0] < 2300) {

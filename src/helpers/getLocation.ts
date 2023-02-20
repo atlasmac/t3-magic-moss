@@ -15,6 +15,10 @@ export function getLocation(siteId: string) {
   if (siteId === "13022500") {
     return "https://goo.gl/maps/eu68KcMiGrQxiVGXA";
   }
+  // salmon
+  if (siteId === "13302500") {
+    return "https://goo.gl/maps/91XgAHZL77AR47um6";
+  }
 
   return "https://www.google.com/maps";
 }

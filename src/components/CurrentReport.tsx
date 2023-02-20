@@ -68,14 +68,16 @@ const CurrentReport = ({ level, spot }: props) => {
   return (
     <div className="hero mt-8 min-h-fit bg-base-200">
       <div className="hero-content flex-col lg:flex-row">
-        <Image
-          src={gif}
-          unoptimized={true}
-          alt="surfing gif"
-          width={1000}
-          height={1000}
-          className="max-w-xs rounded-lg shadow-2xl md:max-w-sm"
-        />
+        {gif && (
+          <Image
+            src={gif}
+            unoptimized={true}
+            alt="surfing gif"
+            width={1000}
+            height={1000}
+            className="max-w-xs rounded-lg shadow-2xl md:max-w-sm"
+          />
+        )}
         <div className="flex flex-col items-center lg:items-start">
           <div className="flex h-16 w-full justify-end">
             {session && showFavorite && (
@@ -116,8 +118,8 @@ const CurrentReport = ({ level, spot }: props) => {
             </a>
           </p>
           <p className="max-w-80 py-3 text-3xl">
-            <span className="font-bold">Range of surfable flows: </span>~
-            {getRange(siteId)} cfs
+            <span className="font-bold">Range of surfable flows: </span>
+            {getRange(siteId)}
           </p>
           <p className="max-w-80 pt-5 pb-3 font-robotoSlab text-4xl">
             The Report for {time}

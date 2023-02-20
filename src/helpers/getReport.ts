@@ -1,4 +1,8 @@
 export function getReport(siteId: string, cfs: number) {
+  // salmon
+  if (siteId === "13302500") {
+    return "Report coming soon";
+  }
   // Missoula
   if (siteId === "12340500") {
     if (cfs < 2000) {
