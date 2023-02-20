@@ -8,9 +8,14 @@ export default function Header() {
   const { data: session } = useSession();
 
   return (
-    <div className="navbar rounded-box bg-base-300">
+    <div className="navbar rounded-box z-40 bg-base-300">
       <div className="navbar-start md:hidden">
         <div className="dropdown">
+          <li>
+            <Link href="/map" className="btn-ghost rounded-btn btn">
+              Map
+            </Link>
+          </li>
           <label tabIndex={0} className="btn-ghost btn-circle btn">
             <HiMenu className="h-6 w-6"></HiMenu>
           </label>
@@ -88,6 +93,9 @@ export default function Header() {
       </div>
       <div className="hidden flex-1 justify-end px-2 md:flex">
         <div className="flex items-stretch">
+          <Link href="/map" className="btn-ghost rounded-btn btn">
+            Map
+          </Link>
           <div className="dropdown-start dropdown">
             <label tabIndex={0} className="btn-ghost rounded-btn btn">
               Reports
