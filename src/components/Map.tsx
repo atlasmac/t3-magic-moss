@@ -36,12 +36,12 @@ export default function Map() {
 
   const center: [number, number] = [46.86963076747236, -113.99602543410205];
   return (
-    <div className="z-0">
+    <div className="z-0 h-[500px] w-[90vw]">
       <MapContainer
         center={center}
         zoom={5}
         scrollWheelZoom={false}
-        className=" h-[500px] w-[90vw]"
+        className="h-[500px] w-[90vw]"
       >
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
