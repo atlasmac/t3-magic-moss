@@ -15,5 +15,5 @@ export function getRange(siteId: string) {
   if (siteId === "13022500") {
     return "7000 - 12,500 cfs";
   }
-  return "Ideal flows for this wave have not been added yet";
+  return "This is a brand spanking new wave, so get out there and gather some intel.";
 }
