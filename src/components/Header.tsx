@@ -11,11 +11,6 @@ export default function Header() {
     <div className="navbar rounded-box z-40 bg-base-300">
       <div className="navbar-start md:hidden">
         <div className="dropdown">
-          <li>
-            <Link href="/map" className="btn-ghost rounded-btn btn">
-              Map
-            </Link>
-          </li>
           <label tabIndex={0} className="btn-ghost btn-circle btn">
             <HiMenu className="h-6 w-6"></HiMenu>
           </label>
@@ -23,6 +18,11 @@ export default function Header() {
             tabIndex={0}
             className="dropdown-content menu rounded-box menu-compact mt-3 w-52 bg-base-100 p-2 shadow"
           >
+            <li>
+              <Link href="/map" className="btn-ghost rounded-btn btn">
+                Map
+              </Link>
+            </li>
             {!session && (
               <li>
                 <button
@@ -33,6 +33,7 @@ export default function Header() {
                 </button>
               </li>
             )}
+
             <li tabIndex={0}>
               <span className="btn-ghost rounded-btn btn">Surf Reports</span>
               <ul className="bg-base-100 p-2">
