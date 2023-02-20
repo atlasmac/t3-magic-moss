@@ -48,6 +48,7 @@ export const forecastRouter = createTRPCRouter({
     const reportIds = await ctx.prisma.report.findMany({
       select: {
         siteId: true,
+        siteName: true,
       },
     });
     return reportIds;
