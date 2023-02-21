@@ -5,6 +5,7 @@ import fetchMissoula from "../../src/scripts/update-missoula";
 import fetchLunchcounter from "../../src/scripts/update-lunchcounter";
 import fetchZero from "../../src/scripts/update-zero";
 import fetchSalmon from "../../src/scripts/update-salmon";
+import fetchBlackfoot from "../../src/scripts/update-blackfoot";
 
 const reportHandler: Handler = async () => {
   await fetchLochsa();
@@ -12,6 +13,7 @@ const reportHandler: Handler = async () => {
   await fetchLunchcounter();
   await fetchZero();
   await fetchSalmon();
+  await fetchBlackfoot();
 
   return {
     statusCode: 200,
