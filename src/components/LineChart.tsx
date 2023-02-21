@@ -152,7 +152,6 @@ const LineChart = ({ forecastData, observedData, lastObserved }: props) => {
                   return `${el}th`;
                 }
                 if (el[el.length - 1] === "1") {
-                  console.log(el);
                   return `${el}st`;
                 } else if (el[el.length - 1] === "2") {
                   return `${el}nd`;
