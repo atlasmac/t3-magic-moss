@@ -1,17 +1,15 @@
 import { Parser } from "xml2js";
 import fetch from "node-fetch";
-import fs from "fs";
-const siteId = "13022500";
-const siteName = "Lunch Counter";
 import dayjs from "dayjs";
 import { prisma } from "../server/db";
 
-export default async function fetchLunchcounter() {
-  // const writeFile = promisify(fs.writeFile);
-
-  const res = await fetch(
-    "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=alpw4&output=xml"
-  );
+export default async function fetchRiverData(
+  siteId: string,
+  siteName: string,
+  noaaUrl: string,
+  multiplier?: number
+) {
+  const res = await fetch(noaaUrl);
   const xml = await res.text();
   const xmlParser = new Parser();
   const data = await xmlParser.parseStringPromise(xml);
@@ -20,7 +18,7 @@ export default async function fetchLunchcounter() {
     .map((a: any) => {
       return {
         date: a.valid[0]?._,
-        cfs: parseFloat(a.secondary[0]?._) * 1000,
+        cfs: parseFloat(a.secondary[0]?._) * (multiplier || 1),
         ft: parseFloat(a.primary[0]?._),
       };
     })
@@ -61,7 +59,7 @@ export default async function fetchLunchcounter() {
     .map((a: any) => {
       return {
         date: a.valid[0]?._,
-        cfs: parseFloat(a.secondary[0]?._) * 1000,
+        cfs: parseFloat(a.secondary[0]?._) * (multiplier || 1),
         ft: parseFloat(a.primary[0]?._),
       };
     })
@@ -102,5 +100,46 @@ export default async function fetchLunchcounter() {
   ]);
   return data;
 }
+//'npx tsx src/scripts/update-wave.ts' for updating db in local dev
+(async () =>
+  await fetchRiverData(
+    "12340000",
+    "The Ledge",
+    "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=bonm8&output=xml"
+  ))();
 
-(async () => await fetchLunchcounter())();
+(async () =>
+  await fetchRiverData(
+    "12340500",
+    "Brennan's Wave",
+    "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=abom8&output=xml"
+  ))();
+
+(async () =>
+  await fetchRiverData(
+    "12354500",
+    "Zero Wave",
+    "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=srgm8&output=xml"
+  ))();
+
+(async () =>
+  await fetchRiverData(
+    "13337000",
+    "Lochsa's Pipeline",
+    "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=loci1&output=xml"
+  ))();
+
+(async () =>
+  await fetchRiverData(
+    "13302500",
+    "Salmon Whitewater Park",
+    "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=smni1&output=xml"
+  ))();
+
+(async () =>
+  await fetchRiverData(
+    "13022500",
+    "Lunch Counter",
+    "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=alpw4&output=xml",
+    1000
+  ))();
