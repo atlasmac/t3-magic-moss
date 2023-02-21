@@ -5,51 +5,51 @@ interface RiverMapping {
   }
 }
 
-function getCondition(locationKey: string, currentRiverLevel: number) {
-  // TO DO: this information should be derived from the API / database.
-  const riverConditionMapping = {
-    //brennans
-    "12340500": {
-      values: [
-        [2000, "Flat"],
-        [3200, "Poor to impossible"],
-        [4500, "Poor to fair"],
-        [6000, "Fair to good"],
-        [8500, "Good conditions"],
-      ],
-      other: "Fair to good",
-    },
-    //salmon whitewater
-    "13302500": {
-      other: "TBD"
-    },
-    // the ledge blackfoot
-    "12340000": {
-      other: "TBD"
-    }
-    ,
-    //st regis Zer0 2300 to 4500
-    "12354500": {
-      values: [
-        [2300, "Flat"],
-        [3000, "Fair"],
-        [4500, "Good"],
-        [6000, "Fair"],
-      ],
-      other: "Poor",
-    },
-      /// lochsa pipeline
-    "13337000": {
-      values: [
-        [4500, "Flat"],
-        [7000, "Good"],
-        [12000, "Great"],
-        [15500, "Good"],
-      ],
-      other: "Too high",
-    },
-  } as RiverMapping;
+// TO DO: this information should be derived from the API / database.
+const riverConditionMapping = {
+  //brennans
+  "12340500": {
+    values: [
+      [2000, "Flat"],
+      [3200, "Poor to impossible"],
+      [4500, "Poor to fair"],
+      [6000, "Fair to good"],
+      [8500, "Good conditions"],
+    ],
+    other: "Fair to good",
+  },
+  //salmon whitewater
+  "13302500": {
+    other: "TBD"
+  },
+  // the ledge blackfoot
+  "12340000": {
+    other: "TBD"
+  }
+  ,
+  //st regis Zer0 2300 to 4500
+  "12354500": {
+    values: [
+      [2300, "Flat"],
+      [3000, "Fair"],
+      [4500, "Good"],
+      [6000, "Fair"],
+    ],
+    other: "Poor",
+  },
+    /// lochsa pipeline
+  "13337000": {
+    values: [
+      [4500, "Flat"],
+      [7000, "Good"],
+      [12000, "Great"],
+      [15500, "Good"],
+    ],
+    other: "Too high",
+  },
+} as RiverMapping;
 
+function getCondition(locationKey: string, currentRiverLevel: number) {
   const riverValues = riverConditionMapping[locationKey];
 
   if (riverValues == null) {
