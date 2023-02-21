@@ -2,6 +2,7 @@ interface RangeMapping {
   [key: string]: string;
 }
 
+// TO DO: move to API
 const rangeMapping = {
   // brennans
   "12340500": "3200 - 20,000 cfs",
