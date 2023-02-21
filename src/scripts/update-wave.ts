@@ -143,3 +143,11 @@ export default async function fetchRiverData(
     "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=alpw4&output=xml",
     1000
   ))();
+
+(async () =>
+  await fetchRiverData(
+    "13022500",
+    "Green Wave",
+    "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=alpw4&output=xml",
+    1000
+  ))();
