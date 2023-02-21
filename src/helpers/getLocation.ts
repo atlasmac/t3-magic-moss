@@ -1,26 +1,21 @@
-export function getLocation(siteId: string) {
-  //brennans
-  if (siteId === "12340500") {
-    return "https://goo.gl/maps/oEpM7AprKXVw4DXz5";
-  }
-  //zero
-  if (siteId === "12354500") {
-    return "https://goo.gl/maps/NUyW2mcyiWwQJxWj7";
-  }
-  //pipeline
-  if (siteId === "13337000") {
-    return "https://goo.gl/maps/65rwVU1ZetpmsfPj8";
-  }
-  //lunchcounter
-  if (siteId === "13022500") {
-    return "https://goo.gl/maps/eu68KcMiGrQxiVGXA";
-  }
+interface LocationMapping {
+  [key: string]: string;
+}
+
+const locationMapping = {
+  // brennans
+  "12340500": "https://goo.gl/maps/oEpM7AprKXVw4DXz5",
+  // zero
+  "12354500": "https://goo.gl/maps/NUyW2mcyiWwQJxWj7",
+  // pipeline
+  "13337000": "https://goo.gl/maps/65rwVU1ZetpmsfPj8",
+  // lunchcounter
+  "13022500": "https://goo.gl/maps/eu68KcMiGrQxiVGXA",
   // salmon
-  if (siteId === "13302500") {
-    return "https://goo.gl/maps/91XgAHZL77AR47um6";
-  }
-  if (siteId === "12340000") {
-    return "https://goo.gl/maps/mi2AAqtGUdotWmES8";
-  }
-  return "https://www.google.com/maps";
+  "13302500": "https://goo.gl/maps/91XgAHZL77AR47um7",
+} as LocationMapping;
+
+export function getLocation(siteId: string) {
+  const location = locationMapping[siteId];
+  return location ?? "https://www.google.com/maps";
 }
