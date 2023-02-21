@@ -16,7 +16,7 @@ import GoogleAnalytics from "../components/GoogleAnalytics";
 
 function Home(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const { data: session } = useSession();
-  const { data } = api.user.getAllFavorites.useQuery();
+  const favorites = session ? api.user.getAllFavorites.useQuery() : null;
 
   return (
     <>
@@ -27,7 +27,7 @@ function Home(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
       </Head>
       <GoogleAnalytics />
       <Header />
-      <Hero data={data} />
+      <Hero data={favorites?.data} />
       <Footer />
     </>
   );
