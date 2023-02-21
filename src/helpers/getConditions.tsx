@@ -1,57 +1,75 @@
+interface RiverMapping {
+  [key: string]: {
+    values?: [number, string][];
+    other?: string;
+  }
+}
+
+function getCondition(locationKey: string, currentRiverLevel: number) {
+  // TO DO: this information should be derived from the API / database.
+  const riverConditionMapping = {
+    //brennans
+    "12340500": {
+      values: [
+        [2000, "Flat"],
+        [3200, "Poor to impossible"],
+        [4500, "Poor to fair"],
+        [6000, "Fair to good"],
+        [8500, "Good conditions"],
+      ],
+      other: "Fair to good",
+    },
+    //salmon whitewater
+    "13302500": {
+      other: "TBD"
+    },
+    // the ledge blackfoot
+    "12340000": {
+      other: "TBD"
+    }
+    ,
+    //st regis Zer0 2300 to 4500
+    "12354500": {
+      values: [
+        [2300, "Flat"],
+        [3000, "Fair"],
+        [4500, "Good"],
+        [6000, "Fair"],
+      ],
+      other: "Poor",
+    },
+      /// lochsa pipeline
+    "13337000": {
+      values: [
+        [4500, "Flat"],
+        [7000, "Good"],
+        [12000, "Great"],
+        [15500, "Good"],
+      ],
+      other: "Too high",
+    },
+  } as RiverMapping;
+
+  const riverValues = riverConditionMapping[locationKey];
+
+  if (riverValues == null) {
+    return "Poor"
+  }
+  if (!riverValues.values) {
+    return "TBD";
+  }
+
+  const index = riverValues.values.findIndex((riverLevel) => currentRiverLevel < riverLevel[0]);
+  if (index == -1) {
+    return riverValues.other;
+  }
+  return riverValues.values[index]?.[1];
+}
+
 export function getConditions(arr: [number, string][]) {
   return arr.map((el) => {
-    //brennans
-    if (el[1] === "12340500") {
-      if (el[0] < 2000) {
-        return "Flat";
-      } else if (el[0] >= 2000 && el[0] < 3200) {
-        return "Poor to impossible";
-      } else if (el[0] >= 3200 && el[0] < 4500) {
-        return "Poor to fair";
-      } else if (el[0] >= 4500 && el[0] < 6000) {
-        return "Fair to good";
-      } else if (el[0] >= 6000 && el[0] <= 8500) {
-        return "Good conditions";
-      } else if (el[0] < 8500) {
-        return "Fair to good";
-      }
-    }
-    //salmon whitewater
-    if (el[1] === "13302500") {
-      return "Tbd";
-    }
-    // the ledge blackfoot
-    if (el[1] === "12340000") {
-      return "Tbd";
-    }
-    //st regis Zer0 2300 to 4500
-    if (el[1] === "12354500") {
-      if (el[0] < 2300) {
-        return "Flat";
-      } else if (el[0] >= 2300 && el[0] < 3000) {
-        return "Fair";
-      } else if (el[0] >= 3000 && el[0] < 4500) {
-        return "Good";
-      } else if (el[0] >= 4500 && el[0] <= 6000) {
-        return "Fair";
-      } else {
-        return "Poor";
-      }
-    }
-    /// lochsa pipeline
-    if (el[1] === "13337000") {
-      if (el[0] < 4500) {
-        return "Flat";
-      } else if (el[0] >= 4500 && el[0] < 7000) {
-        return "Good";
-      } else if (el[0] >= 7000 && el[0] <= 12000) {
-        return "Great";
-      } else if (el[0] >= 12000 && el[0] <= 15500) {
-        return "Good";
-      } else {
-        return "Too high";
-      }
-    }
-    return "Poor";
+    const locationKey = el[1];
+    const riverLevel = el[0];
+    return getCondition(locationKey, riverLevel);
   });
 }
