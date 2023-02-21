@@ -1,6 +1,8 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import dynamic from "next/dynamic";
+import Head from "next/head";
+import GoogleAnalytics from "../components/GoogleAnalytics";
 
 const MapWithNoSSR = dynamic(() => import("../components/Map"), {
   ssr: false,
@@ -8,7 +10,13 @@ const MapWithNoSSR = dynamic(() => import("../components/Map"), {
 
 function map() {
   return (
-    <div>
+    <>
+      <Head>
+        <title>Map of surf report on Magic Moss</title>
+        <meta name="description" content="Magic Moss Surf Reports" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <GoogleAnalytics />
       <Header />
       <div className=" flex h-[85vh] w-screen flex-col items-center justify-center">
         <div className="py-8 text-center">
@@ -21,7 +29,7 @@ function map() {
         <MapWithNoSSR />
       </div>
       <Footer />
-    </div>
+    </>
   );
 }
 
