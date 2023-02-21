@@ -2,7 +2,7 @@ interface GifMapping {
   [key: string]: string;
 }
 
-// TO DO: derive from an s3 bucket
+// TO DO: derive from API
 const gifMapping = {
   "12340500": "https://media.giphy.com/media/fUosIabrqmvvauUBgI/giphy.gif",
   "12354500": "https://media.giphy.com/media/7rpp0H7KwqDLVF9X5r/giphy.gif",
