@@ -1,19 +1,39 @@
 import type { Handler } from "@netlify/functions";
 import { schedule } from "@netlify/functions";
-import fetchLochsa from "../../src/scripts/update-lochsa";
-import fetchMissoula from "../../src/scripts/update-missoula";
-import fetchLunchcounter from "../../src/scripts/update-lunchcounter";
-import fetchZero from "../../src/scripts/update-zero";
-import fetchSalmon from "../../src/scripts/update-salmon";
-import fetchBlackfoot from "../../src/scripts/update-blackfoot";
+import fetchRiverData from "../../src/scripts/update-wave";
 
 const reportHandler: Handler = async () => {
-  await fetchLochsa();
-  await fetchMissoula();
-  await fetchLunchcounter();
-  await fetchZero();
-  await fetchSalmon();
-  await fetchBlackfoot();
+  await fetchRiverData(
+    "12340000",
+    "The Ledge",
+    "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=bonm8&output=xml"
+  );
+  await fetchRiverData(
+    "12340500",
+    "Brennan's Wave",
+    "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=abom8&output=xml"
+  );
+  await fetchRiverData(
+    "12354500",
+    "Zero Wave",
+    "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=srgm8&output=xml"
+  );
+  await fetchRiverData(
+    "13337000",
+    "Lochsa's Pipeline",
+    "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=loci1&output=xml"
+  );
+  await fetchRiverData(
+    "13302500",
+    "Salmon Whitewater Park",
+    "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=smni1&output=xml"
+  );
+  await fetchRiverData(
+    "13022500",
+    "Lunch Counter",
+    "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=alpw4&output=xml",
+    1000
+  );
 
   return {
     statusCode: 200,
