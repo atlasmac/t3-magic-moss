@@ -1,6 +1,6 @@
 import React from "react";
 import DashboardRow from "./DashboardRow";
-import { HeroProps } from "./Hero";
+import type { HeroProps } from "./Hero";
 
 function DashboardTable({ data }: HeroProps) {
   const rows = data?.map((e) => {
