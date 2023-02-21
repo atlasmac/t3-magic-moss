@@ -9,6 +9,11 @@ export function getLatLon(siteId: string) {
     const location: [number, number] = [47.01998473565981, -114.65679576531892];
     return location;
   }
+  // ledge
+  if (siteId === "12340000") {
+    const location: [number, number] = [46.919677, -113.672323];
+    return location;
+  }
   //pipeline
   if (siteId === "13337000") {
     const location: [number, number] = [

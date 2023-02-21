@@ -3,6 +3,10 @@ export function getReport(siteId: string, cfs: number) {
   if (siteId === "13302500") {
     return "Report coming soon";
   }
+  // the ledge
+  if (siteId === "12340000") {
+    return "Report coming soon";
+  }
   // Missoula
   if (siteId === "12340500") {
     if (cfs < 2000) {

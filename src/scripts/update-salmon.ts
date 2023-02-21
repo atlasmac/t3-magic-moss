@@ -1,6 +1,5 @@
 import { Parser } from "xml2js";
 import fetch from "node-fetch";
-import fs from "fs";
 const siteId = "13302500";
 const siteName = "Salmon Whitewater Park";
 import dayjs from "dayjs";

@@ -15,5 +15,9 @@ export function getRange(siteId: string) {
   if (siteId === "13022500") {
     return "7000 - 12,500 cfs";
   }
+  if (siteId === "12340000") {
+    return "coming soon";
+  }
+
   return "This is a brand spanking new wave, so get out there and gather some intel.";
 }

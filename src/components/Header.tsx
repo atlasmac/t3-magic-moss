@@ -44,6 +44,9 @@ export default function Header() {
                   <Link href="/report/12340500">Brennan&apos;s</Link>
                 </li>
                 <li>
+                  <Link href="/report/12340000">The Ledge</Link>
+                </li>
+                <li>
                   <Link href="/report/12354500">Zero</Link>
                 </li>
                 <li className="menu-title">
@@ -111,6 +114,11 @@ export default function Header() {
               <li>
                 <Link className="" href="/report/12340500">
                   Brennan&apos;s
+                </Link>
+              </li>
+              <li>
+                <Link className="" href="/report/12340000">
+                  The Ledge
                 </Link>
               </li>
               <li>

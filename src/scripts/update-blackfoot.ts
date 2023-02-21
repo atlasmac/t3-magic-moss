@@ -1,15 +1,15 @@
 import { Parser } from "xml2js";
 import fetch from "node-fetch";
-const siteId = "12340500";
-const siteName = "Brennan's Wave";
+const siteId = "12340000";
+const siteName = "The Ledge";
 import dayjs from "dayjs";
 import { prisma } from "../server/db";
 
-export default async function fetchMissoula() {
+export default async function fetchBlackfoot() {
   // const writeFile = promisify(fs.writeFile);
 
   const res = await fetch(
-    "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=abom8&output=xml"
+    "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=bonm8&output=xml"
   );
   const xml = await res.text();
   const xmlParser = new Parser();
@@ -102,4 +102,4 @@ export default async function fetchMissoula() {
   return data;
 }
 
-(async () => await fetchMissoula())();
+(async () => await fetchBlackfoot())();

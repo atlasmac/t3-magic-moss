@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 import { getConditions } from "../helpers/getConditions";
-import { Observation } from "./LineChart";
+import type { Observation } from "./LineChart";
 
 interface Props {
   forecastData: Observation;

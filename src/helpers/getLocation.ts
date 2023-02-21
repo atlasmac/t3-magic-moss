@@ -19,6 +19,8 @@ export function getLocation(siteId: string) {
   if (siteId === "13302500") {
     return "https://goo.gl/maps/91XgAHZL77AR47um6";
   }
-
+  if (siteId === "12340000") {
+    return "https://goo.gl/maps/mi2AAqtGUdotWmES8";
+  }
   return "https://www.google.com/maps";
 }

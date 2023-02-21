@@ -1,16 +1,8 @@
 import { z } from "zod";
 
-import { createTRPCRouter, publicProcedure, protectedProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const userRouter = createTRPCRouter({
-  /// example hello
-  hello: publicProcedure
-    .input(z.object({ text: z.string() }))
-    .query(({ input }) => {
-      return {
-        greeting: `Hello ${input.text}`,
-      };
-    }),
   addFavorite: protectedProcedure
     .input(
       z.object({
@@ -20,14 +12,6 @@ export const userRouter = createTRPCRouter({
     )
     .mutation(async ({ input, ctx }) => {
       const userId = ctx.session.user.id;
-      const inputs = {
-        ...(input.siteId !== undefined && {
-          siteId: input.siteId,
-        }),
-        ...(input.siteName !== undefined && {
-          siteId: input.siteName,
-        }),
-      };
       const createFav = await ctx.prisma.favoriteWave.create({
         data: {
           siteId: input.siteId,
