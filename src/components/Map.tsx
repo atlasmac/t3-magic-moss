@@ -41,7 +41,7 @@ export default function Map() {
         center={center}
         zoom={5}
         scrollWheelZoom={true}
-        className="h-[500px] w-[90vw]"
+        className="h-[55vh] w-[90vw]"
       >
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

@@ -18,7 +18,7 @@ function map() {
       </Head>
       <GoogleAnalytics />
       <Header />
-      <div className=" flex h-[85vh] w-screen flex-col items-center justify-center">
+      <div className="z-0 flex h-[85vh] w-screen flex-col items-center justify-center">
         <div className="py-8 text-center">
           <h1 className="mb-5 font-robotoSlab text-5xl font-bold sm:text-left">
             Wave Reports
