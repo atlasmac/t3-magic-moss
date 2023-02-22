@@ -2,7 +2,7 @@ interface RiverMapping {
   [key: string]: {
     values?: [number, string][];
     other?: string;
-  }
+  };
 }
 
 // TO DO: this information should be derived from the API / database.
@@ -20,13 +20,16 @@ const riverConditionMapping = {
   },
   //salmon whitewater
   "13302500": {
-    other: "TBD"
+    other: "TBD",
   },
   // the ledge blackfoot
   "12340000": {
-    other: "TBD"
-  }
-  ,
+    values: [
+      [3500, "Flat"],
+      [5500, "Fair"],
+    ],
+    other: "Too high",
+  },
   //st regis Zer0 2300 to 4500
   "12354500": {
     values: [
@@ -37,7 +40,7 @@ const riverConditionMapping = {
     ],
     other: "Poor",
   },
-    /// lochsa pipeline
+  /// lochsa pipeline
   "13337000": {
     values: [
       [4500, "Flat"],
@@ -53,13 +56,15 @@ function getCondition(locationKey: string, currentRiverLevel: number) {
   const riverValues = riverConditionMapping[locationKey];
 
   if (riverValues == null) {
-    return "Poor"
+    return "Poor";
   }
   if (!riverValues.values) {
     return "TBD";
   }
 
-  const index = riverValues.values.findIndex((riverLevel) => currentRiverLevel < riverLevel[0]);
+  const index = riverValues.values.findIndex(
+    (riverLevel) => currentRiverLevel < riverLevel[0]
+  );
   if (index == -1) {
     return riverValues.other;
   }

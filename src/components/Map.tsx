@@ -1,40 +1,15 @@
 import "leaflet/dist/leaflet.css";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import L from "leaflet";
-import Link from "next/link";
+import { MapContainer, TileLayer } from "react-leaflet";
 import { api } from "../utils/api";
-import { getLatLon } from "../helpers/getLatLon";
-import { getLocation } from "../helpers/getLocation";
+import MapMarker from "./MapMarker";
 
 export default function Map() {
-  const icon = L.icon({
-    iconUrl: "/pin.png",
-    iconSize: [20, 20],
-    iconAnchor: [10, 20], // point of the icon which will correspond to marker's location
-    popupAnchor: [0, -15],
-  });
   const { data } = api.forecast.getSiteIds.useQuery();
+  const center: [number, number] = [46.86963076747236, -113.99602543410205];
 
   const markers = data?.map((e) => {
-    const position = getLatLon(e.siteId);
-    return (
-      <Marker key={e.siteId} position={position} icon={icon}>
-        <Popup>
-          <div className="flex flex-col items-center justify-center">
-            <div>
-              View report for{" "}
-              <Link href={`/report/${e.siteId}`}>{`${e.siteName}`}</Link>
-            </div>
-            <div>
-              View on <Link href={getLocation(e.siteId)}>Google Maps</Link>
-            </div>
-          </div>
-        </Popup>
-      </Marker>
-    );
+    return <MapMarker key={e.siteId} siteId={e.siteId} siteName={e.siteName} />;
   });
-
-  const center: [number, number] = [46.86963076747236, -113.99602543410205];
   return (
     <div className="z-0 h-[500px] w-[90vw]">
       <MapContainer

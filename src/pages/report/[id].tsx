@@ -80,7 +80,7 @@ function Report(props: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <div>
       <Head>
-        <title>{`${siteName} surf report on Magic Moss`}</title>
+        <title>{`${siteName} Surf Report on Magic Moss`}</title>
         <meta name="description" content="Magic Moss Surf Reports" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
