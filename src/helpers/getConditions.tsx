@@ -26,9 +26,9 @@ const riverConditionMapping = {
   "12340000": {
     values: [
       [3500, "Flat"],
-      [5500, "Fair"],
+      [5500, "Fair to Good"],
     ],
-    other: "Too high",
+    other: "Fair",
   },
   //st regis Zer0 2300 to 4500
   "12354500": {
