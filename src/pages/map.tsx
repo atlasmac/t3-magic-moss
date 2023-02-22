@@ -12,7 +12,7 @@ function map() {
   return (
     <>
       <Head>
-        <title>Map of surf report on Magic Moss</title>
+        <title>Map of Surf Reports on Magic Moss</title>
         <meta name="description" content="Magic Moss Surf Reports" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
