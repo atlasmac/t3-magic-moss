@@ -1,11 +1,10 @@
 import React from "react";
-import Header from "../../components/Header";
+import Layout from "../../components/Layout";
 import CurrentReport from "../../components/CurrentReport";
 import LineChart from "../../components/LineChart";
 import ForecastTable from "../../components/ForecastTable";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
-import Footer from "../../components/Footer";
 import { api } from "../../utils/api";
 import LoadingFull from "../../components/LoadingFull";
 import { createProxySSGHelpers } from "@trpc/react-query/ssg";
@@ -85,21 +84,23 @@ function Report(props: InferGetStaticPropsType<typeof getStaticProps>) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <GoogleAnalytics />
-      <Header />
-      <div className="container mx-auto min-h-screen">
-        <div>
-          <CurrentReport spot={siteName} level={lastObserved[0]!} />
-          <LineChart
-            forecastData={forecastData}
-            observedData={observedData}
-            lastObserved={lastObserved}
-          />
-          <ForecastTable forecastData={forecastTableData} />
+
+      <Layout>
+        <div className="container mx-auto min-h-screen">
+          <div>
+            <CurrentReport
+              spot={siteName}
+              level={lastObserved[0] || { cfs: 0, date: "", ft: 0 }}
+            />
+            <LineChart
+              forecastData={forecastData}
+              observedData={observedData}
+              lastObserved={lastObserved}
+            />
+            <ForecastTable forecastData={forecastTableData} />
+          </div>
         </div>
-      </div>
-      <div className="container mx-auto">
-        <Footer />
-      </div>
+      </Layout>
     </div>
   );
 }
