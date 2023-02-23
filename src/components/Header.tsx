@@ -64,6 +64,12 @@ export default function Header() {
                 <li>
                   <Link href="/report/13022500">Lunch Counter</Link>
                 </li>
+                <li className="menu-title">
+                  <span>Oregon</span>
+                </li>
+                <li>
+                  <Link href="/report/14070500">Bend&apos;s Green Wave</Link>
+                </li>
               </ul>
             </li>
             <li>
@@ -138,6 +144,12 @@ export default function Header() {
               </li>
               <li>
                 <Link href="/report/13022500">Lunch Counter</Link>
+              </li>
+              <li className="menu-title">
+                <span>Oregon</span>
+              </li>
+              <li>
+                <Link href="/report/14070500">Bend&apos;s Green Wave</Link>
               </li>
             </ul>
           </div>

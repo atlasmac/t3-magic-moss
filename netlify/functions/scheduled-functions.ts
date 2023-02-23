@@ -1,6 +1,7 @@
 import type { Handler } from "@netlify/functions";
 import { schedule } from "@netlify/functions";
 import fetchRiverData from "../../src/scripts/update-wave";
+import fetchRiverDataNoForecast from "../../src/scripts/update-wave-no-forecast";
 
 const reportHandler: Handler = async () => {
   await fetchRiverData(
@@ -34,6 +35,13 @@ const reportHandler: Handler = async () => {
     "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=alpw4&output=xml",
     1000
   );
+
+  (async () =>
+    await fetchRiverDataNoForecast(
+      "14070500",
+      "Green Wave",
+      "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=debo3&output=xml"
+    ))();
 
   return {
     statusCode: 200,

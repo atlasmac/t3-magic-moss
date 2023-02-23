@@ -50,6 +50,14 @@ const riverConditionMapping = {
     ],
     other: "Too high",
   },
+  //bend green wave
+  "14070500": {
+    values: [
+      [650, "Flat"],
+      [2100, "Good"],
+    ],
+    other: "Too high",
+  },
 } as RiverMapping;
 
 function getCondition(locationKey: string, currentRiverLevel: number) {

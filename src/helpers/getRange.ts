@@ -14,9 +14,11 @@ const rangeMapping = {
   "13022500": "7000 - 12,500 cfs",
   // salmon
   "12340000": "coming soon",
+  //bend green wave
+  "14070500": "650 - 2100 cfs",
 } as RangeMapping;
 
 export function getRange(siteId: string) {
   const range = rangeMapping[siteId];
-  return range ?? "This is a brand spanking new wave, so get out there and gather some intel.";
+  return range ?? "Unknown.";
 }

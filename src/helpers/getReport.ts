@@ -12,19 +12,19 @@ const reportMapping = {
   "12340500": (cfs: number) => {
     if (cfs < 2000) {
       return "Both middle and main wave at Brennan's are pretty much impossible to surf at the moment due to low water levels.";
-    } 
+    }
     if (cfs < 3200) {
       return "Really bad surfing conditions at the moment. You may be able to snag a ride on middle wave but you'll work hard for it. The best board for today is a foamie with fins you're ok with losing.";
-    } 
-     if (cfs < 4500) {
+    }
+    if (cfs < 4500) {
       return "Poor to fair conditions. It's a tricky level but can be fun when you figure it out.";
-    } 
+    }
     if (cfs < 6000) {
       return "Fair conditions. A really fun fast level";
-    } 
+    }
     if (cfs <= 8500) {
       return "Good conditions. It's the crowd's favorite level. The wave isn't too foamy and it's easy to get in from the bank or the island.";
-    }  
+    }
     return "fair";
   },
   // st regis Zer0 2300 to 4500
@@ -59,6 +59,15 @@ const reportMapping = {
     }
     return "Too high for me and a little too flat! But if you want to get some intel on it be my guest.";
   },
+  "14070500": (cfs: number) => {
+    if (cfs < 650) {
+      return "Too low";
+    }
+    if (cfs < 2100) {
+      return "Good conditions. A more detailed report coming soon.";
+    }
+    return "Too high";
+  },
 } as ReportMapping;
 
 export function getReport(siteId: string, cfs: number) {
@@ -66,6 +75,8 @@ export function getReport(siteId: string, cfs: number) {
   if (typeof report === "function") {
     return report(cfs);
   }
-  return report ?? "This is a brand spanking new wave, so get out there and gather some intel.";
+  return (
+    report ??
+    "This is a brand spanking new wave, so get out there and gather some intel."
+  );
 }
-

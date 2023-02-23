@@ -13,6 +13,8 @@ const locationMapping = {
   "13022500": "https://goo.gl/maps/eu68KcMiGrQxiVGXA",
   // salmon
   "13302500": "https://goo.gl/maps/91XgAHZL77AR47um7",
+  // bend oregan greenwave
+  "14070500": "https://goo.gl/maps/TssnWHy1QriEZk9N9",
 } as LocationMapping;
 
 export function getLocation(siteId: string) {

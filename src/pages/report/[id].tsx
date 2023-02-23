@@ -92,8 +92,11 @@ function Report(props: InferGetStaticPropsType<typeof getStaticProps>) {
             level={lastObserved[0] || { cfs: 0, ft: 0, date: "" }}
           />
           {!riverData.data?.forecast[0] && (
-            <div>
-              <h1>NO FORECAST DATA AVAILABLE AT THIS SITE</h1>
+            <div className="my-5 text-center text-3xl">
+              <h1>
+                Unfortunately, there is no forecast data available for{" "}
+                {siteName}
+              </h1>
             </div>
           )}
           <LineChart

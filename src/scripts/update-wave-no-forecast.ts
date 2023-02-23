@@ -3,7 +3,7 @@ import fetch from "node-fetch";
 import dayjs from "dayjs";
 import { prisma } from "../server/db";
 
-export default async function fetchRiverData(
+export default async function fetchRiverDataNoForecast(
   siteId: string,
   siteName: string,
   noaaUrl: string,
@@ -105,7 +105,7 @@ export default async function fetchRiverData(
 //'npx tsx src/scripts/update-wave-no-forecast.ts' for updating db in local dev
 
 (async () =>
-  await fetchRiverData(
+  await fetchRiverDataNoForecast(
     "14070500",
     "Green Wave",
     "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=debo3&output=xml"
