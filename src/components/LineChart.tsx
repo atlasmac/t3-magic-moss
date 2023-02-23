@@ -37,6 +37,7 @@ interface props {
 }
 
 const LineChart = ({ forecastData, observedData, lastObserved }: props) => {
+  const a = 1;
   const data = {
     datasets: [
       {
@@ -71,7 +72,8 @@ const LineChart = ({ forecastData, observedData, lastObserved }: props) => {
       },
       {
         label: "Forecast",
-        data: forecastData,
+        data: forecastData[0] ? forecastData : null,
+        hidden: forecastData[0] ? false : true,
         backgroundColor: ["rgb(205, 252, 246)"],
         borderColor: "rgb(205, 252, 246)",
         borderWidth: 2,
@@ -131,7 +133,7 @@ const LineChart = ({ forecastData, observedData, lastObserved }: props) => {
           font: {
             size: 12,
           },
-          maxTicksLimit: 11,
+          maxTicksLimit: forecastData[0] ? 11 : 4,
           maxRotation: 0,
           minRotation: 0,
           callback: function (this: Scale<CoreScaleOptions>, value: any) {

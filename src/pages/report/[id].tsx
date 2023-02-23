@@ -91,12 +91,20 @@ function Report(props: InferGetStaticPropsType<typeof getStaticProps>) {
             spot={siteName}
             level={lastObserved[0] || { cfs: 0, ft: 0, date: "" }}
           />
+          {!riverData.data?.forecast[0] && (
+            <div>
+              <h1>NO FORECAST DATA AVAILABLE AT THIS SITE</h1>
+            </div>
+          )}
           <LineChart
             forecastData={forecastData}
             observedData={observedData}
             lastObserved={lastObserved}
           />
-          <ForecastTable forecastData={forecastTableData} />
+
+          {riverData.data?.forecast[0] && (
+            <ForecastTable forecastData={forecastTableData} />
+          )}
         </div>
       </Layout>
     </>
