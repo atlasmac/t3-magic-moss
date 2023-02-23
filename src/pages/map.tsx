@@ -4,11 +4,6 @@ import dynamic from "next/dynamic";
 import Head from "next/head";
 import GoogleAnalytics from "../components/GoogleAnalytics";
 import { api } from "../utils/api";
-import { GoThumbsdown, GoThumbsup } from "react-icons/go";
-import {
-  BsFillHandThumbsDownFill,
-  BsFillHandThumbsUpFill,
-} from "react-icons/bs";
 import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 
 const MapWithNoSSR = dynamic(() => import("../components/Map"), {
