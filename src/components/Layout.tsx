@@ -6,11 +6,11 @@ interface Props {
 
 function Layout({ children }: Props) {
   return (
-    <div>
+    <>
       <Header />
       <div>{children}</div>
       <Footer />
-    </div>
+    </>
   );
 }
 

@@ -77,7 +77,7 @@ function Report(props: InferGetStaticPropsType<typeof getStaticProps>) {
   const siteName = riverData.data?.siteName || "";
 
   return (
-    <div>
+    <>
       <Head>
         <title>{`${siteName} Surf Report on Magic Moss`}</title>
         <meta name="description" content="Magic Moss Surf Reports" />
@@ -87,21 +87,19 @@ function Report(props: InferGetStaticPropsType<typeof getStaticProps>) {
 
       <Layout>
         <div className="container mx-auto min-h-screen">
-          <div>
-            <CurrentReport
-              spot={siteName}
-              level={lastObserved[0] || { cfs: 0, date: "", ft: 0 }}
-            />
-            <LineChart
-              forecastData={forecastData}
-              observedData={observedData}
-              lastObserved={lastObserved}
-            />
-            <ForecastTable forecastData={forecastTableData} />
-          </div>
+          <CurrentReport
+            spot={siteName}
+            level={lastObserved[0] || { cfs: 0, date: "", ft: 0 }}
+          />
+          <LineChart
+            forecastData={forecastData}
+            observedData={observedData}
+            lastObserved={lastObserved}
+          />
+          <ForecastTable forecastData={forecastTableData} />
         </div>
       </Layout>
-    </div>
+    </>
   );
 }
 

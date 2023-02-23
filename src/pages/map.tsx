@@ -26,21 +26,19 @@ function map() {
       </Head>
       <GoogleAnalytics />
       <Layout>
-        <div className="z-0 flex h-[85vh] w-screen flex-col items-center justify-start">
-          <div className="py-8 text-center">
-            <h1 className="mb-5 font-robotoSlab text-5xl font-bold sm:text-left">
-              Wave Reports
-            </h1>
-            <div className="mt-3 flex flex-col items-center gap-y-1">
-              <h2 className="text-xl">Current Conditions</h2>
-              <div className="flex items-center justify-center gap-x-10">
-                <span className=" text-2xl text-teal-400">
-                  <FaThumbsUp />
-                </span>
-                <span className=" text-2xl text-red-400">
-                  <FaThumbsDown />
-                </span>
-              </div>
+        <div className="z-0 flex h-[85vh] w-screen flex-col items-center justify-start py-8 text-center">
+          <h1 className="mb-5 font-robotoSlab text-5xl font-bold sm:text-left">
+            Wave Reports
+          </h1>
+          <div className="mt-3 flex flex-col items-center gap-y-1">
+            <h2 className="text-xl">Current Conditions</h2>
+            <div className="mb-6 flex items-center justify-center gap-x-10">
+              <span className=" text-2xl text-teal-400">
+                <FaThumbsUp />
+              </span>
+              <span className=" text-2xl text-red-400">
+                <FaThumbsDown />
+              </span>
             </div>
           </div>
 

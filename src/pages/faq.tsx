@@ -6,7 +6,7 @@ import Layout from "../components/Layout";
 
 const faq = () => {
   return (
-    <div>
+    <>
       <Head>
         <title>FAQ for Magic Moss</title>
         <meta name="description" content="Magic Moss Surf Reports" />
@@ -20,7 +20,7 @@ const faq = () => {
           </div>
         </div>
       </Layout>
-    </div>
+    </>
   );
 };
 
