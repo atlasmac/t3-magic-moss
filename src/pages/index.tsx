@@ -1,11 +1,6 @@
-import type {
-  GetServerSidePropsContext,
-  InferGetServerSidePropsType,
-} from "next";
+import type { GetServerSidePropsContext } from "next";
 import Head from "next/head";
-import Header from "../components/Header";
 import Hero from "../components/Hero";
-import Footer from "../components/Footer";
 import { getSession, useSession } from "next-auth/react";
 import { createProxySSGHelpers } from "@trpc/react-query/ssg";
 import superjson from "superjson";
@@ -13,8 +8,10 @@ import { createTRPCContext } from "../server/api/trpc";
 import { api } from "../utils/api";
 import { appRouter } from "../server/api/root";
 import GoogleAnalytics from "../components/GoogleAnalytics";
+import Layout from "../components/Layout";
+//props: InferGetServerSidePropsType<typeof getServerSideProps> // don't need to pass props for prefetch?
 
-function Home(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
+function Home() {
   const { data: session } = useSession();
   const favorites = session ? api.user.getAllFavorites.useQuery() : null;
 
@@ -26,9 +23,9 @@ function Home(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <GoogleAnalytics />
-      <Header />
-      <Hero data={favorites?.data} />
-      <Footer />
+      <Layout>
+        <Hero data={favorites?.data} />
+      </Layout>
     </>
   );
 }

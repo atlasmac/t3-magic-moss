@@ -1,11 +1,10 @@
 import React from "react";
-import Header from "../../components/Header";
+import Layout from "../../components/Layout";
 import CurrentReport from "../../components/CurrentReport";
 import LineChart from "../../components/LineChart";
 import ForecastTable from "../../components/ForecastTable";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
-import Footer from "../../components/Footer";
 import { api } from "../../utils/api";
 import LoadingFull from "../../components/LoadingFull";
 import { createProxySSGHelpers } from "@trpc/react-query/ssg";
@@ -78,29 +77,40 @@ function Report(props: InferGetStaticPropsType<typeof getStaticProps>) {
   const siteName = riverData.data?.siteName || "";
 
   return (
-    <div>
+    <>
       <Head>
         <title>{`${siteName} Surf Report on Magic Moss`}</title>
         <meta name="description" content="Magic Moss Surf Reports" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <GoogleAnalytics />
-      <Header />
-      <div className="container mx-auto min-h-screen">
-        <div>
-          <CurrentReport spot={siteName} level={lastObserved[0]!} />
+
+      <Layout>
+        <div className="container mx-auto min-h-screen">
+          <CurrentReport
+            spot={siteName}
+            level={lastObserved[0] || { cfs: 0, ft: 0, date: "" }}
+          />
+          {!riverData.data?.forecast[0] && (
+            <div className="my-5 text-center text-3xl">
+              <h1>
+                Unfortunately, there is no forecast data available for{" "}
+                {siteName}
+              </h1>
+            </div>
+          )}
           <LineChart
             forecastData={forecastData}
             observedData={observedData}
             lastObserved={lastObserved}
           />
-          <ForecastTable forecastData={forecastTableData} />
+
+          {riverData.data?.forecast[0] && (
+            <ForecastTable forecastData={forecastTableData} />
+          )}
         </div>
-      </div>
-      <div className="container mx-auto">
-        <Footer />
-      </div>
-    </div>
+      </Layout>
+    </>
   );
 }
 

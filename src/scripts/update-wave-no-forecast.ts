@@ -3,7 +3,7 @@ import fetch from "node-fetch";
 import dayjs from "dayjs";
 import { prisma } from "../server/db";
 
-export default async function fetchRiverData(
+export default async function fetchRiverDataNoForecast(
   siteId: string,
   siteName: string,
   noaaUrl: string,
@@ -55,26 +55,28 @@ export default async function fetchRiverData(
       };
     });
 
-  const forecast = data.site.forecast[0]?.datum
-    .map((a: any) => {
-      return {
-        date: a.valid[0]?._,
-        cfs: parseFloat(a.secondary[0]?._) * (multiplier || 1),
-        ft: parseFloat(a.primary[0]?._),
-      };
-    })
-    .sort(
-      (a: any, b: any) =>
-        new Date(a.date).getTime() - new Date(b.date).getTime()
-    )
-    .map((data: any) => {
-      return {
-        date: data.date,
-        cfs: data.cfs,
-        ft: data.ft,
-        siteId,
-      };
-    });
+  // const forecast = data.site.forecast[0]?.datum
+  //   ? data.site?.forecast[0]?.datum
+  //       .map((a: any) => {
+  //         return {
+  //           date: a.valid[0]?._,
+  //           cfs: parseFloat(a.secondary[0]?._) * (multiplier || 1),
+  //           ft: parseFloat(a.primary[0]?._),
+  //         };
+  //       })
+  //       .sort(
+  //         (a: any, b: any) =>
+  //           new Date(a.date).getTime() - new Date(b.date).getTime()
+  //       )
+  //       .map((data: any) => {
+  //         return {
+  //           date: data.date,
+  //           cfs: data.cfs,
+  //           ft: data.ft,
+  //           siteId,
+  //         };
+  //       })
+  //   : null;
 
   await prisma.$transaction([
     prisma.report.upsert({
@@ -93,53 +95,18 @@ export default async function fetchRiverData(
     }),
     prisma.observation.createMany({ data: filteredObserved }),
 
-    prisma.forecast.deleteMany({
-      where: { siteId },
-    }),
-    prisma.forecast.createMany({ data: forecast }),
+    // prisma.forecast.deleteMany({
+    //   where: { siteId },
+    // }),
+    // prisma.forecast.createMany({ data: forecast }),
   ]);
   return data;
 }
-//'npx tsx src/scripts/update-wave.ts' for updating db in local dev
-(async () =>
-  await fetchRiverData(
-    "12340000",
-    "The Ledge",
-    "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=bonm8&output=xml"
-  ))();
+//'npx tsx src/scripts/update-wave-no-forecast.ts' for updating db in local dev
 
 (async () =>
-  await fetchRiverData(
-    "12340500",
-    "Brennan's Wave",
-    "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=abom8&output=xml"
-  ))();
-
-(async () =>
-  await fetchRiverData(
-    "12354500",
-    "Zero Wave",
-    "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=srgm8&output=xml"
-  ))();
-
-(async () =>
-  await fetchRiverData(
-    "13337000",
-    "Lochsa's Pipeline",
-    "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=loci1&output=xml"
-  ))();
-
-(async () =>
-  await fetchRiverData(
-    "13302500",
-    "Salmon Whitewater Park",
-    "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=smni1&output=xml"
-  ))();
-
-(async () =>
-  await fetchRiverData(
-    "13022500",
-    "Lunch Counter",
-    "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=alpw4&output=xml",
-    1000
+  await fetchRiverDataNoForecast(
+    "14070500",
+    "Green Wave",
+    "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=debo3&output=xml"
   ))();

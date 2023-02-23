@@ -16,6 +16,8 @@ const latLonMapping = {
   "13022500": [43.19510736785188, -110.91488966341223],
   //salmon
   "13302500": [45.17637845117244, -113.8992784768452],
+  //bend greenwave
+  "14070500": [44.05019286374418, -121.3214163731525],
 } as LatLonMapping;
 
 export function getLatLon(siteId: string) {
