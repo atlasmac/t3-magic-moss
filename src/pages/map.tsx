@@ -3,12 +3,21 @@ import Footer from "../components/Footer";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import GoogleAnalytics from "../components/GoogleAnalytics";
+import { api } from "../utils/api";
+import { GoThumbsdown, GoThumbsup } from "react-icons/go";
+import {
+  BsFillHandThumbsDownFill,
+  BsFillHandThumbsUpFill,
+} from "react-icons/bs";
+import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 
 const MapWithNoSSR = dynamic(() => import("../components/Map"), {
   ssr: false,
 });
 
 function map() {
+  const sites = api.forecast.getSiteIds.useQuery();
+
   return (
     <>
       <Head>
@@ -23,10 +32,20 @@ function map() {
           <h1 className="mb-5 font-robotoSlab text-5xl font-bold sm:text-left">
             Wave Reports
           </h1>
-          <p>New waves added regularly</p>
+          <div className="mt-3 flex flex-col items-center gap-y-1">
+            <h2 className="text-xl">Current Conditions</h2>
+            <div className="flex items-center justify-center gap-x-10">
+              <span className=" text-2xl text-teal-400">
+                <FaThumbsUp />
+              </span>
+              <span className=" text-2xl text-red-400">
+                <FaThumbsDown />
+              </span>
+            </div>
+          </div>
         </div>
 
-        <MapWithNoSSR />
+        <MapWithNoSSR data={sites.data} isLoading={sites.isLoading} />
       </div>
       <Footer />
     </>
