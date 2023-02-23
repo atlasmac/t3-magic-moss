@@ -16,8 +16,11 @@ function map() {
   return (
     <>
       <Head>
-        <title>Map of Surf Reports on Magic Moss</title>
-        <meta name="description" content="Magic Moss Surf Reports" />
+        <title>Map of Surf Reports by Magic Moss</title>
+        <meta
+          name="description"
+          content="A map of surf reports in Montana, Idaho and Wyoming brought to you by Magic Moss."
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <GoogleAnalytics />
