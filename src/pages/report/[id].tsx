@@ -89,7 +89,7 @@ function Report(props: InferGetStaticPropsType<typeof getStaticProps>) {
         <div className="container mx-auto min-h-screen">
           <CurrentReport
             spot={siteName}
-            level={lastObserved[0] || { cfs: 0, date: "", ft: 0 }}
+            level={lastObserved[0] || { cfs: 0, ft: 0, date: "" }}
           />
           <LineChart
             forecastData={forecastData}
