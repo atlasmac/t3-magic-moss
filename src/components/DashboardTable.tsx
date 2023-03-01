@@ -1,10 +1,22 @@
-import React from "react";
+import type { SetStateAction, Dispatch } from "react";
 import DashboardRow from "./DashboardRow";
-import type { HeroProps } from "./Hero";
+import type { Report } from "./Hero";
 
-function DashboardTable({ data }: HeroProps) {
-  const rows = data?.map((e) => {
-    return <DashboardRow report={e} key={e.siteId} />;
+interface Props {
+  rowData: Report[] | undefined;
+  setRowData: Dispatch<SetStateAction<Report[] | undefined>>;
+}
+
+function DashboardTable({ rowData, setRowData }: Props) {
+  const rows = rowData?.map((e) => {
+    return (
+      <DashboardRow
+        report={e}
+        key={e.siteId}
+        setRowData={setRowData}
+        rowData={rowData}
+      />
+    );
   });
 
   return (

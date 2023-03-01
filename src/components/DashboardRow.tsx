@@ -1,26 +1,33 @@
 import React, { useState } from "react";
+import type { Dispatch, SetStateAction } from "react";
 import { api } from "../utils/api";
 import { getConditions } from "../helpers/getConditions";
 import Link from "next/link";
 import type { Report } from "./Hero";
 import { PulseLoader } from "react-spinners";
 import { BsTrash } from "react-icons/bs";
-import { useRouter } from "next/router";
 
 interface Props {
   report: Report;
+  setRowData: Dispatch<SetStateAction<Report[] | undefined>>;
+  rowData: Report[];
 }
-function DashboardRow({ report }: Props) {
+function DashboardRow({ report, setRowData, rowData }: Props) {
   const [fetched, setFetched] = useState<boolean>(false);
   const deleteWave = api.user.deleteFavorite.useMutation();
   const siteId = report.siteId;
-  const router = useRouter();
 
   function deleteFavorite() {
     deleteWave.mutate({
       siteId,
     });
-    router.reload();
+    setRowData(
+      rowData.filter((e) => {
+        if (e.siteId !== siteId) {
+          return e;
+        }
+      })
+    );
   }
   const current = api.forecast.getCurrentLevel.useQuery(
     {
