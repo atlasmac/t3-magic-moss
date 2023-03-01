@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import DashboardTable from "./DashboardTable";
@@ -15,6 +15,7 @@ export interface HeroProps {
 
 function Hero({ data }: HeroProps) {
   const { data: session } = useSession();
+  const [rowData, setRowData] = useState(data);
 
   return (
     <div className="hero min-h-[85vh] bg-[url('/DaveGardner_04.jpg')]">
@@ -27,13 +28,13 @@ function Hero({ data }: HeroProps) {
 
         {session ? (
           <>
-            {data && data?.length > 0 ? (
+            {rowData && rowData?.length > 0 ? (
               <>
                 <p className="mb-5 text-xl md:text-2xl">
                   Hello {session.user.name}. Here are your favorite waves and
                   their current levels.
                 </p>
-                <DashboardTable data={data} />
+                <DashboardTable rowData={rowData} setRowData={setRowData} />
               </>
             ) : (
               <p className="mb-5 text-xl md:text-2xl">
