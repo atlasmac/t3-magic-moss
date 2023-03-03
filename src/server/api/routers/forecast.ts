@@ -2,14 +2,6 @@ import { z } from "zod";
 import { createTRPCRouter, publicProcedure, protectedProcedure } from "../trpc";
 
 export const forecastRouter = createTRPCRouter({
-  /// example hello
-  hello: publicProcedure
-    .input(z.object({ text: z.string() }))
-    .query(({ input }) => {
-      return {
-        greeting: `Hello ${input.text}`,
-      };
-    }),
   getForecast: publicProcedure
     .input(
       z.object({
