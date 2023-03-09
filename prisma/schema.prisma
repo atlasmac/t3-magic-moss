@@ -85,7 +85,17 @@ model Report {
   forecast     Forecast[]
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
-  FavoriteWave FavoriteWave[]
+  favoriteWave FavoriteWave[]
+  latLon       LatLon?
+}
+
+model LatLon {
+  lat    Float
+  lon    Float
+  siteId String @unique
+  report Report @relation(fields: [siteId], references: [siteId], onDelete: Cascade)
+
+  @@unique([lat, lon])
 }
 
 model Observation {

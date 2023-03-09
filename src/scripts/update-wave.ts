@@ -100,7 +100,7 @@ export default async function fetchRiverData(
   ]);
   return data;
 }
-//'npx tsx src/scripts/update-wave.ts' for updating db in local dev
+// 'npx tsx src/scripts/update-wave.ts' for updating db in local dev
 (async () =>
   await fetchRiverData(
     "12340000",
