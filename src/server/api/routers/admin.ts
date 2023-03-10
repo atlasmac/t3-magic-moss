@@ -96,4 +96,80 @@ export const adminRouter = createTRPCRouter({
       });
       return latlonForm;
     }),
+  getRange: protectedProcedure
+    .input(
+      z.object({
+        siteId: z.string(),
+      })
+    )
+    .query(async ({ input, ctx }) => {
+      const range = ctx.prisma.range.findUnique({
+        where: { siteId: input.siteId },
+        select: {
+          bottomRange: true,
+          topRange: true,
+        },
+      });
+      return range;
+    }),
+  updateRange: protectedProcedure
+    .input(
+      z.object({
+        siteId: z.string(),
+        bottomRange: z.number(),
+        topRange: z.number(),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const siteId = input.siteId;
+
+      const rangeForm = ctx.prisma.range.upsert({
+        where: { siteId },
+        update: { bottomRange: input.bottomRange, topRange: input.topRange },
+        create: {
+          report: {
+            connect: {
+              siteId,
+            },
+          },
+          bottomRange: input.bottomRange,
+          topRange: input.topRange,
+        },
+        select: { bottomRange: true, topRange: true },
+      });
+      return rangeForm;
+    }),
+  getGiph: protectedProcedure
+    .input(
+      z.object({
+        siteId: z.string(),
+      })
+    )
+    .query(async ({ input, ctx }) => {
+      const range = ctx.prisma.report.findUnique({
+        where: { siteId: input.siteId },
+        select: {
+          giph: true,
+        },
+      });
+      return range;
+    }),
+  updateGiph: protectedProcedure
+    .input(
+      z.object({
+        siteId: z.string(),
+        giph: z.string(),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const siteId = input.siteId;
+
+      const updateGiph = ctx.prisma.report.update({
+        where: { siteId },
+        data: {
+          giph: input.giph,
+        },
+      });
+      return updateGiph;
+    }),
 });

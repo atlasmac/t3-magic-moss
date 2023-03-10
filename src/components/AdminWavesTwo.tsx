@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { api } from "../utils/api";
 import AdminLocation from "./AdminLocation";
+import AdminMedia from "./AdminMedia";
+import AdminRange from "./AdminRange";
 // import router from "next/router";
 
 function AdminWaves() {
@@ -16,14 +18,14 @@ function AdminWaves() {
     );
   });
   return (
-    <div>
+    <div className="w-80">
       <select
-        className="select-accent select w-full max-w-xs"
+        className="select-accent select w-full"
         onChange={(e) => {
           setSiteId(e.target.value);
         }}
       >
-        <option>Waves</option>
+        <option value={""}>Waves</option>
         {unitOptions}
       </select>
       {siteId && (
@@ -72,6 +74,8 @@ function AdminWaves() {
             </label>
           </div>
           {value === "1" && <AdminLocation siteId={siteId} />}
+          {value === "2" && <AdminRange siteId={siteId} />}
+          {value === "3" && <AdminMedia siteId={siteId} />}
         </>
       )}
     </div>

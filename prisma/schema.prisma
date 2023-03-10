@@ -87,7 +87,15 @@ model Report {
   updatedAt    DateTime       @updatedAt
   favoriteWave FavoriteWave[]
   latLon       LatLon?
-  range        String?
+  range        Range?
+  giph         String?
+}
+
+model Range {
+  bottomRange Int
+  topRange    Int
+  siteId      String @unique
+  report      Report @relation(fields: [siteId], references: [siteId], onDelete: Cascade)
 }
 
 model LatLon {

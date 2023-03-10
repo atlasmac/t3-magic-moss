@@ -33,7 +33,7 @@ function Admin() {
     );
   });
   return (
-    <div className="flex flex-col items-center gap-y-5">
+    <div className="flex w-80 flex-col items-center gap-y-5">
       <button
         onClick={() => {
           setSeeAdmins(!seeAdmins);

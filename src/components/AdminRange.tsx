@@ -6,29 +6,27 @@ interface Props {
   siteId: string;
 }
 interface Values {
-  lat: number;
-  lon: number;
+  bottomRange: number;
+  topRange: number;
   siteId: string;
-  location: string;
 }
 
 function AdminLocation({ siteId }: Props) {
-  const location = api.admin.getLocation.useQuery({ siteId });
-  const changelocation = api.admin.updateLocation.useMutation();
+  const range = api.admin.getRange.useQuery({ siteId });
+  const changeRange = api.admin.updateRange.useMutation();
   const { handleSubmit, register, reset } = useForm<Values>();
 
   useEffect(() => {
     const defaultValues = {
-      lat: location.data?.lat || 0,
-      lon: location.data?.lon || 0,
-      location: location.data?.location || "",
+      bottomRange: range.data?.bottomRange || 0,
+      topRange: range.data?.topRange || 0,
     };
     reset({ ...defaultValues });
-  }, [reset, location.data?.lat, location.data?.lon, location.data?.location]);
+  }, [reset, range.data?.topRange, range.data?.bottomRange]);
 
   function onSubmit(values: Values) {
     values.siteId = siteId;
-    changelocation.mutate(values);
+    changeRange.mutate(values);
   }
   return (
     <div>
@@ -38,11 +36,11 @@ function AdminLocation({ siteId }: Props) {
       >
         <div>
           <div className="mt-2 flex flex-col gap-y-2">
-            <label className="font-bold">Latitude</label>
+            <label className="font-bold">Bottom range cfs</label>
             <input
               className="input-bordered input-primary input h-9 w-full"
               placeholder="0"
-              {...register("lat", {
+              {...register("bottomRange", {
                 valueAsNumber: true,
                 required: true,
               })}
@@ -50,23 +48,12 @@ function AdminLocation({ siteId }: Props) {
           </div>
 
           <div className="mt-2 flex flex-col gap-y-2">
-            <label className="font-bold">Longitude</label>
+            <label className="font-bold">Top range cfs</label>
             <input
               className="input-bordered input-primary input h-9 w-full"
               placeholder="0"
-              {...register("lon", {
+              {...register("topRange", {
                 valueAsNumber: true,
-                required: true,
-              })}
-            />
-          </div>
-
-          <div className="mt-2 flex flex-col gap-y-2">
-            <label className="font-bold">Location</label>
-            <input
-              className="input-bordered input-primary input h-9 w-full"
-              placeholder=""
-              {...register("location", {
                 required: true,
               })}
             />

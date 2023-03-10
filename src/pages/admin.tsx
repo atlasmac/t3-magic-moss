@@ -9,9 +9,15 @@ function admin() {
   return (
     <>
       <Layout>
-        <div className="flex min-h-[85vh] items-start justify-center gap-x-28 py-32">
-          <Admin />
-          <AdminWavesTwo />
+        <div className="flex min-h-[85vh] flex-col items-center justify-start py-20">
+          <div className="my-10 flex flex-col gap-y-3 text-center">
+            <h1 className="text-5xl">Admin Page</h1>
+            <p>Grant/Remove admin status and edit wave data</p>
+          </div>
+          <div className="flex gap-x-28">
+            <Admin />
+            <AdminWavesTwo />
+          </div>
         </div>
       </Layout>
     </>
