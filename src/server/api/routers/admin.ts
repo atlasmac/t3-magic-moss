@@ -50,7 +50,7 @@ export const adminRouter = createTRPCRouter({
       });
       return isAdmin;
     }),
-  getLatLon: protectedProcedure
+  getLocation: protectedProcedure
     .input(
       z.object({
         siteId: z.string(),
@@ -62,41 +62,37 @@ export const adminRouter = createTRPCRouter({
         select: {
           lat: true,
           lon: true,
+          location: true,
         },
       });
       return coords;
     }),
-  updateLatLon: protectedProcedure
+  updateLocation: protectedProcedure
     .input(
       z.object({
         siteId: z.string(),
         lat: z.number(),
         lon: z.number(),
+        location: z.string(),
       })
     )
     .mutation(async ({ input, ctx }) => {
       const siteId = input.siteId;
-      const inputs = {
-        ...(input.lat !== undefined && {
-          lat: input.lat,
-        }),
-        ...(input.lon !== undefined && {
-          lon: input.lon,
-        }),
-      };
 
       const latlonForm = ctx.prisma.latLon.upsert({
         where: { siteId },
-        update: { ...inputs },
+        update: { lat: input.lat, lon: input.lon, location: input.location },
         create: {
           report: {
             connect: {
               siteId,
             },
           },
-          ...inputs,
+          lon: input.lon,
+          lat: input.lat,
+          location: input.location,
         },
-        select: { lat: true, lon: true },
+        select: { lat: true, lon: true, location: true },
       });
       return latlonForm;
     }),

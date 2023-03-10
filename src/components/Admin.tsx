@@ -34,16 +34,15 @@ function Admin() {
   });
   return (
     <div className="flex flex-col items-center gap-y-5">
-      <div>
-        <button
-          onClick={() => {
-            setSeeAdmins(!seeAdmins);
-          }}
-          className="btn"
-        >
-          {seeAdmins ? "View non admins" : "View admins"}
-        </button>
-      </div>
+      <button
+        onClick={() => {
+          setSeeAdmins(!seeAdmins);
+        }}
+        className="btn w-full"
+      >
+        {seeAdmins ? "View non admins" : "View admins"}
+      </button>
+
       <select
         className="select-accent select w-full max-w-xs"
         {...register("email")}
@@ -51,7 +50,7 @@ function Admin() {
         <option>{seeAdmins ? "Admin users" : "Non admin users"}</option>
         {unitOptions}
       </select>
-      <button onClick={handleSubmit(onSubmit)} className="btn">
+      <button onClick={handleSubmit(onSubmit)} className="btn w-full">
         {seeAdmins ? "Remove Admin Status" : "Grant Admin Status"}
       </button>
     </div>

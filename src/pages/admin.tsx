@@ -3,15 +3,15 @@ import { getSession } from "next-auth/react";
 import type { GetServerSidePropsContext } from "next/types";
 import { prisma } from "../server/db";
 import Admin from "../components/Admin";
-import AdminWaves from "../components/AdminWaves";
+import AdminWavesTwo from "../components/AdminWavesTwo";
 
 function admin() {
   return (
     <>
       <Layout>
-        <div className="flex h-[85vh] items-start justify-center gap-x-28 py-32">
+        <div className="flex min-h-[85vh] items-start justify-center gap-x-28 py-32">
           <Admin />
-          <AdminWaves />
+          <AdminWavesTwo />
         </div>
       </Layout>
     </>

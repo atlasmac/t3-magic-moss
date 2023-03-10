@@ -87,13 +87,15 @@ model Report {
   updatedAt    DateTime       @updatedAt
   favoriteWave FavoriteWave[]
   latLon       LatLon?
+  range        String?
 }
 
 model LatLon {
-  lat    Float
-  lon    Float
-  siteId String @unique
-  report Report @relation(fields: [siteId], references: [siteId], onDelete: Cascade)
+  lat      Float
+  lon      Float
+  location String?
+  siteId   String  @unique
+  report   Report  @relation(fields: [siteId], references: [siteId], onDelete: Cascade)
 
   @@unique([lat, lon])
 }
