@@ -1,6 +1,5 @@
-import { Input } from "postcss";
 import { z } from "zod";
-import { createTRPCRouter, publicProcedure, protectedProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const adminRouter = createTRPCRouter({
   getAdmins: protectedProcedure
@@ -188,6 +187,9 @@ export const adminRouter = createTRPCRouter({
           cfs: true,
           condition: true,
           id: true,
+        },
+        orderBy: {
+          cfs: "asc",
         },
       });
       return riverConditions;
