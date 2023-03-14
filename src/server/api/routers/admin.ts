@@ -222,16 +222,6 @@ export const adminRouter = createTRPCRouter({
             data: { cfs: e.cfs, condition: e.condition, siteId: input.siteId },
           });
         }),
-        ctx.prisma.riverConditions.findMany({
-          where: { siteId: input.siteId },
-          select: {
-            cfs: true,
-            condition: true,
-            siteId: true,
-            id: true,
-          },
-        }),
       ]);
-      return res.slice(-1);
     }),
 });
