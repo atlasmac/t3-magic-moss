@@ -20,7 +20,7 @@ function AdminLocation({ siteId }: Props) {
       giph: giph.data?.giph || "...",
     };
     reset({ ...defaultValues });
-  }, [reset, giph.data?.giph, giph.data]);
+  }, [reset, giph.data, siteId]);
 
   function onSubmit(values: Values) {
     values.siteId = siteId;

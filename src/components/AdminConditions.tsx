@@ -5,37 +5,41 @@ import { useForm } from "react-hook-form";
 interface Props {
   siteId: string;
 }
-interface Values {
-  bottomRange: number;
-  topRange: number;
-  siteId: string;
-}
+// interface Values {}
 
 function AdminLocation({ siteId }: Props) {
-  const range = api.admin.getRange.useQuery({ siteId });
-  const changeRange = api.admin.updateRange.useMutation();
-  const { handleSubmit, register, reset } = useForm<Values>();
+  const conditions = api.admin.getRiverConditions.useQuery({ siteId });
 
-  useEffect(() => {
-    const defaultValues = {
-      bottomRange: range.data?.bottomRange || 0,
-      topRange: range.data?.topRange || 0,
-    };
-    reset({ ...defaultValues });
-  }, [reset, range.data, siteId]);
+  // const { handleSubmit, register, reset } = useForm<Values>();
 
-  function onSubmit(values: Values) {
-    values.siteId = siteId;
-    changeRange.mutate(values);
-  }
+  const editInputs = conditions.data
+    ?.sort((a, b) => a.cfs - b.cfs)
+    .map((e) => {
+      return (
+        <div key={e.id} className="mt-2 flex flex-col gap-y-2">
+          <label className="font-bold">{`Conditions up to ${e.cfs} cfs`}</label>
+          <input
+            value={e.cfs}
+            className="input-bordered input-primary input h-9 w-full"
+          />
+          <input
+            value={e.condition}
+            className="input-bordered input-primary input h-9 w-full"
+          />
+        </div>
+      );
+    });
+
+  // function onSubmit(values: Values) {}
   return (
     <div>
       <form
-        onSubmit={handleSubmit(onSubmit)}
+        // onSubmit={}
         className="flex flex-col justify-center gap-y-3"
       >
         <div>
-          <div className="mt-2 flex flex-col gap-y-2">
+          {editInputs}
+          {/* <div className="mt-2 flex flex-col gap-y-2">
             <label className="font-bold">Bottom range cfs</label>
             <input
               className="input-bordered input-primary input h-9 w-full"
@@ -45,8 +49,8 @@ function AdminLocation({ siteId }: Props) {
                 required: true,
               })}
             />
-          </div>
-
+          </div> */}
+          {/* 
           <div className="mt-2 flex flex-col gap-y-2">
             <label className="font-bold">Top range cfs</label>
             <input
@@ -57,7 +61,7 @@ function AdminLocation({ siteId }: Props) {
                 required: true,
               })}
             />
-          </div>
+          </div> */}
         </div>
         <button type="submit" className="btn">
           submit

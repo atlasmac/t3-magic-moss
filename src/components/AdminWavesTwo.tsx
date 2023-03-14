@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { api } from "../utils/api";
+import AdminConditions from "./AdminConditions";
 import AdminLocation from "./AdminLocation";
 import AdminMedia from "./AdminMedia";
 import AdminRange from "./AdminRange";
@@ -38,7 +39,7 @@ function AdminWaves() {
                 name="radio-10"
                 className="radio checked:bg-red-500"
                 checked={value === "1"}
-                onClick={(e) => {
+                onClick={() => {
                   setValue("1");
                 }}
               />
@@ -73,9 +74,24 @@ function AdminWaves() {
               />
             </label>
           </div>
+          <div className="form-control">
+            <label className="label cursor-pointer">
+              <span className="label-text">Conditions</span>
+              <input
+                type="radio"
+                name="radio-10"
+                className="radio checked:bg-pink-500"
+                checked={value === "4"}
+                onClick={() => {
+                  setValue("4");
+                }}
+              />
+            </label>
+          </div>
           {value === "1" && <AdminLocation siteId={siteId} />}
           {value === "2" && <AdminRange siteId={siteId} />}
           {value === "3" && <AdminMedia siteId={siteId} />}
+          {value === "4" && <AdminConditions siteId={siteId} />}
         </>
       )}
     </div>

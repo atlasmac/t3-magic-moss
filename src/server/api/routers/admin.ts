@@ -1,3 +1,4 @@
+import { Input } from "postcss";
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure, protectedProcedure } from "../trpc";
 
@@ -171,5 +172,64 @@ export const adminRouter = createTRPCRouter({
         },
       });
       return updateGiph;
+    }),
+  getRiverConditions: protectedProcedure
+    .input(
+      z.object({
+        siteId: z.string(),
+      })
+    )
+    .query(async ({ input, ctx }) => {
+      const riverConditions = ctx.prisma.riverConditions.findMany({
+        where: {
+          siteId: input.siteId,
+        },
+        select: {
+          cfs: true,
+          condition: true,
+          id: true,
+        },
+      });
+      return riverConditions;
+    }),
+  updateRiverConditions: protectedProcedure
+    .input(
+      z.object({
+        siteId: z.string(),
+        conditions: z
+          .object({
+            id: z.string().optional(),
+            cfs: z.number(),
+            condition: z.string(),
+          })
+          .array(),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const updates = input.conditions.filter((e) => e.id);
+      const creates = input.conditions.filter((e) => !e.id);
+      const res = await ctx.prisma.$transaction([
+        ...updates.map((e) => {
+          return ctx.prisma.riverConditions.update({
+            where: { id: e.id },
+            data: { cfs: e.cfs, condition: e.condition },
+          });
+        }),
+        ...creates.map((e) => {
+          return ctx.prisma.riverConditions.create({
+            data: { cfs: e.cfs, condition: e.condition, siteId: input.siteId },
+          });
+        }),
+        ctx.prisma.riverConditions.findMany({
+          where: { siteId: input.siteId },
+          select: {
+            cfs: true,
+            condition: true,
+            siteId: true,
+            id: true,
+          },
+        }),
+      ]);
+      return res.slice(-1);
     }),
 });

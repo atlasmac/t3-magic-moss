@@ -24,7 +24,7 @@ function AdminLocation({ siteId }: Props) {
       location: location.data?.location || "",
     };
     reset({ ...defaultValues });
-  }, [reset, location.data?.lat, location.data?.lon, location.data?.location]);
+  }, [reset, location.data, siteId]);
 
   function onSubmit(values: Values) {
     values.siteId = siteId;
