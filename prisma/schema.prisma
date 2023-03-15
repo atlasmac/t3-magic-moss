@@ -79,13 +79,55 @@ model VerificationToken {
 }
 
 model Report {
-  siteId       String         @unique
-  siteName     String         @unique
-  observation  Observation[]
-  forecast     Forecast[]
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
-  FavoriteWave FavoriteWave[]
+  siteId          String            @unique
+  siteName        String            @unique
+  observation     Observation[]
+  forecast        Forecast[]
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  favoriteWave    FavoriteWave[]
+  latLon          LatLon?
+  range           Range?
+  giph            String?
+  riverConditions RiverConditions[]
+  detailedReport  DetailedReport[]
+}
+
+model DetailedReport {
+  id        String @id @default(cuid())
+  siteId    String
+  cfs       Int
+  condition String
+  Report    Report @relation(fields: [siteId], references: [siteId], onDelete: Cascade)
+
+  @@unique([siteId, condition, cfs])
+}
+
+model RiverConditions {
+  id        String @id @default(cuid())
+  siteId    String
+  cfs       Int
+  condition String
+  Report    Report @relation(fields: [siteId], references: [siteId], onDelete: Cascade)
+
+  @@unique([siteId, condition, cfs])
+}
+
+model Range {
+  bottomRange Int
+  topRange    Int
+  siteId      String @unique
+  report      Report @relation(fields: [siteId], references: [siteId], onDelete: Cascade)
+}
+
+model LatLon {
+  lat      Float
+  lon      Float
+  location String?
+  siteId   String  @unique
+  report   Report  @relation(fields: [siteId], references: [siteId], onDelete: Cascade)
+
+  @@unique([lat, lon])
 }
 
 model Observation {

@@ -15,6 +15,8 @@ const locationMapping = {
   "13302500": "https://goo.gl/maps/91XgAHZL77AR47um7",
   // bend oregan greenwave
   "14070500": "https://goo.gl/maps/TssnWHy1QriEZk9N9",
+  //ledge
+  "12340000": "https://goo.gl/maps/Azfx9x8xMjL1Qd8X8",
 } as LocationMapping;
 
 export function getLocation(siteId: string) {
