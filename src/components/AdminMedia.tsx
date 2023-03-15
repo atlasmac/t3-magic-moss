@@ -1,18 +1,24 @@
 import { useEffect } from "react";
 import { api } from "../utils/api";
 import { useForm } from "react-hook-form";
+import type { Dispatch, SetStateAction } from "react";
 
 interface Props {
   siteId: string;
+  setShow: Dispatch<SetStateAction<boolean>>;
 }
 interface Values {
   giph: string;
   siteId: string;
 }
 
-function AdminLocation({ siteId }: Props) {
+function AdminLocation({ siteId, setShow }: Props) {
   const giph = api.admin.getGiph.useQuery({ siteId });
-  const changeGiph = api.admin.updateGiph.useMutation();
+  const changeGiph = api.admin.updateGiph.useMutation({
+    onSuccess: () => {
+      setShow(true);
+    },
+  });
   const { handleSubmit, register, reset } = useForm<Values>();
 
   useEffect(() => {

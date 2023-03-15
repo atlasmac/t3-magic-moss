@@ -4,13 +4,14 @@ import AdminConditions from "./AdminConditions";
 import AdminLocation from "./AdminLocation";
 import AdminMedia from "./AdminMedia";
 import AdminRange from "./AdminRange";
+import SnackBar from "./SnackBar";
 // import router from "next/router";
 
 function AdminWaves() {
+  const [show, setShow] = useState<boolean>(false);
   const waves = api.forecast.getSiteIds.useQuery();
   const [siteId, setSiteId] = useState<string>("");
   const [value, setValue] = useState<string>("");
-  console.log(value, "value");
   const unitOptions = waves?.data?.map((wave) => {
     return (
       <option key={wave.siteId} value={wave.siteId || ""}>
@@ -88,10 +89,30 @@ function AdminWaves() {
               />
             </label>
           </div>
-          {value === "1" && <AdminLocation siteId={siteId} />}
-          {value === "2" && <AdminRange siteId={siteId} />}
-          {value === "3" && <AdminMedia siteId={siteId} />}
-          {value === "4" && <AdminConditions siteId={siteId} />}
+          {value === "1" && (
+            <>
+              <AdminLocation siteId={siteId} setShow={setShow} />
+              <SnackBar setShow={setShow} show={show} />
+            </>
+          )}
+          {value === "2" && (
+            <>
+              <AdminRange siteId={siteId} setShow={setShow} />
+              <SnackBar setShow={setShow} show={show} />
+            </>
+          )}
+          {value === "3" && (
+            <>
+              <AdminMedia siteId={siteId} setShow={setShow} />
+              <SnackBar setShow={setShow} show={show} />
+            </>
+          )}
+          {value === "4" && (
+            <>
+              <AdminConditions siteId={siteId} setShow={setShow} />
+              <SnackBar setShow={setShow} show={show} />
+            </>
+          )}
         </>
       )}
     </div>

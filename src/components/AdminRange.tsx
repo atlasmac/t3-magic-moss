@@ -1,9 +1,11 @@
 import { useEffect } from "react";
 import { api } from "../utils/api";
 import { useForm } from "react-hook-form";
+import type { Dispatch, SetStateAction } from "react";
 
 interface Props {
   siteId: string;
+  setShow: Dispatch<SetStateAction<boolean>>;
 }
 interface Values {
   bottomRange: number;
@@ -11,9 +13,13 @@ interface Values {
   siteId: string;
 }
 
-function AdminLocation({ siteId }: Props) {
+function AdminLocation({ siteId, setShow }: Props) {
   const range = api.admin.getRange.useQuery({ siteId });
-  const changeRange = api.admin.updateRange.useMutation();
+  const changeRange = api.admin.updateRange.useMutation({
+    onSuccess: () => {
+      setShow(true);
+    },
+  });
   const { handleSubmit, register, reset } = useForm<Values>();
 
   useEffect(() => {

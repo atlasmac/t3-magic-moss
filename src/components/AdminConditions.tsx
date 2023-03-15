@@ -1,8 +1,10 @@
+import type { Dispatch, SetStateAction } from "react";
 import { useEffect, useState } from "react";
 import { api } from "../utils/api";
 
 interface Props {
   siteId: string;
+  setShow: Dispatch<SetStateAction<boolean>>;
 }
 interface NewValues {
   cfs: number;
@@ -15,7 +17,7 @@ interface Condition {
 }
 type Conditions = Condition[] | undefined;
 
-function AdminLocation({ siteId }: Props) {
+function AdminLocation({ siteId, setShow }: Props) {
   const [inputValues, setInputValues] = useState<Conditions>();
   const [newValues, setNewValues] = useState<NewValues>({
     cfs: 0,
@@ -24,9 +26,9 @@ function AdminLocation({ siteId }: Props) {
 
   const conditions = api.admin.getRiverConditions.useQuery({ siteId });
   const conditionsMutate = api.admin.updateRiverConditions.useMutation({
-    // onSuccess: () => {
-    //   void conditions.refetch();
-    // },
+    onSuccess: () => {
+      setShow(true);
+    },
   });
 
   // useEffect(() => {
