@@ -2,6 +2,7 @@ import { useState } from "react";
 import { api } from "../utils/api";
 import { useForm } from "react-hook-form";
 import router from "next/router";
+import SnackBar from "./SnackBar";
 
 interface Admin {
   email: string;
@@ -9,9 +10,18 @@ interface Admin {
 }
 
 function Admin() {
+  const [show, setShow] = useState<boolean>(false);
   const { handleSubmit, register } = useForm<Admin>();
-  const makeAdmin = api.admin.makeUserAdmin.useMutation();
-  const removeAdmin = api.admin.removeAdmin.useMutation();
+  const makeAdmin = api.admin.makeUserAdmin.useMutation({
+    onSuccess: () => {
+      setShow(false);
+    },
+  });
+  const removeAdmin = api.admin.removeAdmin.useMutation({
+    onSuccess: () => {
+      setShow(false);
+    },
+  });
   const [seeAdmins, setSeeAdmins] = useState<boolean>(false);
   const users = api.admin.getAdmins.useQuery({ admin: seeAdmins });
 
@@ -53,6 +63,7 @@ function Admin() {
       <button onClick={handleSubmit(onSubmit)} className="btn w-full">
         {seeAdmins ? "Remove Admin Status" : "Grant Admin Status"}
       </button>
+      <SnackBar setShow={setShow} show={show} />
     </div>
   );
 }
