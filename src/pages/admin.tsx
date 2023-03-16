@@ -14,7 +14,7 @@ function admin() {
             <h1 className="text-5xl">Admin Page</h1>
             <p>Grant/Remove admin status and edit wave data</p>
           </div>
-          <div className="flex gap-x-28">
+          <div className="flex flex-col gap-x-28 md:flex-row">
             <Admin />
             <AdminWavesTwo />
           </div>
