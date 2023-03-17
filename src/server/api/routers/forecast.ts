@@ -45,4 +45,21 @@ export const forecastRouter = createTRPCRouter({
     });
     return reportIds;
   }),
+  getLocation: publicProcedure
+    .input(
+      z.object({
+        siteId: z.string(),
+      })
+    )
+    .query(async ({ input, ctx }) => {
+      const locations = await ctx.prisma.latLon.findUnique({
+        where: { siteId: input.siteId },
+        select: {
+          lat: true,
+          lon: true,
+          location: true,
+        },
+      });
+      return locations;
+    }),
 });

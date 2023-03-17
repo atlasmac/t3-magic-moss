@@ -14,8 +14,12 @@ interface Props {
 }
 
 function MapMarker({ siteId, siteName }: Props) {
-  const position = getLatLon(siteId);
-  const location = getLocation(siteId);
+  const getPosition = api.forecast.getLocation.useQuery({ siteId });
+  const position: [number, number] = [
+    getPosition.data?.lat || 0,
+    getPosition.data?.lon || 0,
+  ];
+  const location = getPosition.data?.location;
 
   const [fetched, setFetched] = useState<boolean>(false);
 
@@ -56,7 +60,7 @@ function MapMarker({ siteId, siteName }: Props) {
 
   return (
     <>
-      {current.isFetched && (
+      {current.isFetched && position[0] !== 0 && (
         <Marker position={position} icon={icon}>
           <Popup>
             <div className="flex flex-col items-start justify-center text-base">
@@ -69,9 +73,11 @@ function MapMarker({ siteId, siteName }: Props) {
               </div>
               <div>
                 View on{" "}
-                <Link href={location} className="hover:text-sky-400">
-                  Google Maps
-                </Link>
+                {location && (
+                  <Link href={location} className="hover:text-sky-400">
+                    Google Maps
+                  </Link>
+                )}
               </div>
               <div>
                 {" "}
