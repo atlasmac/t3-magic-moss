@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 import { BiMap } from "react-icons/bi";
 import { useSession } from "next-auth/react";
-import { getRange } from "../helpers/getRange";
 import { getReport } from "../helpers/getReport";
 import { api } from "../utils/api";
 import Image from "next/image";
@@ -14,11 +13,19 @@ interface props {
     cfs: number;
     ft: number;
   };
+  range:
+    | {
+        bottomRange: number;
+        topRange: number;
+        siteId: string;
+      }
+    | null
+    | undefined;
   gif: string;
   spot: string;
 }
 
-const CurrentReport = ({ level, spot, gif }: props) => {
+const CurrentReport = ({ level, spot, gif, range }: props) => {
   const { data: session } = useSession();
   const router = useRouter();
   const siteId: string = router.query.id?.toString() || "";
@@ -64,6 +71,9 @@ const CurrentReport = ({ level, spot, gif }: props) => {
   const currentLevel = level?.cfs;
   const currentFeet = level?.ft;
   const time = level?.date;
+  const flowRange = range
+    ? `${range.bottomRange} - ${range.topRange} CFS`
+    : "unknown";
   return (
     <div className="hero mt-8 min-h-fit bg-base-200">
       <div className="hero-content flex-col lg:flex-row">
@@ -120,7 +130,7 @@ const CurrentReport = ({ level, spot, gif }: props) => {
           )}
           <p className="max-w-80 py-3 text-3xl">
             <span className="font-bold">Range of surfable flows: </span>
-            {getRange(siteId)}
+            {flowRange}
           </p>
           <p className="max-w-80 pt-5 pb-3 font-robotoSlab text-4xl">
             The Report for {time}
