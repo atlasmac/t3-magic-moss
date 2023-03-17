@@ -5,7 +5,6 @@ import { BiMap } from "react-icons/bi";
 import { useSession } from "next-auth/react";
 import { getRange } from "../helpers/getRange";
 import { getGif } from "../helpers/getGif";
-import { getLocation } from "../helpers/getLocation";
 import { getReport } from "../helpers/getReport";
 import { api } from "../utils/api";
 import Image from "next/image";
@@ -25,6 +24,8 @@ const CurrentReport = ({ level, spot }: props) => {
   const siteId: string = router.query.id?.toString() || "";
   const { mutate } = api.user.addFavorite.useMutation();
   const deleteWave = api.user.deleteFavorite.useMutation();
+  const getLocation = api.forecast.getLocation.useQuery({ siteId });
+  const locationString = getLocation.data?.location || "";
 
   const [isFavorite, setIsFavorite] = useState<boolean>();
   const [showFavorite, setShowFavorite] = useState<boolean>(false);
@@ -109,7 +110,7 @@ const CurrentReport = ({ level, spot }: props) => {
 
           <p className="max-w-80 py-3 text-3xl">
             <a
-              href={getLocation(siteId)}
+              href={locationString}
               target={"_blank"}
               rel="noreferrer"
               className="flex items-center gap-x-2 hover:text-slate-200"
