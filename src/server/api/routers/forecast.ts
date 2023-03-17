@@ -17,6 +17,7 @@ export const forecastRouter = createTRPCRouter({
           forecast: true,
           siteId: true,
           giph: true,
+          range: true,
         },
       });
       return forecast;
