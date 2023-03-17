@@ -1,7 +1,5 @@
 import { useState } from "react";
 import L from "leaflet";
-import { getLatLon } from "../helpers/getLatLon";
-import { getLocation } from "../helpers/getLocation";
 import { Marker, Popup } from "react-leaflet";
 import Link from "next/link";
 import { api } from "../utils/api";
