@@ -108,16 +108,18 @@ const CurrentReport = ({ level, spot }: props) => {
             {spot}
           </h1>
 
-          <p className="max-w-80 py-3 text-3xl">
-            <a
-              href={locationString}
-              target={"_blank"}
-              rel="noreferrer"
-              className="flex items-center gap-x-2 hover:text-slate-200"
-            >
-              <BiMap /> Location
-            </a>
-          </p>
+          {locationString && (
+            <p className="max-w-80 py-3 text-3xl">
+              <a
+                href={locationString}
+                target={"_blank"}
+                rel="noreferrer"
+                className="flex items-center gap-x-2 hover:text-slate-200"
+              >
+                <BiMap /> Location
+              </a>
+            </p>
+          )}
           <p className="max-w-80 py-3 text-3xl">
             <span className="font-bold">Range of surfable flows: </span>
             {getRange(siteId)}
