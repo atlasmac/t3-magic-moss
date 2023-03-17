@@ -90,6 +90,7 @@ function Report(props: InferGetStaticPropsType<typeof getStaticProps>) {
           <CurrentReport
             spot={siteName}
             level={lastObserved[0] || { cfs: 0, ft: 0, date: "" }}
+            gif={riverData.data?.giph || ""}
           />
           {!riverData.data?.forecast[0] && (
             <div className="my-5 text-center text-3xl">

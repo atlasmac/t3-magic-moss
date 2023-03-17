@@ -4,7 +4,6 @@ import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 import { BiMap } from "react-icons/bi";
 import { useSession } from "next-auth/react";
 import { getRange } from "../helpers/getRange";
-import { getGif } from "../helpers/getGif";
 import { getReport } from "../helpers/getReport";
 import { api } from "../utils/api";
 import Image from "next/image";
@@ -15,10 +14,11 @@ interface props {
     cfs: number;
     ft: number;
   };
+  gif: string;
   spot: string;
 }
 
-const CurrentReport = ({ level, spot }: props) => {
+const CurrentReport = ({ level, spot, gif }: props) => {
   const { data: session } = useSession();
   const router = useRouter();
   const siteId: string = router.query.id?.toString() || "";
@@ -29,8 +29,6 @@ const CurrentReport = ({ level, spot }: props) => {
 
   const [isFavorite, setIsFavorite] = useState<boolean>();
   const [showFavorite, setShowFavorite] = useState<boolean>(false);
-
-  const gif = getGif(siteId);
 
   api.user.getAllFavorites.useQuery(undefined, {
     onSuccess: (data) => {

@@ -32,7 +32,7 @@ function MapMarker({ siteId, siteName }: Props) {
     }
   );
   const currentLevel = current.data?.observation
-    .filter((e) => {
+    .filter((e: { cfs: number }) => {
       if (e.cfs > 0) {
         return e;
       }
