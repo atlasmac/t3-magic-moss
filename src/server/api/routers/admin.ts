@@ -224,4 +224,11 @@ export const adminRouter = createTRPCRouter({
         }),
       ]);
     }),
+  deleteCondition: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ input, ctx }) => {
+      await ctx.prisma.riverConditions.delete({
+        where: { id: input.id },
+      });
+    }),
 });

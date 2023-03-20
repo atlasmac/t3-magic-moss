@@ -18,12 +18,19 @@ interface Condition {
 type Conditions = Condition[] | undefined;
 
 function AdminLocation({ siteId, setShow }: Props) {
+  const [conditionId, setConditionId] = useState<string>();
+  console.log(conditionId);
   const [inputValues, setInputValues] = useState<Conditions>();
   const [newValues, setNewValues] = useState<NewValues>({
     cfs: 0,
     condition: "",
   });
 
+  const deleteCondition = api.admin.deleteCondition.useMutation({
+    onSuccess: () => {
+      conditions.refetch();
+    },
+  });
   const conditions = api.admin.getRiverConditions.useQuery(
     { siteId },
     {
@@ -105,6 +112,12 @@ function AdminLocation({ siteId, setShow }: Props) {
           }}
           className="input-bordered input-primary input h-9 w-full"
         />
+        <span
+          className="btn"
+          onClick={() => deleteCondition.mutate({ id: vals.id || "" })}
+        >
+          Delete
+        </span>
       </div>
     );
   });
