@@ -24,20 +24,26 @@ function AdminLocation({ siteId, setShow }: Props) {
     condition: "",
   });
 
-  const conditions = api.admin.getRiverConditions.useQuery({ siteId });
+  const conditions = api.admin.getRiverConditions.useQuery(
+    { siteId },
+    {
+      enabled: false,
+      onSuccess: (data) => {
+        setInputValues(data);
+      },
+    }
+  );
   const conditionsMutate = api.admin.updateRiverConditions.useMutation({
     onSuccess: () => {
       setShow(true);
+      conditions.refetch();
     },
   });
 
-  // useEffect(() => {
-  //   conditions.refetch();
-  // });
-
   useEffect(() => {
-    setInputValues(conditions.data);
-  }, [conditions.data]);
+    conditions.refetch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleSubmit = (con: Conditions) => {
     if (newValues.condition && newValues.cfs && con) {
