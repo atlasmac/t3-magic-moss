@@ -1,6 +1,7 @@
 import type { Dispatch, SetStateAction } from "react";
 import { useEffect, useState } from "react";
 import { api } from "../utils/api";
+import { BsTrash } from "react-icons/bs";
 
 interface Props {
   siteId: string;
@@ -112,12 +113,13 @@ function AdminLocation({ siteId, setShow }: Props) {
           }}
           className="input-bordered input-primary input h-9 w-full"
         />
-        <span
-          className="btn"
-          onClick={() => deleteCondition.mutate({ id: vals.id || "" })}
-        >
-          Delete
-        </span>
+        <div className="w-full">
+          <BsTrash
+            onClick={() => deleteCondition.mutate({ id: vals.id || "" })}
+          >
+            Delete
+          </BsTrash>
+        </div>
       </div>
     );
   });
