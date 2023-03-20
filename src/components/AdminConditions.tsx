@@ -56,13 +56,19 @@ function AdminLocation({ siteId, setShow }: Props) {
     }
   };
 
-  const editInputs = inputValues?.map((vals) => {
+  const editInputs = inputValues?.map((vals, i, r) => {
+    const cfsBelow = i === 0 ? "0" : r[i - 1]?.cfs;
+
+    const cfs = vals.cfs;
     // const input
     return (
       <div key={vals.id} className="mt-2 flex flex-col gap-y-2">
-        <label className="font-bold">{`Conditions up to ${vals.cfs} cfs`}</label>
+        <label className="font-bold">{`Conditions from ${cfsBelow || "?"} - ${
+          cfs || "?"
+        } cfs`}</label>
         <input
           type="number"
+          placeholder="Enter a number"
           value={vals.cfs}
           onChange={(e) => {
             const values = {
@@ -82,6 +88,7 @@ function AdminLocation({ siteId, setShow }: Props) {
         />
         <input
           value={vals.condition}
+          placeholder="Enter a condition"
           onChange={(e) => {
             const values = {
               ...vals,
