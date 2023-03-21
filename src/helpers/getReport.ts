@@ -75,8 +75,5 @@ export function getReport(siteId: string, cfs: number) {
   if (typeof report === "function") {
     return report(cfs);
   }
-  return (
-    report ??
-    "This is a brand spanking new wave, so get out there and gather some intel."
-  );
+  return report ?? "Report coming soon";
 }
