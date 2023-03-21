@@ -201,7 +201,7 @@ export const adminRouter = createTRPCRouter({
         conditions: z
           .object({
             id: z.string().optional(),
-            cfs: z.number(),
+            cfs: z.number().gt(0),
             condition: z.string(),
           })
           .array(),
@@ -223,5 +223,12 @@ export const adminRouter = createTRPCRouter({
           });
         }),
       ]);
+    }),
+  deleteCondition: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ input, ctx }) => {
+      await ctx.prisma.riverConditions.delete({
+        where: { id: input.id },
+      });
     }),
 });
