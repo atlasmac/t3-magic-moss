@@ -57,13 +57,15 @@ function AdminLocation({ siteId, setShow }: Props) {
   const handleSubmit = (con: Conditions) => {
     if (newValues.condition && newValues.cfs && con) {
       con?.push(newValues);
-      conditionsMutate.mutate({ siteId, conditions: con });
+      conditionsMutate.mutate({ siteId, conditions: [newValues] });
       setNewValues({ cfs: 0, condition: "" });
     }
-    if (con) {
+    if (con && !newValues.cfs && !newValues.condition) {
       conditionsMutate.mutate({ siteId, conditions: con });
     }
   };
+
+  console.log(newValues);
 
   const editInputs = inputValues?.map((vals, i, r) => {
     const cfsBelow = i === 0 ? "0" : r[i - 1]?.cfs;
