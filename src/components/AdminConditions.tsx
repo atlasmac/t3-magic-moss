@@ -57,10 +57,9 @@ function AdminLocation({ siteId, setShow }: Props) {
   const handleSubmit = (con: Conditions) => {
     if (newValues.condition && newValues.cfs && con) {
       con?.push(newValues);
-      conditionsMutate.mutate({ siteId, conditions: [newValues] });
+      conditionsMutate.mutate({ siteId, conditions: con });
       setNewValues({ cfs: 0, condition: "" });
-    }
-    if (con && !newValues.cfs && !newValues.condition) {
+    } else if (con) {
       conditionsMutate.mutate({ siteId, conditions: con });
     }
   };
@@ -73,7 +72,7 @@ function AdminLocation({ siteId, setShow }: Props) {
     const cfs = vals.cfs;
     // const input
     return (
-      <div key={vals.id} className="mt-2 flex flex-col gap-y-2">
+      <div key={vals.id || i} className="mt-2 flex flex-col gap-y-2">
         <div className="flex w-full flex-row justify-between">
           <label className="font-bold">{`Conditions from ${cfsBelow || "?"} - ${
             cfs || "?"
