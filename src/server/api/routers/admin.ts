@@ -201,7 +201,7 @@ export const adminRouter = createTRPCRouter({
         conditions: z
           .object({
             id: z.string().optional(),
-            cfs: z.number(),
+            cfs: z.number().gt(0),
             condition: z.string(),
           })
           .array(),
