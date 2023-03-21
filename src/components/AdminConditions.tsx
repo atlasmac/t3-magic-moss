@@ -19,8 +19,6 @@ interface Condition {
 type Conditions = Condition[] | undefined;
 
 function AdminLocation({ siteId, setShow }: Props) {
-  const [conditionId, setConditionId] = useState<string>();
-  console.log(conditionId);
   const [inputValues, setInputValues] = useState<Conditions>();
   const [newValues, setNewValues] = useState<NewValues>({
     cfs: 0,
