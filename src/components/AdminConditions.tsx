@@ -71,9 +71,18 @@ function AdminLocation({ siteId, setShow }: Props) {
     // const input
     return (
       <div key={vals.id} className="mt-2 flex flex-col gap-y-2">
-        <label className="font-bold">{`Conditions from ${cfsBelow || "?"} - ${
-          cfs || "?"
-        } cfs`}</label>
+        <div className="flex w-full flex-row justify-between">
+          <label className="font-bold">{`Conditions from ${cfsBelow || "?"} - ${
+            cfs || "?"
+          } cfs`}</label>
+          <BsTrash
+            className="text-lg hover:text-red-600"
+            onClick={() => deleteCondition.mutate({ id: vals.id || "" })}
+          >
+            Delete
+          </BsTrash>
+        </div>
+
         <input
           type="number"
           placeholder="Enter a number"
@@ -113,13 +122,6 @@ function AdminLocation({ siteId, setShow }: Props) {
           }}
           className="input-bordered input-primary input h-9 w-full"
         />
-        <div className="w-full">
-          <BsTrash
-            onClick={() => deleteCondition.mutate({ id: vals.id || "" })}
-          >
-            Delete
-          </BsTrash>
-        </div>
       </div>
     );
   });
