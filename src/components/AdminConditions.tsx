@@ -52,7 +52,7 @@ function AdminLocation({ siteId, setShow }: Props) {
   useEffect(() => {
     conditions.refetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [siteId]);
 
   const handleSubmit = (con: Conditions) => {
     if (newValues.condition && newValues.cfs && con) {
