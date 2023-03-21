@@ -110,7 +110,7 @@ model RiverConditions {
   condition String
   Report    Report @relation(fields: [siteId], references: [siteId], onDelete: Cascade)
 
-  @@unique([siteId])
+  @@unique([siteId, cfs])
 }
 
 model Range {
