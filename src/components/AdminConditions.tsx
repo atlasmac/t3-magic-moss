@@ -46,6 +46,9 @@ function AdminLocation({ siteId, setShow }: Props) {
       setShow(true);
       conditions.refetch();
     },
+    onError: () => {
+      conditions.refetch();
+    },
   });
 
   useEffect(() => {
