@@ -22,7 +22,7 @@ function AdminLocation({ siteId, setShow }: Props) {
   const [inputValues, setInputValues] = useState<Conditions>();
   const [newValues, setNewValues] = useState<NewValues>({
     cfs: 0,
-    condition: "",
+    condition: "flat",
   });
 
   const deleteCondition = api.admin.deleteCondition.useMutation({
@@ -58,19 +58,32 @@ function AdminLocation({ siteId, setShow }: Props) {
     if (newValues.condition && newValues.cfs && con) {
       con?.push(newValues);
       conditionsMutate.mutate({ siteId, conditions: con });
-      setNewValues({ cfs: 0, condition: "" });
+      setNewValues({ cfs: 0, condition: newValues.condition });
     } else if (con) {
       conditionsMutate.mutate({ siteId, conditions: con });
     }
   };
 
-  console.log(newValues);
+  const options = [
+    { value: "flat", label: "flat" },
+    { value: "poor", label: "poor" },
+    { value: "fair", label: "fair" },
+    { value: "good", label: "good" },
+    { value: "great", label: "great" },
+  ];
+  const conditionOptions = options.map((wave) => {
+    return (
+      <option key={wave.value} value={wave.value}>
+        {wave.label}
+      </option>
+    );
+  });
 
   const editInputs = inputValues?.map((vals, i, r) => {
     const cfsBelow = i === 0 ? "0" : r[i - 1]?.cfs;
 
     const cfs = vals.cfs;
-    // const input
+
     return (
       <div key={vals.id || i} className="mt-2 flex flex-col gap-y-2">
         <div className="flex w-full flex-row justify-between">
@@ -105,9 +118,9 @@ function AdminLocation({ siteId, setShow }: Props) {
           }}
           className="input-bordered input-primary input h-9 w-full"
         />
-        <input
+        <select
+          className="select-primary select w-full max-w-xs"
           value={vals.condition}
-          placeholder="Enter a condition"
           onChange={(e) => {
             const values = {
               ...vals,
@@ -122,8 +135,9 @@ function AdminLocation({ siteId, setShow }: Props) {
               })
             );
           }}
-          className="input-bordered input-primary input h-9 w-full"
-        />
+        >
+          {conditionOptions}
+        </select>
       </div>
     );
   });
@@ -153,9 +167,9 @@ function AdminLocation({ siteId, setShow }: Props) {
             }}
             className="input-bordered input-primary input h-9 w-full"
           />
-          <input
+          <select
+            className="select-primary select w-full max-w-xs"
             value={newValues?.condition}
-            placeholder={"condition"}
             onChange={(e) => {
               const value = {
                 cfs: newValues?.cfs,
@@ -163,8 +177,9 @@ function AdminLocation({ siteId, setShow }: Props) {
               };
               setNewValues(value);
             }}
-            className="input-bordered input-primary input h-9 w-full"
-          />
+          >
+            {conditionOptions}
+          </select>
         </div>
         <button type="submit" className="btn">
           submit
