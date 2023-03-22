@@ -72,7 +72,7 @@ const CurrentReport = ({ level, spot, gif, range }: props) => {
   const currentFeet = level?.ft;
   const time = level?.date;
   const flowRange = range
-    ? `${range.bottomRange} - ${range.topRange} CFS`
+    ? `${range.bottomRange} - ${range.topRange} cfs`
     : "unknown";
   return (
     <div className="hero mt-8 min-h-fit bg-base-200">
