@@ -4,7 +4,7 @@ import { Marker, Popup } from "react-leaflet";
 import Link from "next/link";
 import { api } from "../utils/api";
 import { PulseLoader } from "react-spinners";
-import { getConditions } from "../helpers/getConditions";
+// import { getConditions } from "../helpers/getConditions";
 
 interface Props {
   siteId: string;
@@ -38,11 +38,16 @@ function MapMarker({ siteId, siteName }: Props) {
       }
     })
     .pop();
+  const currentCondition = api.admin.getCurrentCondition.useQuery({
+    siteId,
+    currentCfs: currentLevel?.cfs || 0,
+  });
 
-  const conditions = getConditions([[currentLevel?.cfs || 0, siteId]]);
+  // const conditions = getConditions([[currentLevel?.cfs || 0, siteId]]);
 
   const icon =
-    conditions[0] === "Flat" || conditions[0] === "Poor"
+    currentCondition.data?.condition === "flat" ||
+    currentCondition.data?.condition === "poor"
       ? L.icon({
           iconUrl: "/redPin.png",
           iconSize: [20, 20],
