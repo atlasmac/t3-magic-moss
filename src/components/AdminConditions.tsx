@@ -138,25 +138,6 @@ function AdminLocation({ siteId, setShow }: Props) {
         >
           {conditionOptions}
         </select>
-        {/* <input
-          value={vals.condition}
-          placeholder="Enter a condition"
-          onChange={(e) => {
-            const values = {
-              ...vals,
-              condition: e.target.value,
-            };
-            setInputValues(
-              inputValues.map((e) => {
-                if (e.id === vals.id) {
-                  return values;
-                }
-                return e;
-              })
-            );
-          }}
-          className="input-bordered input-primary input h-9 w-full"
-        /> */}
       </div>
     );
   });
