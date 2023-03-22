@@ -180,18 +180,6 @@ function AdminLocation({ siteId, setShow }: Props) {
           >
             {conditionOptions}
           </select>
-          {/* <input
-            value={newValues?.condition}
-            placeholder={"condition"}
-            onChange={(e) => {
-              const value = {
-                cfs: newValues?.cfs,
-                condition: e.target.value,
-              };
-              setNewValues(value);
-            }}
-            className="input-bordered input-primary input h-9 w-full"
-          /> */}
         </div>
         <button type="submit" className="btn">
           submit
