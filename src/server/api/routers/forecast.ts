@@ -64,21 +64,4 @@ export const forecastRouter = createTRPCRouter({
       });
       return locations;
     }),
-  // getGif: publicProcedure
-  //   .input(
-  //     z.object({
-  //       siteId: z.string(),
-  //     })
-  //   )
-  //   .query(async ({ input, ctx }) => {
-  //     const locations = await ctx.prisma.report.findUnique({
-  //       where: { siteId: input.siteId },
-  //       select: {
-  //         lat: true,
-  //         lon: true,
-  //         location: true,
-  //       },
-  //     });
-  //     return locations;
-  //   }),
 });
