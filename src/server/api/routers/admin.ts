@@ -27,7 +27,7 @@ export const adminRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ input, ctx }) => {
-      const isAdmin = ctx.prisma.user.update({
+      const isAdmin = await ctx.prisma.user.update({
         where: { email: input.email },
         data: {
           isAdmin: true,
@@ -42,7 +42,7 @@ export const adminRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ input, ctx }) => {
-      const isAdmin = ctx.prisma.user.update({
+      const isAdmin = await ctx.prisma.user.update({
         where: { email: input.email },
         data: {
           isAdmin: false,
@@ -57,7 +57,7 @@ export const adminRouter = createTRPCRouter({
       })
     )
     .query(async ({ input, ctx }) => {
-      const coords = ctx.prisma.latLon.findUnique({
+      const coords = await ctx.prisma.latLon.findUnique({
         where: { siteId: input.siteId },
         select: {
           lat: true,
@@ -79,7 +79,7 @@ export const adminRouter = createTRPCRouter({
     .mutation(async ({ input, ctx }) => {
       const siteId = input.siteId;
 
-      const latlonForm = ctx.prisma.latLon.upsert({
+      const latlonForm = await ctx.prisma.latLon.upsert({
         where: { siteId },
         update: { lat: input.lat, lon: input.lon, location: input.location },
         create: {
@@ -103,7 +103,7 @@ export const adminRouter = createTRPCRouter({
       })
     )
     .query(async ({ input, ctx }) => {
-      const range = ctx.prisma.range.findUnique({
+      const range = await ctx.prisma.range.findUnique({
         where: { siteId: input.siteId },
         select: {
           bottomRange: true,
@@ -123,7 +123,7 @@ export const adminRouter = createTRPCRouter({
     .mutation(async ({ input, ctx }) => {
       const siteId = input.siteId;
 
-      const rangeForm = ctx.prisma.range.upsert({
+      const rangeForm = await ctx.prisma.range.upsert({
         where: { siteId },
         update: { bottomRange: input.bottomRange, topRange: input.topRange },
         create: {
@@ -146,7 +146,7 @@ export const adminRouter = createTRPCRouter({
       })
     )
     .query(async ({ input, ctx }) => {
-      const range = ctx.prisma.report.findUnique({
+      const range = await ctx.prisma.report.findUnique({
         where: { siteId: input.siteId },
         select: {
           giph: true,
@@ -164,7 +164,7 @@ export const adminRouter = createTRPCRouter({
     .mutation(async ({ input, ctx }) => {
       const siteId = input.siteId;
 
-      const updateGiph = ctx.prisma.report.update({
+      const updateGiph = await ctx.prisma.report.update({
         where: { siteId },
         data: {
           giph: input.giph,
@@ -179,7 +179,7 @@ export const adminRouter = createTRPCRouter({
       })
     )
     .query(async ({ input, ctx }) => {
-      const riverConditions = ctx.prisma.riverConditions.findMany({
+      const riverConditions = await ctx.prisma.riverConditions.findMany({
         where: {
           siteId: input.siteId,
         },
@@ -230,5 +230,20 @@ export const adminRouter = createTRPCRouter({
       await ctx.prisma.riverConditions.delete({
         where: { id: input.id },
       });
+    }),
+  getCurrentCondition: protectedProcedure
+    .input(z.object({ siteId: z.string(), currentCfs: z.number() }))
+    .query(async ({ input, ctx }) => {
+      const condition = ctx.prisma.riverConditions.findFirst({
+        orderBy: {
+          cfs: "asc",
+        },
+        where: { siteId: input.siteId, cfs: { gte: input.currentCfs } },
+        select: {
+          condition: true,
+          cfs: true,
+        },
+      });
+      return condition;
     }),
 });
