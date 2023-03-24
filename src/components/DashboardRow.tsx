@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import type { Dispatch, SetStateAction } from "react";
 import { api } from "../utils/api";
-import { getConditions } from "../helpers/getConditions";
 import Link from "next/link";
 import type { Report } from "./Hero";
 import { PulseLoader } from "react-spinners";
@@ -29,16 +28,9 @@ function DashboardRow({ report, setRowData, rowData }: Props) {
       })
     );
   }
-  const current = api.forecast.getCurrentLevel.useQuery(
-    {
-      siteId,
-    },
-    {
-      onSuccess() {
-        setFetched(true);
-      },
-    }
-  );
+  const current = api.forecast.getCurrentLevel.useQuery({
+    siteId,
+  });
 
   const currentLevel = current.data?.observation
     .filter((e) => {
@@ -47,6 +39,20 @@ function DashboardRow({ report, setRowData, rowData }: Props) {
       }
     })
     .pop();
+
+  const currentCondition = api.admin.getCurrentCondition.useQuery(
+    {
+      siteId,
+      currentCfs: currentLevel?.cfs || 0,
+    },
+    {
+      onSuccess() {
+        setFetched(true);
+      },
+    }
+  );
+
+  const condition = currentCondition.data?.condition;
 
   return (
     <>
@@ -80,7 +86,7 @@ function DashboardRow({ report, setRowData, rowData }: Props) {
             <Link className="hover:text-slate-200" href={`/report/${siteId}`}>
               <div className="h-full w-full">
                 {fetched ? (
-                  <>{getConditions([[currentLevel?.cfs || 0, siteId]])}</>
+                  <>{condition}</>
                 ) : (
                   <PulseLoader
                     color="rgb(166,173, 187)"
