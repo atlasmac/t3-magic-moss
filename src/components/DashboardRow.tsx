@@ -46,8 +46,8 @@ function DashboardRow({ report, setRowData, rowData }: Props) {
       currentCfs: currentLevel?.cfs || 0,
     },
     {
-      onSuccess() {
-        setFetched(true);
+      onSuccess(data) {
+        if (data?.condition) setFetched(true);
       },
     }
   );
