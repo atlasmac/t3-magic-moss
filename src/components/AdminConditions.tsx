@@ -10,11 +10,13 @@ interface Props {
 interface NewValues {
   cfs: number;
   condition: string;
+  reportDesc: string;
 }
 interface Condition {
   id?: string | undefined;
   cfs: number;
   condition: string;
+  reportDesc: string;
 }
 type Conditions = Condition[] | undefined;
 
@@ -23,6 +25,7 @@ function AdminLocation({ siteId, setShow }: Props) {
   const [newValues, setNewValues] = useState<NewValues>({
     cfs: 0,
     condition: "flat",
+    reportDesc: "...",
   });
 
   const deleteCondition = api.admin.deleteCondition.useMutation({
@@ -57,8 +60,8 @@ function AdminLocation({ siteId, setShow }: Props) {
   const handleSubmit = (con: Conditions) => {
     if (newValues.condition && newValues.cfs && con) {
       con?.push(newValues);
-      conditionsMutate.mutate({ siteId, conditions: con });
-      setNewValues({ cfs: 0, condition: newValues.condition });
+      if (con) conditionsMutate.mutate({ siteId, conditions: con });
+      setNewValues({ cfs: 0, condition: newValues.condition, reportDesc: "" });
     } else if (con) {
       conditionsMutate.mutate({ siteId, conditions: con });
     }
@@ -138,6 +141,25 @@ function AdminLocation({ siteId, setShow }: Props) {
         >
           {conditionOptions}
         </select>
+        <textarea
+          className="textarea-primary textarea"
+          placeholder="Bio"
+          value={vals.reportDesc || ""}
+          onChange={(e) => {
+            const values = {
+              ...vals,
+              reportDesc: e.target.value,
+            };
+            setInputValues(
+              inputValues.map((e) => {
+                if (e.id === vals.id) {
+                  return values;
+                }
+                return e;
+              })
+            );
+          }}
+        ></textarea>
       </div>
     );
   });
@@ -162,6 +184,7 @@ function AdminLocation({ siteId, setShow }: Props) {
               const value = {
                 condition: newValues?.condition,
                 cfs: e.target.valueAsNumber,
+                reportDesc: newValues?.reportDesc,
               };
               setNewValues(value);
             }}
@@ -174,12 +197,26 @@ function AdminLocation({ siteId, setShow }: Props) {
               const value = {
                 cfs: newValues?.cfs,
                 condition: e.target.value,
+                reportDesc: newValues?.reportDesc,
               };
               setNewValues(value);
             }}
           >
             {conditionOptions}
           </select>
+          <textarea
+            className="textarea-primary textarea"
+            placeholder="Enter detailed report"
+            value={newValues?.reportDesc || ""}
+            onChange={(e) => {
+              const value = {
+                condition: newValues?.condition,
+                cfs: newValues?.cfs,
+                reportDesc: e.target.value,
+              };
+              setNewValues(value);
+            }}
+          ></textarea>
         </div>
         <button type="submit" className="btn">
           submit
