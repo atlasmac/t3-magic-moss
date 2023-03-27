@@ -187,6 +187,7 @@ export const adminRouter = createTRPCRouter({
           cfs: true,
           condition: true,
           id: true,
+          reportDesc: true,
         },
         orderBy: {
           cfs: "asc",
@@ -203,6 +204,7 @@ export const adminRouter = createTRPCRouter({
             id: z.string().optional(),
             cfs: z.number().gt(0),
             condition: z.string(),
+            reportDesc: z.string(),
           })
           .array(),
       })
@@ -214,12 +216,21 @@ export const adminRouter = createTRPCRouter({
         ...updates.map((e) => {
           return ctx.prisma.riverConditions.update({
             where: { id: e.id },
-            data: { cfs: e.cfs, condition: e.condition },
+            data: {
+              cfs: e.cfs,
+              condition: e.condition,
+              reportDesc: e.reportDesc,
+            },
           });
         }),
         ...creates.map((e) => {
           return ctx.prisma.riverConditions.create({
-            data: { cfs: e.cfs, condition: e.condition, siteId: input.siteId },
+            data: {
+              cfs: e.cfs,
+              condition: e.condition,
+              siteId: input.siteId,
+              reportDesc: e.reportDesc,
+            },
           });
         }),
       ]);
@@ -242,6 +253,7 @@ export const adminRouter = createTRPCRouter({
         select: {
           condition: true,
           cfs: true,
+          reportDesc: true,
         },
       });
       return condition;
