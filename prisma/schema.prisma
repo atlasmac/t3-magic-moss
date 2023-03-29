@@ -89,7 +89,7 @@ model RiverConditions {
   siteId     String
   cfs        Int
   condition  String
-  reportDesc String
+  reportDesc String @default("hi")
   Report     Report @relation(fields: [siteId], references: [siteId], onDelete: Cascade)
 
   @@unique([siteId, cfs])

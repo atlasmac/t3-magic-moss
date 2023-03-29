@@ -4,7 +4,6 @@ import { Marker, Popup } from "react-leaflet";
 import Link from "next/link";
 import { api } from "../utils/api";
 import { PulseLoader } from "react-spinners";
-// import { getConditions } from "../helpers/getConditions";
 
 interface Props {
   siteId: string;
@@ -42,8 +41,6 @@ function MapMarker({ siteId, siteName }: Props) {
     siteId,
     currentCfs: currentLevel?.cfs || 0,
   });
-
-  // const conditions = getConditions([[currentLevel?.cfs || 0, siteId]]);
 
   const icon =
     currentCondition.data?.condition === "flat" ||
