@@ -90,11 +90,11 @@ function AdminLocation({ siteId, setShow }: Props) {
     return (
       <div key={vals.id || i} className="mt-2 flex flex-col gap-y-2">
         <div className="flex w-full flex-row justify-between">
-          <label className="font-bold">{`Conditions from ${cfsBelow || "?"} - ${
-            cfs || "?"
-          } cfs`}</label>
+          <label className="font-bold text-slate-900">{`Conditions from ${
+            cfsBelow || "?"
+          } - ${cfs || "?"} cfs`}</label>
           <BsTrash
-            className="text-lg hover:text-red-600"
+            className="text-lg text-slate-900 hover:text-red-600"
             onClick={() => deleteCondition.mutate({ id: vals.id || "" })}
           >
             Delete
@@ -166,62 +166,66 @@ function AdminLocation({ siteId, setShow }: Props) {
 
   return (
     <div>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleSubmit(inputValues);
-        }}
-        className="flex flex-col justify-center gap-y-3"
-      >
-        <div>{editInputs}</div>
-        <div className="flex flex-col gap-y-3">
-          <label className="font-bold">Add condition data</label>
-          <input
-            type="number"
-            value={newValues?.cfs}
-            placeholder={"Add cfs"}
-            onChange={(e) => {
-              const value = {
-                condition: newValues?.condition,
-                cfs: e.target.valueAsNumber,
-                reportDesc: newValues?.reportDesc,
-              };
-              setNewValues(value);
-            }}
-            className="input-bordered input-primary input h-9 w-full"
-          />
-          <select
-            className="select-primary select w-full max-w-xs"
-            value={newValues?.condition}
-            onChange={(e) => {
-              const value = {
-                cfs: newValues?.cfs,
-                condition: e.target.value,
-                reportDesc: newValues?.reportDesc,
-              };
-              setNewValues(value);
-            }}
-          >
-            {conditionOptions}
-          </select>
-          <textarea
-            className="textarea-primary textarea"
-            placeholder="Enter detailed report"
-            value={newValues?.reportDesc || ""}
-            onChange={(e) => {
-              const value = {
-                condition: newValues?.condition,
-                cfs: newValues?.cfs,
-                reportDesc: e.target.value,
-              };
-              setNewValues(value);
-            }}
-          ></textarea>
-        </div>
-        <button type="submit" className="btn">
-          submit
-        </button>
-      </form>
+      <div className="my-6 max-h-[500px] overflow-y-auto rounded bg-slate-400 p-3">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSubmit(inputValues);
+          }}
+          className="flex flex-col justify-center gap-y-3"
+        >
+          <div>{editInputs}</div>
+          <div className="flex flex-col gap-y-3">
+            <label className="font-bold text-slate-900">
+              Add condition data
+            </label>
+            <input
+              type="number"
+              value={newValues?.cfs}
+              placeholder={"Add cfs"}
+              onChange={(e) => {
+                const value = {
+                  condition: newValues?.condition,
+                  cfs: e.target.valueAsNumber,
+                  reportDesc: newValues?.reportDesc,
+                };
+                setNewValues(value);
+              }}
+              className="input-bordered input-primary input h-9 w-full"
+            />
+            <select
+              className="select-primary select w-full max-w-xs"
+              value={newValues?.condition}
+              onChange={(e) => {
+                const value = {
+                  cfs: newValues?.cfs,
+                  condition: e.target.value,
+                  reportDesc: newValues?.reportDesc,
+                };
+                setNewValues(value);
+              }}
+            >
+              {conditionOptions}
+            </select>
+            <textarea
+              className="textarea-primary textarea"
+              placeholder="Enter detailed report"
+              value={newValues?.reportDesc || ""}
+              onChange={(e) => {
+                const value = {
+                  condition: newValues?.condition,
+                  cfs: newValues?.cfs,
+                  reportDesc: e.target.value,
+                };
+                setNewValues(value);
+              }}
+            ></textarea>
+          </div>
+          <button type="submit" className="btn">
+            submit
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
