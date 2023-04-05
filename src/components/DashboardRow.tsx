@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import type { Dispatch, SetStateAction } from "react";
 import { api } from "../utils/api";
 import Link from "next/link";
@@ -36,7 +36,6 @@ function DashboardRow({ report, setRowData, rowData }: Props) {
     },
     {
       onSuccess() {
-        currentCondition.refetch();
         setLevelFetched(true);
       },
     }
@@ -56,12 +55,16 @@ function DashboardRow({ report, setRowData, rowData }: Props) {
       currentCfs: currentLevel?.cfs || 0,
     },
     {
-      enabled: false,
       onSuccess(data) {
-        if (data?.condition) setFetched(true);
+        if (data?.condition.length) setFetched(true);
       },
     }
   );
+  useEffect(() => {
+    setTimeout(() => {
+      setFetched(true);
+    }, 5000);
+  });
 
   const condition = currentCondition.data?.condition;
 
@@ -97,7 +100,7 @@ function DashboardRow({ report, setRowData, rowData }: Props) {
             <Link className="hover:text-slate-200" href={`/report/${siteId}`}>
               <div className="h-full w-full">
                 {fetched ? (
-                  <>{condition}</>
+                  <>{condition || "tbd"}</>
                 ) : (
                   <PulseLoader
                     color="rgb(166,173, 187)"
