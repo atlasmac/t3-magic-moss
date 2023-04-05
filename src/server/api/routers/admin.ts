@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 export const adminRouter = createTRPCRouter({
   getAdmins: protectedProcedure
@@ -50,7 +50,7 @@ export const adminRouter = createTRPCRouter({
       });
       return isAdmin;
     }),
-  getLocation: protectedProcedure
+  getLocation: publicProcedure
     .input(
       z.object({
         siteId: z.string(),
@@ -96,7 +96,7 @@ export const adminRouter = createTRPCRouter({
       });
       return latlonForm;
     }),
-  getRange: protectedProcedure
+  getRange: publicProcedure
     .input(
       z.object({
         siteId: z.string(),
@@ -139,7 +139,7 @@ export const adminRouter = createTRPCRouter({
       });
       return rangeForm;
     }),
-  getGiph: protectedProcedure
+  getGiph: publicProcedure
     .input(
       z.object({
         siteId: z.string(),
@@ -172,7 +172,7 @@ export const adminRouter = createTRPCRouter({
       });
       return updateGiph;
     }),
-  getRiverConditions: protectedProcedure
+  getRiverConditions: publicProcedure
     .input(
       z.object({
         siteId: z.string(),
@@ -242,7 +242,7 @@ export const adminRouter = createTRPCRouter({
         where: { id: input.id },
       });
     }),
-  getCurrentCondition: protectedProcedure
+  getCurrentCondition: publicProcedure
     .input(z.object({ siteId: z.string(), currentCfs: z.number() }))
     .query(async ({ input, ctx }) => {
       const condition = ctx.prisma.riverConditions.findFirst({
