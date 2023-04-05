@@ -13,6 +13,8 @@ interface Props {
 }
 function DashboardRow({ report, setRowData, rowData }: Props) {
   const [fetched, setFetched] = useState<boolean>(false);
+  const [levelFetched, setLevelFetched] = useState<boolean>(false);
+
   const deleteWave = api.user.deleteFavorite.useMutation();
   const siteId = report.siteId;
 
@@ -28,9 +30,17 @@ function DashboardRow({ report, setRowData, rowData }: Props) {
       })
     );
   }
-  const current = api.forecast.getCurrentLevel.useQuery({
-    siteId,
-  });
+  const current = api.forecast.getCurrentLevel.useQuery(
+    {
+      siteId,
+    },
+    {
+      onSuccess() {
+        currentCondition.refetch();
+        setLevelFetched(true);
+      },
+    }
+  );
 
   const currentLevel = current.data?.observation
     .filter((e) => {
@@ -46,6 +56,7 @@ function DashboardRow({ report, setRowData, rowData }: Props) {
       currentCfs: currentLevel?.cfs || 0,
     },
     {
+      enabled: false,
       onSuccess(data) {
         if (data?.condition) setFetched(true);
       },
@@ -68,7 +79,7 @@ function DashboardRow({ report, setRowData, rowData }: Props) {
         <td>
           <Link className="hover:text-slate-200" href={`/report/${siteId}`}>
             <div className="h-full w-full">
-              {fetched ? (
+              {levelFetched ? (
                 <>{currentLevel?.cfs}</>
               ) : (
                 <PulseLoader
