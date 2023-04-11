@@ -80,6 +80,7 @@ const CurrentReport = ({ level, spot, gif, range }: props) => {
         {gif && (
           <Image
             src={gif}
+            unoptimized={true}
             priority={true}
             alt="surfing gif"
             width={1000}
