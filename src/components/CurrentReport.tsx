@@ -14,13 +14,13 @@ interface props {
     ft: number;
   };
   range:
-    | {
-        bottomRange: number;
-        topRange: number;
-        siteId: string;
-      }
-    | null
-    | undefined;
+  | {
+    bottomRange: number;
+    topRange: number;
+    siteId: string;
+  }
+  | null
+  | undefined;
   gif: string;
   spot: string;
 }
@@ -72,7 +72,7 @@ const CurrentReport = ({ level, spot, gif, range }: props) => {
   const currentFeet = level?.ft;
   const time = level?.date;
   const flowRange = range
-    ? `${range.bottomRange} - ${range.topRange} cfs`
+    ? `${range.bottomRange.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")} - ${range.topRange.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")} cfs`
     : "unknown";
   return (
     <div className="hero mt-8 min-h-fit bg-base-200">
@@ -140,7 +140,7 @@ const CurrentReport = ({ level, spot, gif, range }: props) => {
             Flows are currently at{" "}
             <span className="font-bold">
               {" "}
-              {currentLevel} cubic feet per second (cfs)
+              {currentLevel.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")} cubic feet per second (cfs)
             </span>{" "}
             and <span className="font-bold">{currentFeet} feet high</span>.
           </p>

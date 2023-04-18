@@ -23,8 +23,9 @@ const ForecastTable = ({ forecastData }: Props) => {
   const waveDescription: number[] = [];
 
   forecastData.forEach((data) => {
+    const cfsFormatted = data.cfs.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
     headers.push(<td key={data.date}>{data.date.split(" ")[0]}</td>);
-    flows.push(<td key={data.date}>{data.cfs}</td>);
+    flows.push(<td key={data.date}>{cfsFormatted}</td>);
     height.push(<td key={data.date}>{data.ft}</td>);
     waveDescription.push(data.cfs);
   });

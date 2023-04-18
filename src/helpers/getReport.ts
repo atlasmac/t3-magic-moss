@@ -14,7 +14,7 @@ const reportMapping = {
       return "Both middle and main wave at Brennan's are pretty much impossible to surf at the moment due to low water levels.";
     }
     if (cfs < 3200) {
-      return "Really bad surfing conditions at the moment. You may be able to snag a ride on middle wave but you'll work hard for it. The best board for today is a foamie with fins you're ok with losing.";
+      return "Not the best surfing conditions at the moment. You may be able to snag a ride on middle wave but you'll work hard for it. The best board for today is a foamie with fins you're ok with losing.";
     }
     if (cfs < 4500) {
       return "Poor to fair conditions. It's a tricky level but can be fun when you figure it out.";

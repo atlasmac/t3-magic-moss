@@ -67,6 +67,7 @@ function DashboardRow({ report, setRowData, rowData }: Props) {
   });
 
   const condition = currentCondition.data?.condition;
+  const cfsFormatted = currentLevel?.cfs.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
 
   return (
     <>
@@ -83,7 +84,7 @@ function DashboardRow({ report, setRowData, rowData }: Props) {
           <Link className="hover:text-slate-200" href={`/report/${siteId}`}>
             <div className="h-full w-full">
               {levelFetched ? (
-                <>{currentLevel?.cfs}</>
+                <>{cfsFormatted}</>
               ) : (
                 <PulseLoader
                   color="rgb(166,173, 187)"
