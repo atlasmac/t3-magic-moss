@@ -24,19 +24,20 @@ ChartJS.register(
 
 export type Observation =
   | {
-      date: string;
-      cfs: number;
-      ft: number;
-    }[]
+    date: string;
+    cfs: number;
+    ft: number;
+  }[]
   | [];
 
 interface props {
   forecastData: Observation;
   observedData: Observation;
   lastObserved: Observation;
+  siteName: string;
 }
 
-const LineChart = ({ forecastData, observedData, lastObserved }: props) => {
+const LineChart = ({ forecastData, observedData, lastObserved, siteName }: props) => {
   const a = 1;
   const data = {
     datasets: [
@@ -94,7 +95,7 @@ const LineChart = ({ forecastData, observedData, lastObserved }: props) => {
       legend: {
         title: {
           display: true,
-          text: "Cubic Feet per Second (cfs)",
+          text: `${siteName} Cubic Feet per Second (cfs)`,
           color: "rgb(166, 173, 186)",
           font: {
             size: 26,

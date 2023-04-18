@@ -105,6 +105,7 @@ function Report(props: InferGetStaticPropsType<typeof getStaticProps>) {
             forecastData={forecastData}
             observedData={observedData}
             lastObserved={lastObserved}
+            siteName={siteName}
           />
           {riverData.data?.forecast[0] && (
             <ForecastTable forecastData={forecastTableData} />
