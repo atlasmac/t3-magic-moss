@@ -95,7 +95,7 @@ const LineChart = ({ forecastData, observedData, lastObserved, siteName }: props
       legend: {
         title: {
           display: true,
-          text: `${siteName} Cubic Feet per Second (cfs)`,
+          text: `${siteName} Flows (cfs)`,
           color: "rgb(166, 173, 186)",
           font: {
             size: 26,
