@@ -38,7 +38,6 @@ interface props {
 }
 
 const LineChart = ({ forecastData, observedData, lastObserved, siteName }: props) => {
-  const a = 1;
   const data = {
     datasets: [
       {

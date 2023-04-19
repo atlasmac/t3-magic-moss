@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 import { BiMap } from "react-icons/bi";
 import { useSession } from "next-auth/react";
-import { getReport } from "../helpers/getReport";
 import { api } from "../utils/api";
 import Image from "next/image";
 
@@ -33,7 +32,8 @@ const CurrentReport = ({ level, spot, gif, range }: props) => {
   const deleteWave = api.user.deleteFavorite.useMutation();
   const getLocation = api.forecast.getLocation.useQuery({ siteId });
   const locationString = getLocation.data?.location || "";
-
+  const getCurrent = api.admin.getCurrentCondition.useQuery({ currentCfs: level?.cfs, siteId: siteId })
+  const description = getCurrent.data?.reportDesc || "";
   const [isFavorite, setIsFavorite] = useState<boolean>();
   const [showFavorite, setShowFavorite] = useState<boolean>(false);
 
@@ -144,10 +144,10 @@ const CurrentReport = ({ level, spot, gif, range }: props) => {
             </span>{" "}
             and <span className="font-bold">{currentFeet} feet high</span>.
           </p>
-          <p className="max-w-80 py-3 text-2xl">
-            {getReport(siteId, currentLevel)}
+          {getCurrent.isFetched && <p className="max-w-80 py-3 text-2xl">
+            {description ? description : "No report available"}
             <span style={{ fontSize: 14 }}> -Atlas</span>
-          </p>
+          </p>}
         </div>
       </div>
     </div>
