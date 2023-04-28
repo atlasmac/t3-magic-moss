@@ -29,19 +29,6 @@ const reportHandler: Handler = async () => {
     "Salmon Whitewater Park",
     "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=smni1&output=xml"
   );
-  await fetchRiverData(
-    "13022500",
-    "Lunch Counter",
-    "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=alpw4&output=xml",
-    1000
-  );
-
-  await fetchRiverData(
-    "06192500",
-    "Springdale",
-    "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=livm8&output=xml",
-    1000
-  );
 
   await fetchRiverDataNoForecast(
     "14070500",
