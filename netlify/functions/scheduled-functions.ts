@@ -54,6 +54,6 @@ const reportHandler: Handler = async () => {
   };
 };
 
-const handler = schedule("33 * * * *", reportHandler);
+const handler = schedule("31 * * * *", reportHandler);
 
 export { handler };
