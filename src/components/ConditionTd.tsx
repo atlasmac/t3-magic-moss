@@ -11,7 +11,7 @@ function ConditionTd({ cfs, siteId }: Props) {
     siteId: siteId,
     currentCfs: cfs,
   });
-  return <td>{data?.condition}</td>;
+  return <td>{data?.condition || 'TBD'}</td>;
 }
 
 export default ConditionTd;
