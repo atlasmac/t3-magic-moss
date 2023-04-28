@@ -49,6 +49,9 @@ export default function Header() {
                 <li>
                   <Link href="/report/12354500">Zero</Link>
                 </li>
+                <li>
+                  <Link href="/report/06192500">Zero</Link>
+                </li>
                 <li className="menu-title">
                   <span>Idaho</span>
                 </li>
@@ -126,6 +129,11 @@ export default function Header() {
               <li>
                 <Link className="" href="/report/12340000">
                   The Ledge
+                </Link>
+              </li>
+              <li>
+                <Link className="" href="/report/06192500">
+                  Springdale
                 </Link>
               </li>
               <li>
