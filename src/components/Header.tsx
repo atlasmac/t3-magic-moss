@@ -50,7 +50,7 @@ export default function Header() {
                   <Link href="/report/12354500">Zero</Link>
                 </li>
                 <li>
-                  <Link href="/report/06192500">Zero</Link>
+                  <Link href="/report/06192500">Springdale</Link>
                 </li>
                 <li className="menu-title">
                   <span>Idaho</span>
