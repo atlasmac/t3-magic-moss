@@ -6,6 +6,9 @@ module.exports = {
       fontFamily: {
         robotoSlab: ["Roboto Slab", "serif"],
       },
+      transitionProperty: {
+        width: "width",
+      },
     },
   },
   daisyui: {

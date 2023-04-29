@@ -106,22 +106,22 @@ export default function Header({ setNavbarOpen, navbarOpen }: Props) {
           <Link href="/faq" className="btn-ghost rounded-btn btn">
             FAQ
           </Link>
-          {session && (
+          {session ? (
             <button
               onClick={() => signOut()}
               className="btn-ghost rounded-btn btn"
             >
               Sign out
             </button>
-          )}
-          {!session && (
-            <button
-              onClick={() => signIn()}
-              className="btn-ghost rounded-btn btn"
-            >
-              Sign up / Login
-            </button>
-          )}
+          ) :
+            (
+              <button
+                onClick={() => signIn()}
+                className="btn-ghost rounded-btn btn"
+              >
+                Sign up / Login
+              </button>
+            )}
         </div>
       </div>
     </div>
