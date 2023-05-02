@@ -14,8 +14,17 @@ export default async function fetchRiverData(
   const xmlParser = new Parser();
   const data = await xmlParser.parseStringPromise(xml);
 
+  if (
+    data.site.observed[0] ===
+    "There Is No Displayable Observation Data In The Given Time Frame"
+  ) {
+    console.log(
+      `${siteId} ${siteName} is not available: ${data.site.observed[0]} - NOAA`
+    );
+    return;
+  }
   const observed = data.site.observed[0]?.datum
-    .map((a: any) => {
+    ?.map((a: any) => {
       return {
         date: a.valid[0]?._,
         cfs: parseFloat(a.secondary[0]?._) * (multiplier || 1),
@@ -107,37 +116,32 @@ const main = async () => {
   //   "The Ledge",
   //   "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=bonm8&output=xml"
   // );
-
-  // await fetchRiverData(
-  //   "12340500",
-  //   "Brennan's Wave",
-  //   "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=abom8&output=xml"
-  // );
-
+  await fetchRiverData(
+    "12340500",
+    "Brennan's Wave",
+    "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=abom8&output=xml"
+  );
   // await fetchRiverData(
   //   "12354500",
   //   "Zero Wave",
   //   "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=srgm8&output=xml"
   // );
-
   // await fetchRiverData(
   //   "13337000",
   //   "Lochsa's Pipeline",
   //   "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=loci1&output=xml"
   // );
-
   // await fetchRiverData(
   //   "13302500",
   //   "Salmon Whitewater Park",
   //   "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=smni1&output=xml"
   // );
-
-  await fetchRiverData(
-    "13022500",
-    "Lunch Counter",
-    "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=alpw4&output=xml",
-    1000
-  );
+  // await fetchRiverData(
+  //   "13022500",
+  //   "Lunch Counter",
+  //   "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=alpw4&output=xml",
+  //   1000
+  // );
   // await fetchRiverData(
   //   "06192500",
   //   "Springdale",
