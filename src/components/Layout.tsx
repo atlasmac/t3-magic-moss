@@ -1,4 +1,3 @@
-import Header from "./Header";
 import { useState } from "react";
 import NavBar from "./NavBar";
 import Footer from "./Footer";

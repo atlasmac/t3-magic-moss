@@ -5,14 +5,36 @@ function Footer() {
     <footer className="footer footer-center bg-base-200 p-4 text-base-content">
       <div>
         <p>
-          Like my site?{" "}
+          Custom surfboards{" "}
           <a
-            href="https://www.buymeacoffee.com/atlasm"
+            href="https://www.jockoboards.com/"
             rel="noreferrer"
             target={"_blank"}
             className="underline hover:text-slate-200"
           >
-            Buy me a coffee.
+            Jockoboards.com
+          </a>
+        </p>
+        <p>
+          Gear, rentals and goodies{" "}
+          <a
+            href="https://loveboatpaddleco.com/"
+            rel="noreferrer"
+            target={"_blank"}
+            className="underline hover:text-slate-200"
+          >
+            Loveboatpaddleco.com
+          </a>
+        </p>
+        <p>
+          Peer to peer rentals{" "}
+          <a
+            href="https://www.seekqua.com/"
+            rel="noreferrer"
+            target={"_blank"}
+            className="underline hover:text-slate-200"
+          >
+            Seekqua.com
           </a>
         </p>
         <p>
