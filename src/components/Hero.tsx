@@ -18,7 +18,7 @@ function Hero({ data }: HeroProps) {
   const [rowData, setRowData] = useState(data);
 
   return (
-    <div className="hero min-h-[85vh] bg-[url('/DaveGardner_04.jpg')]">
+    <div className="hero min-h-[90vh] bg-[url('/DaveGardner_04.jpg')]">
       <div className="hero-overlay bg-opacity-70"></div>
 
       <div className="flex h-full max-w-lg flex-col justify-start py-20 text-center text-neutral-content">
