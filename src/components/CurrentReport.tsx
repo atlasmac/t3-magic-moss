@@ -124,7 +124,7 @@ const CurrentReport = ({ level, spot, gif, range }: props) => {
             {currentLevel.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")} cfs
           </p>
           <p className="max-w-80 py-3 text-3xl font-bold font-robotoSlab">
-            <span className="font-bold">{currentFeet} feet high</span>.
+            <span className="font-bold">{currentFeet} feet high</span>
           </p>
           {getCurrent.isFetched && <p className="max-w-80 py-3 text-2xl">
             {description ? description : "No report available"}
