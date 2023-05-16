@@ -88,8 +88,8 @@ const CurrentReport = ({ level, spot, gif, range }: props) => {
             className="max-w-xs rounded-lg shadow-2xl md:max-w-sm"
           />
         )}
-        <div className="flex flex-col items-center lg:items-start">
-          <div className="flex h-16 w-full justify-end">
+        <div className="flex flex-col items-start lg:items-start">
+          <div className="flex h-14 w-full justify-end">
             {session && showFavorite && (
               <>
                 {isFavorite ? (
@@ -113,41 +113,42 @@ const CurrentReport = ({ level, spot, gif, range }: props) => {
             )}
           </div>
 
-          <h1 className=" py-3 text-center font-robotoSlab text-5xl font-bold sm:text-left">
+          <h1 className=" pb-3 font-robotoSlab text-4xl font-bold sm:text-left sm:text-5xl">
             {spot}
           </h1>
 
-          {locationString && (
-            <p className="max-w-80 py-3 text-3xl">
-              <a
-                href={locationString}
-                target={"_blank"}
-                rel="noreferrer"
-                className="flex items-center gap-x-2 hover:text-slate-200"
-              >
-                <BiMap /> Location
-              </a>
-            </p>
-          )}
-          <p className="max-w-80 py-3 text-3xl">
-            <span className="font-bold">Range of surfable flows: </span>
-            {flowRange}
-          </p>
-          <p className="max-w-80 pt-5 pb-3 font-robotoSlab text-4xl">
+          <p className="max-w-80 pt-5 pb-3 font-robotoSlab text-3xl sm:text-4xl sm:text-left">
             The Report for {time}
           </p>
-          <p className="max-w-80 py-3 text-2xl">
-            Flows are currently at{" "}
-            <span className="font-bold">
-              {" "}
-              {currentLevel.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")} cubic feet per second (cfs)
-            </span>{" "}
-            and <span className="font-bold">{currentFeet} feet high</span>.
+          <p className="max-w-80 py-3 text-3xl font-bold font-robotoSlab">
+            {currentLevel.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")} cfs
+          </p>
+          <p className="max-w-80 py-3 text-3xl font-bold font-robotoSlab">
+            <span className="font-bold">{currentFeet} feet high</span>.
           </p>
           {getCurrent.isFetched && <p className="max-w-80 py-3 text-2xl">
             {description ? description : "No report available"}
             <span style={{ fontSize: 14 }}> -Atlas</span>
           </p>}
+          <p className="max-w-80 py-3 text-2xl">
+            <span className="font-bold">Range of surfable flows: </span>
+            {flowRange}
+          </p>
+          <div className="flex flex-row justify-start w-full">
+            {locationString && (
+              <p className="max-w-80 py-3 text-2xl ">
+                <a
+                  href={locationString}
+                  target={"_blank"}
+                  rel="noreferrer"
+                  className="flex items-center gap-x-2 hover:text-slate-200"
+                >
+                  <BiMap /> Location
+                </a>
+              </p>
+            )}
+          </div>
+
         </div>
       </div>
     </div>
