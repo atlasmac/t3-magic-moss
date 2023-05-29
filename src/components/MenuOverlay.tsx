@@ -45,6 +45,16 @@ const MenuOverlay = ({ navbarOpen, setNavbarOpen }: Props) => {
             </span>
           </Link>
         </li>
+        <li>
+          <Link href="/map"
+            onClick={() => {
+              setNavbarOpen(false)
+            }}>
+            <span className="mx-auto">
+              FAQ
+            </span>
+          </Link>
+        </li>
         {session ? (
           <li>
             <button
