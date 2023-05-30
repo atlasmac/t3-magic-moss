@@ -153,7 +153,7 @@ const MenuOverlay = ({ navbarOpen, setNavbarOpen }: Props) => {
             </span>
           </Link>
         </li>
-        {/* <li className="text-slate-500">
+        <li className="text-slate-500">
           Wyoming
         </li>
         <li>
@@ -165,7 +165,7 @@ const MenuOverlay = ({ navbarOpen, setNavbarOpen }: Props) => {
               Lunch Counter
             </span>
           </Link>
-        </li> */}
+        </li>
         <li className="text-slate-500">
           Oregon
         </li>

@@ -89,12 +89,12 @@ export default function Header({ setNavbarOpen, navbarOpen }: Props) {
               <li>
                 <Link href="/report/13337000">Lochsa&apos;s Pipeline</Link>
               </li>
-              {/* <li className="menu-title">
+              <li className="menu-title">
                 <span>Wyoming</span>
               </li>
               <li>
                 <Link href="/report/13022500">Lunch Counter</Link>
-              </li> */}
+              </li>
               <li className="menu-title">
                 <span>Oregon</span>
               </li>
