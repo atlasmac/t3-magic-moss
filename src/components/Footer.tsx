@@ -15,11 +15,6 @@ function Footer() {
           target={"_blank"}
           rel="noreferrer"
           className="link link-hover">Loveboat Paddle Co</a>
-        <a
-          href="https://www.seekqua.com/"
-          target={"_blank"}
-          rel="noreferrer"
-          className="link link-hover">Seekqua</a>
       </div>
       <div className="flex flex-col">
         <span className="footer-title">Contact Me</span>
