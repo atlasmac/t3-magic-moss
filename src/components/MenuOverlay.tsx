@@ -51,7 +51,7 @@ const MenuOverlay = ({ navbarOpen, setNavbarOpen }: Props) => {
               setNavbarOpen(false)
             }}>
             <span className="mx-auto">
-              FAQ
+              Map
             </span>
           </Link>
         </li>
