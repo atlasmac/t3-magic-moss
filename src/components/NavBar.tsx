@@ -19,7 +19,7 @@ export default function Header({ setNavbarOpen, navbarOpen }: Props) {
         <Link href="/">
           <Image
             className="btn-ghost z-50 rounded-btn btn flex h-[50px] flex-row items-center"
-            src={"/default-logo.png"}
+            src={"/default-logo1.png"}
             alt="logo"
             height={50}
             width={220}
