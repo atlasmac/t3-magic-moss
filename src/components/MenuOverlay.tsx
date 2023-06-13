@@ -166,7 +166,7 @@ const MenuOverlay = ({ navbarOpen, setNavbarOpen }: Props) => {
             </span>
           </Link>
         </li>
-        <li className="text-slate-500">
+        {/* <li className="text-slate-500">
           Oregon
         </li>
         <li>
@@ -178,7 +178,7 @@ const MenuOverlay = ({ navbarOpen, setNavbarOpen }: Props) => {
               Bend&apos;s Green Wave
             </span>
           </Link>
-        </li>
+        </li> */}
       </ul>
 
     </nav>

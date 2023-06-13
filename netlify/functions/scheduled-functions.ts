@@ -30,11 +30,11 @@ const reportHandler: Handler = async () => {
     "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=smni1&output=xml"
   );
 
-  await fetchRiverDataNoForecast(
-    "14070500",
-    "Green Wave",
-    "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=debo3&output=xml"
-  );
+  // await fetchRiverDataNoForecast(
+  //   "14070500",
+  //   "Green Wave",
+  //   "https://water.weather.gov/ahps2/hydrograph_to_xml.php?gage=debo3&output=xml"
+  // );
 
   return {
     statusCode: 200,

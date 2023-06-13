@@ -95,12 +95,12 @@ export default function Header({ setNavbarOpen, navbarOpen }: Props) {
               <li>
                 <Link href="/report/13022500">Lunch Counter</Link>
               </li>
-              <li className="menu-title">
+              {/* <li className="menu-title">
                 <span>Oregon</span>
               </li>
               <li>
                 <Link href="/report/14070500">Bend&apos;s Green Wave</Link>
-              </li>
+              </li> */}
             </ul>
           </div>
           <Link href="/faq" className="btn-ghost rounded-btn btn">
