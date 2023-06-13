@@ -1,7 +1,7 @@
 import type { Handler } from "@netlify/functions";
 import { schedule } from "@netlify/functions";
 import fetchRiverData from "../../src/scripts/update-wave";
-import fetchRiverDataNoForecast from "../../src/scripts/update-wave-no-forecast";
+// import fetchRiverDataNoForecast from "../../src/scripts/update-wave-no-forecast";
 
 const reportHandler: Handler = async () => {
   await fetchRiverData(
